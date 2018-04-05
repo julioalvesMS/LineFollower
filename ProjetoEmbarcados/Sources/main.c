@@ -100,16 +100,16 @@ int main(void)
 
 		count = i/100;
 
-		display7seg_setDisplay(count%16,4);
+		display7seg_setDisplay(count%16,0,4);
 		count = count/16;
 		util_genDelay1ms();
-		display7seg_setDisplay(count%16,3);
+		display7seg_setDisplay(count%16,0,3);
 		count = count/16;
 		util_genDelay1ms();
-		display7seg_setDisplay(count%16,2);
+		display7seg_setDisplay(count%16,0,2);
 		count = count/16;
 		util_genDelay1ms();
-		display7seg_setDisplay(count%16,1);
+		display7seg_setDisplay(count%16,0,1);
 		util_genDelay1ms();
 
 	} /* Never leave main */

@@ -3,9 +3,9 @@
 /* File description:  Main file of the code.      */
 /*                    Contains the initialization */
 /*                    sequence and the main loop  */
-/* Author name:       julioalvesMS                */
+/* Author name:       julioalvesMS IagoAF         */
 /* Creation date:     08mar2018                   */
-/* Revision date:     15mar2018                   */
+/* Revision date:     05abr2018                   */
 /* ********************************************** */
 
 #include "fsl_device_registers.h"
@@ -13,6 +13,7 @@
 #include "buzzer_hal.h"
 #include "mcg_hal.h"
 #include "ledswi_hal.h"
+#include "display7seg_hal.h"
 
 /* ****************************************************** */
 /* Method name:         setupPeripherals                  */
@@ -29,6 +30,9 @@ void setupPeripherals()
 
 	/* Start leds */
 	ledswi_initLedSwitch(0, 4);
+
+	/* Start display7seg */
+	display7seg_initDisplay();
 }
 
 /* ****************************************************** */
@@ -43,10 +47,12 @@ int main(void)
 {
 
 	switch_status_type_e e1, e2, e3, e4;
+	int count;
+
 	setupPeripherals();
 
 
-	for (;;)
+	for (int i=0;;i++)
 	{
 
 		ledswi_initLedSwitch(0, 4);
@@ -91,8 +97,21 @@ int main(void)
 		{
 			ledswi_clearLed(4);
 		}
-	}
 
-	/* Never leave main */
+		count = i/100;
+
+		display7seg_setDisplay(count%16,4);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,3);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,2);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,1);
+		util_genDelay1ms();
+
+	} /* Never leave main */
 	return 0;
 }

@@ -46,7 +46,7 @@ void setupPeripherals()
 int main(void)
 {
 
-	switch_status_type_e e1, e2, e3, e4;
+	switch_status_type_e ssButton1, ssButton2, ssButton3, ssButton4;
 	int count;
 
 	setupPeripherals();
@@ -55,14 +55,16 @@ int main(void)
 	for (int i=0;;i++)
 	{
 
+		/* Read switches states */
 		ledswi_initLedSwitch(0, 4);
-		e1 = ledswi_getSwitchStatus(1);
-		e2 = ledswi_getSwitchStatus(2);
-		e3 = ledswi_getSwitchStatus(3);
-		e4 = ledswi_getSwitchStatus(4);
+		ssButton1 = ledswi_getSwitchStatus(1);
+		ssButton2 = ledswi_getSwitchStatus(2);
+		ssButton3 = ledswi_getSwitchStatus(3);
+		ssButton4 = ledswi_getSwitchStatus(4);
 
+		/* Turn on the LED if the corresponding switch is on */
 		ledswi_initLedSwitch(4, 0);
-		if(SWITCH_ON == e1)
+		if(SWITCH_ON == ssButton1)
 		{
 			ledswi_setLed(1);
 		}
@@ -71,7 +73,7 @@ int main(void)
 			ledswi_clearLed(1);
 		}
 
-		if(SWITCH_ON == e2)
+		if(SWITCH_ON == ssButton2)
 		{
 			ledswi_setLed(2);
 		}
@@ -80,7 +82,7 @@ int main(void)
 			ledswi_clearLed(2);
 		}
 
-		if(SWITCH_ON == e3)
+		if(SWITCH_ON == ssButton3)
 		{
 			ledswi_setLed(3);
 		}
@@ -89,7 +91,7 @@ int main(void)
 			ledswi_clearLed(3);
 		}
 
-		if(SWITCH_ON == e4)
+		if(SWITCH_ON == ssButton4)
 		{
 			ledswi_setLed(4);
 		}
@@ -98,17 +100,31 @@ int main(void)
 			ledswi_clearLed(4);
 		}
 
+		/* Shows a counter in the display 7 segments */
+
+		/*
+		 * Rate of 1/100 of loop count to displayed count,
+		 * otherwise the counter is to fast
+		 */
 		count = i/100;
 
+		/*
+		 * Puts the counter in the displays.
+		 * We need to put a delay between each display in order to avoid
+		 * having the same data showing in multiple displays
+		 */
 		display7seg_setDisplay(count%16,0,4);
 		count = count/16;
 		util_genDelay1ms();
+
 		display7seg_setDisplay(count%16,0,3);
 		count = count/16;
 		util_genDelay1ms();
+
 		display7seg_setDisplay(count%16,0,2);
 		count = count/16;
 		util_genDelay1ms();
+
 		display7seg_setDisplay(count%16,0,1);
 		util_genDelay1ms();
 

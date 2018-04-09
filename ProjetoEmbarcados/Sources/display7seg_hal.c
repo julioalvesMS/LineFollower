@@ -263,6 +263,17 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
+      default: /* If the value is not configured, turn off the display */
+	    	vCharDecoded[0] = D7S_OFF;
+	    	vCharDecoded[1] = D7S_OFF;
+	    	vCharDecoded[2] = D7S_OFF;
+	    	vCharDecoded[3] = D7S_OFF;
+	    	vCharDecoded[4] = D7S_OFF;
+	    	vCharDecoded[5] = D7S_OFF;
+	    	vCharDecoded[6] = D7S_OFF;
+	    	vCharDecoded[7] = cDot;
+	        break;
+        
     } /* switch(cDisplayChar) */
 }
 

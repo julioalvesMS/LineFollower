@@ -1,50 +1,142 @@
-20:55:40 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+20:36:14 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
+'Building file: ../Sources/buzzer_hal.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/buzzer_hal.d" -MT"Sources/buzzer_hal.o" -c -o "Sources/buzzer_hal.o" "../Sources/buzzer_hal.c"
+'Finished building: ../Sources/buzzer_hal.c'
+' '
+'Building file: ../Sources/debugUart.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/debugUart.d" -MT"Sources/debugUart.o" -c -o "Sources/debugUart.o" "../Sources/debugUart.c"
+'Finished building: ../Sources/debugUart.c'
+' '
+'Building file: ../Sources/display7seg_hal.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/display7seg_hal.d" -MT"Sources/display7seg_hal.o" -c -o "Sources/display7seg_hal.o" "../Sources/display7seg_hal.c"
+'Finished building: ../Sources/display7seg_hal.c'
+' '
+'Building file: ../Sources/fsl_debug_console.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/fsl_debug_console.d" -MT"Sources/fsl_debug_console.o" -c -o "Sources/fsl_debug_console.o" "../Sources/fsl_debug_console.c"
+'Finished building: ../Sources/fsl_debug_console.c'
+' '
 'Building file: ../Sources/ledswi_hal.c'
 'Invoking: Cross ARM C Compiler'
 arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/ledswi_hal.d" -MT"Sources/ledswi_hal.o" -c -o "Sources/ledswi_hal.o" "../Sources/ledswi_hal.c"
 'Finished building: ../Sources/ledswi_hal.c'
 ' '
+'Building file: ../Sources/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.c"
+'Finished building: ../Sources/main.c'
+' '
+'Building file: ../Sources/mcg_hal.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/mcg_hal.d" -MT"Sources/mcg_hal.o" -c -o "Sources/mcg_hal.o" "../Sources/mcg_hal.c"
+'Finished building: ../Sources/mcg_hal.c'
+' '
+'Building file: ../Sources/print_scan.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/print_scan.d" -MT"Sources/print_scan.o" -c -o "Sources/print_scan.o" "../Sources/print_scan.c"
+'Finished building: ../Sources/print_scan.c'
+' '
+'Building file: ../Sources/serial.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/serial.d" -MT"Sources/serial.o" -c -o "Sources/serial.o" "../Sources/serial.c"
+../Sources/serial.c: In function 'serial_stateMachine':
+../Sources/serial.c:108:30: warning: unused variable 'ssmCurrentState' [-Wunused-variable]
+  static state_machine_type_e ssmCurrentState;
+                              ^
+'Finished building: ../Sources/serial.c'
+' '
+'Building file: ../Sources/util.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/util.d" -MT"Sources/util.o" -c -o "Sources/util.o" "../Sources/util.c"
+'Finished building: ../Sources/util.c'
+' '
+'Building file: ../Project_Settings/Startup_Code/startup.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Project_Settings/Startup_Code/startup.d" -MT"Project_Settings/Startup_Code/startup.o" -c -o "Project_Settings/Startup_Code/startup.o" "../Project_Settings/Startup_Code/startup.c"
+'Finished building: ../Project_Settings/Startup_Code/startup.c'
+' '
+'Building file: ../Project_Settings/Startup_Code/startup_MKL25Z4.S'
+'Invoking: Cross ARM GNU Assembler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -x assembler-with-cpp -MMD -MP -MF"Project_Settings/Startup_Code/startup_MKL25Z4.d" -MT"Project_Settings/Startup_Code/startup_MKL25Z4.o" -c -o "Project_Settings/Startup_Code/startup_MKL25Z4.o" "../Project_Settings/Startup_Code/startup_MKL25Z4.S"
+'Finished building: ../Project_Settings/Startup_Code/startup_MKL25Z4.S'
+' '
+'Building file: ../Project_Settings/Startup_Code/system_MKL25Z4.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Project_Settings/Startup_Code/system_MKL25Z4.d" -MT"Project_Settings/Startup_Code/system_MKL25Z4.o" -c -o "Project_Settings/Startup_Code/system_MKL25Z4.o" "../Project_Settings/Startup_Code/system_MKL25Z4.c"
+'Finished building: ../Project_Settings/Startup_Code/system_MKL25Z4.c'
+' '
 'Building target: ProjetoEmbarcados.elf'
 'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Desktop/IagoJulio/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/buzzer_hal.o ./Sources/ledswi_hal.o ./Sources/main.o ./Sources/mcg_hal.o ./Sources/util.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/ProjetoEmbarcados/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/buzzer_hal.o ./Sources/debugUart.o ./Sources/display7seg_hal.o ./Sources/fsl_debug_console.o ./Sources/ledswi_hal.o ./Sources/main.o ./Sources/mcg_hal.o ./Sources/print_scan.o ./Sources/serial.o ./Sources/util.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
 'Finished building target: ProjetoEmbarcados.elf'
 ' '
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
+  14364	    124	   2116	  16604	   40dc	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '
-20:55:46 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+20:36:30 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
+  14364	    124	   2116	  16604	   40dc	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '
-20:55:53 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+20:40:17 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
+  14364	    124	   2116	  16604	   40dc	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '
-20:56:58 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+20:42:24 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+make all 
+'Building file: ../Sources/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.c"
+'Finished building: ../Sources/main.c'
+' '
+'Building target: ProjetoEmbarcados.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/ProjetoEmbarcados/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/buzzer_hal.o ./Sources/debugUart.o ./Sources/display7seg_hal.o ./Sources/fsl_debug_console.o ./Sources/ledswi_hal.o ./Sources/main.o ./Sources/mcg_hal.o ./Sources/print_scan.o ./Sources/serial.o ./Sources/util.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+'Finished building target: ProjetoEmbarcados.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
+   text	   data	    bss	    dec	    hex	filename
+  14376	    124	   2116	  16616	   40e8	ProjetoEmbarcados.elf
+'Finished building: ProjetoEmbarcados.siz'
+' '
+20:48:32 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+make all 
+'Building file: ../Sources/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/main.d" -MT"Sources/main.o" -c -o "Sources/main.o" "../Sources/main.c"
+'Finished building: ../Sources/main.c'
+' '
+'Building target: ProjetoEmbarcados.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/ProjetoEmbarcados/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/buzzer_hal.o ./Sources/debugUart.o ./Sources/display7seg_hal.o ./Sources/fsl_debug_console.o ./Sources/ledswi_hal.o ./Sources/main.o ./Sources/mcg_hal.o ./Sources/print_scan.o ./Sources/serial.o ./Sources/util.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+'Finished building target: ProjetoEmbarcados.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
+   text	   data	    bss	    dec	    hex	filename
+  14452	    124	   2116	  16692	   4134	ProjetoEmbarcados.elf
+'Finished building: ProjetoEmbarcados.siz'
+' '
+20:56:39 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-20:57:26 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
+  14452	    124	   2116	  16692	   4134	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '

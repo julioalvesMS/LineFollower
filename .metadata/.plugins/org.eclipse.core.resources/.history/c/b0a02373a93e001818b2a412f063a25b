@@ -1,0 +1,76 @@
+/* ***************************************************************** */
+/* File name:        buzzer_hal.h                                    */
+/* File description: Header file containing the functions/methods    */
+/*                   interfaces for handling BUZZER from the         */
+/*                   peripheral board                                */
+/* Author name:      dloubach                                        */
+/* Creation date:    12jan2016                                       */
+/* Revision date:    25fev2016                                       */
+/* ***************************************************************** */
+
+#ifndef SOURCES_SERIAL_H_
+#define SOURCES_SERIAL_H_
+/* ***************************************************************** */
+/* File name:        buzzer_hal.c                                    */
+/* File description: File dedicated to the hardware abstraction layer*/
+/*                   related buzzer from the peripheral board        */
+/* Author name:      dloubach                                        */
+/* Creation date:    12jan2016                                       */
+/* Revision date:    25fev2016                                       */
+/* ***************************************************************** */
+
+#include "es670_peripheral_board.h"
+#include "debugUart.h"
+#include "fsl_debug_console.h"
+#include "fsl_device_registers.h"
+
+#define NOT_READ 255
+
+typedef enum
+{
+    IDLE,
+
+    LED,
+	LED_CLEAR,
+	LED_SET,
+	LED_CLEAR_1, LED_CLEAR_2, LED_CLEAR_3, LED_CLEAR_4,
+	LED_SET_1, LED_SET_2, LED_SET_3, LED_SET_4,
+
+	SWITCH,
+	SWITCH_1, SWITCH_2, SWITCH_3, SWITCH_4,
+
+	BUZZER,
+	BUZZER_TIMER_X00, BUZZER_TIMER_0X0, BUZZER_TIMER_00X
+} state_machine_type_e;
+
+/* ************************************************ */
+/* Method name:        buzzer_init                  */
+/* Method description: Initialize the buzzer device */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void serial_init(void);
+
+/* ************************************************ */
+/* Method name:        buzzer_clearBuzz             */
+/* Method description: Clear the buzzer             */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+char serial_haveData(void);
+void serial_sendAck(void);
+
+void serial_sendErr(void);
+void serial_ledCommand(void);
+
+/* ************************************************ */
+/* Method name:        buzzer_setBuz                */
+/* Method description: Set the buzze                */
+/* Input params:       n/a                          */
+/* Output params:       n/a                         */
+/* ************************************************ */
+void serial_readData(void);
+
+void serial_stateMachine(void);
+
+#endif /* SOURCES_SERIAL_H_ */

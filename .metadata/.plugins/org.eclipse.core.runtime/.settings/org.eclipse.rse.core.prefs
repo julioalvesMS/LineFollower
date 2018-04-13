@@ -1,3 +1,4 @@
 activeuserprofiles=LS04-N206-Bnc01;Team
 eclipse.preferences.version=1
 org.eclipse.rse.systemtype.local.systemType.defaultUserId=alunos
+useridperkey=LS04-N206-Bnc01.Local\=alunos;

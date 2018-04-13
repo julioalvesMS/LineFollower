@@ -1,0 +1,132 @@
+/* ********************************************** */
+/* File name:					main.c            */
+/* File description:  Main file of the code.      */
+/*                    Contains the initialization */
+/*                    sequence and the main loop  */
+/* Author name:       julioalvesMS IagoAF         */
+/* Creation date:     08mar2018                   */
+/* Revision date:     05abr2018                   */
+/* ********************************************** */
+
+#include "fsl_device_registers.h"
+#include "util.h"
+#include "buzzer_hal.h"
+#include "mcg_hal.h"
+#include "ledswi_hal.h"
+#include "display7seg_hal.h"
+#include "debugUart.h"
+
+/* system includes */
+#include "fsl_debug_console.h"
+
+/* ****************************************************** */
+/* Method name:         setupPeripherals                  */
+/* Method description:  Makes the necessaries setups and  */
+/*                      initializatios for a proper       */
+/*                      preparation of the peripherals    */
+/* Input params:                n/a                       */
+/* Output params:               n/a                       */
+/* ****************************************************** */
+void setupPeripherals()
+{
+	/* Start clock */
+	mcg_clockInit();
+
+
+	/* Start leds */
+	ledswi_initLedSwitch(0, 4);
+
+	/* Start display7seg */
+	display7seg_initDisplay();
+
+	/* Debug Port */
+	debugUart_init();
+
+
+}
+
+/* ****************************************************** */
+/* Method name:         main                              */
+/* Method description:  System main function. Contains    */
+/*                      all the code that will actually   */
+/*                      run                               */
+/* Input params:                n/a                       */
+/* Output params:               n/a                       */
+/* ****************************************************** */
+int main(void)
+{
+
+	switch_status_type_e e1, e2, e3, e4;
+	int count;
+
+	setupPeripherals();
+
+	/* https://batchloaf.wordpress.com/2013/02/12/simple-trick-for-sending-characters-to-a-serial-port-in-windows/ */
+
+	char uiReceiveBuff = GETCHAR();
+	PUTCHAR(uiReceiveBuff);
+
+	for (int i=0;;i++)
+	{
+
+		ledswi_initLedSwitch(0, 4);
+		e1 = ledswi_getSwitchStatus(1);
+		e2 = ledswi_getSwitchStatus(2);
+		e3 = ledswi_getSwitchStatus(3);
+		e4 = ledswi_getSwitchStatus(4);
+
+		ledswi_initLedSwitch(4, 0);
+		if(SWITCH_ON == e1)
+		{
+			ledswi_setLed(1);
+		}
+		else
+		{
+			ledswi_clearLed(1);
+		}
+
+		if(SWITCH_ON == e2)
+		{
+			ledswi_setLed(2);
+		}
+		else
+		{
+			ledswi_clearLed(2);
+		}
+
+		if(SWITCH_ON == e3)
+		{
+			ledswi_setLed(3);
+		}
+		else
+		{
+			ledswi_clearLed(3);
+		}
+
+		if(SWITCH_ON == e4)
+		{
+			ledswi_setLed(4);
+		}
+		else
+		{
+			ledswi_clearLed(4);
+		}
+
+		count = i/100;
+
+		display7seg_setDisplay(count%16,0,4);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,0,3);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,0,2);
+		count = count/16;
+		util_genDelay1ms();
+		display7seg_setDisplay(count%16,0,1);
+		util_genDelay1ms();
+
+
+	} /* Never leave main */
+	return 0;
+}

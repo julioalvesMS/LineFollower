@@ -1,11 +1,11 @@
-20:57:26 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+20:56:39 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-   9692	    124	   2100	  11916	   2e8c	ProjetoEmbarcados.elf
+  14452	    124	   2116	  16692	   4134	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '
 
-20:57:27 Build Finished (took 1s.5ms)
+20:56:39 Build Finished (took 507ms)
 

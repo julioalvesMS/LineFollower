@@ -14,6 +14,9 @@
 #include "mcg_hal.h"
 #include "ledswi_hal.h"
 #include "display7seg_hal.h"
+#include "debugUart.h"
+#include "fsl_debug_console.h"
+#include "serial.h"
 
 /* ****************************************************** */
 /* Method name:         setupPeripherals                  */
@@ -27,6 +30,9 @@ void setupPeripherals()
 {
 	/* Start clock */
 	mcg_clockInit();
+
+	/* Start serial communication */
+	serial_init();
 
 	/* Start leds */
 	ledswi_initLedSwitch(0, 4);
@@ -47,14 +53,27 @@ int main(void)
 {
 
 	switch_status_type_e ssButton1, ssButton2, ssButton3, ssButton4;
-	int count;
+	int count, j = 0;
+	unsigned char aux, a[5];
 
 	setupPeripherals();
 
 
 	for (int i=0;;i++)
 	{
-
+		aux = serial_readData();
+		if(aux!=NOT_READ){
+			a[j] = aux;
+			j++;
+		}
+		if(j==5){
+			PUTCHAR(a[0]);
+			PUTCHAR(a[1]);
+			PUTCHAR(a[2]);
+			PUTCHAR(a[3]);
+			PUTCHAR(a[4]);
+			j = 0;
+		}
 		/* Read switches states */
 		ledswi_initLedSwitch(0, 4);
 		ssButton1 = ledswi_getSwitchStatus(1);

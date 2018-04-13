@@ -10,7 +10,7 @@
 #include "ledswi_hal.h"
 #include "es670_peripheral_board.h"
 
-#undef USING_OPENSDA_DEBUG
+#define USING_OPENSDA_DEBUG
 
 /* ************************************************ */
 /* Method name:        ledswi_initLedSwitch         */

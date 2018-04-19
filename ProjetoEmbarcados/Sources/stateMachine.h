@@ -25,7 +25,7 @@ typedef enum
 {
     IDLE,
 
-    LED,LED_CLEAR,LED_SET,
+    LED,LED_CLEAR,LED_SET,LED_READ,
 
 	SWITCH,
 

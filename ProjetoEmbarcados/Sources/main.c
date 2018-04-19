@@ -91,8 +91,8 @@ int main(void)
 
 	for (int i=0;;i++)
 	{
-		if(serial_haveData()){
-			ucDataValue = serial_readData();
+		if(UART0_BRD_S1_RDRF(UART0)){
+			ucDataValue = GETCHAR();
 			stateMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
 		}
 

@@ -19,10 +19,10 @@
 void buzzer_init(void)
 {
     /* un-gate port clock*/
-    SIM_SCGC5 = SIM_SCGC5_PORTD(CGC_CLOCK_ENABLED);
+    SIM_SCGC5 |= SIM_SCGC5_PORTD(CGC_CLOCK_ENABLED);
 
     /* set pin as gpio */
-    PORTD_PCR0 = PORT_PCR_MUX(BUZZER_ALT);
+    PORTD_PCR0 |= PORT_PCR_MUX(BUZZER_ALT);
 
     /* set pin as digital output */
     GPIOD_PDDR |= GPIO_PDDR_PDD(BUZZER_PIN);

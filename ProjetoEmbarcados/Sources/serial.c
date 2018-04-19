@@ -44,7 +44,6 @@ void serial_sendAck(void)
 	PUTCHAR('A');
 	PUTCHAR('C');
 	PUTCHAR('K');
-	PUTCHAR('\r');
 }
 
 void serial_sendErr(void)
@@ -52,7 +51,6 @@ void serial_sendErr(void)
 	PUTCHAR('E');
 	PUTCHAR('R');
 	PUTCHAR('R');
-	PUTCHAR('\r');
 }
 
 /* ************************************************ */

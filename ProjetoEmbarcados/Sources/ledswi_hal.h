@@ -43,6 +43,7 @@ void ledswi_initLedSwitch(char cLedNum, char cSwitchNum);
 /* ************************************************ */
 void ledswi_setLed(char cLedNum);
 
+void ledswi_defineMultipleLeds(unsigned char ucLedStates);
 
 /* ************************************************ */
 /* Method name:        ledswi_clearLed              */

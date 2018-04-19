@@ -10,17 +10,10 @@
 #include "stateMachine.h"
 #include "serial.h"
 #include "ledswi_hal.h"
-
-void stateMachine_readSwitch(char cSwitchID)
-{
-	char cSwitchState;
-	ledswi_initLedSwitch(0, 4);
-	if(SWITCH_ON == ledswi_getSwitchStatus(cSwitchID))
-		cSwitchState = 'C';
-	else
-		cSwitchState = 'O';
-	serial_sendData(cSwitchState);
-}
+#include "es670_peripheral_board.h"
+#include "debugUart.h"
+#include "fsl_debug_console.h"
+#include "fsl_device_registers.h"
 
 void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer)
 {
@@ -55,6 +48,10 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
 			{
 				smNextState = LED_CLEAR;
 			}
+			else if('R'==ucDataValue)
+			{
+				smNextState = LED_READ;
+			}
 			else cErr = 1;
 			break;
 
@@ -76,11 +73,26 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
 			else cErr = 1;
 			break;
 
+	    case LED_READ:
+			if('1'<=ucDataValue && ucDataValue <='4')
+			{
+				serial_sendAck();
+				if(cLedsStates[ucDataValue-'1'] == 1)
+					PUTCHAR('C');
+				else
+					PUTCHAR('O');
+			}
+			else cErr = 1;
+			break;
 	    case SWITCH:
 			if('1'<=ucDataValue && ucDataValue <='4')
 			{
-				stateMachine_readSwitch(ucDataValue-'1');
 				serial_sendAck();
+				ledswi_initLedSwitch(0, 4);
+				if(SWITCH_ON == ledswi_getSwitchStatus(ucDataValue-'0'))
+					PUTCHAR('C');
+				else
+					PUTCHAR('O');
 			}
 			else cErr = 1;
 			break;

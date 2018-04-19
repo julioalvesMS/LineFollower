@@ -17,11 +17,38 @@
 #include "debugUart.h"
 #include "fsl_debug_console.h"
 #include "serial.h"
+#include "stateMachine.h"
+
+void playBuzzer1ms(void)
+{
+	buzzer_setBuzz();
+	util_genDelay250us();
+	buzzer_clearBuzz();
+	util_genDelay250us();
+}
+
+void showDisplay7Seg(unsigned int iValue)
+{
+	display7seg_setDisplay(iValue%16,0,4);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+	display7seg_setDisplay(iValue%16,0,3);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+	display7seg_setDisplay(iValue%16,0,2);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+	display7seg_setDisplay(iValue%16,0,1);
+	util_genDelay1ms();
+}
 
 /* ****************************************************** */
 /* Method name:         setupPeripherals                  */
 /* Method description:  Makes the necessaries setups and  */
-/*                      initializatios for a proper       */
+/*                      initializations for a proper      */
 /*                      preparation of the peripherals    */
 /* Input params:                n/a                       */
 /* Output params:               n/a                       */
@@ -39,6 +66,8 @@ void setupPeripherals()
 
 	/* Start display7seg */
 	display7seg_initDisplay();
+
+	buzzer_init();
 }
 
 /* ****************************************************** */
@@ -52,38 +81,24 @@ void setupPeripherals()
 int main(void)
 {
 
-	switch_status_type_e ssButton1, ssButton2, ssButton3, ssButton4;
-	int count, j = 0;
-	unsigned char aux, a[5];
+	unsigned char ucDataValue;
+	char cLedsStates[4] = {0, 0, 0, 0};
+	int iBuzzerTimer = 0;
+	int *piBuzzerTimer = &iBuzzerTimer;
 
 	setupPeripherals();
 
 
 	for (int i=0;;i++)
 	{
-		aux = serial_readData();
-		if(aux!=NOT_READ){
-			a[j] = aux;
-			j++;
+		if(serial_haveData()){
+			ucDataValue = serial_readData();
+			stateMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
 		}
-		if(j==5){
-			PUTCHAR(a[0]);
-			PUTCHAR(a[1]);
-			PUTCHAR(a[2]);
-			PUTCHAR(a[3]);
-			PUTCHAR(a[4]);
-			j = 0;
-		}
-		/* Read switches states */
-		ledswi_initLedSwitch(0, 4);
-		ssButton1 = ledswi_getSwitchStatus(1);
-		ssButton2 = ledswi_getSwitchStatus(2);
-		ssButton3 = ledswi_getSwitchStatus(3);
-		ssButton4 = ledswi_getSwitchStatus(4);
 
 		/* Turn on the LED if the corresponding switch is on */
 		ledswi_initLedSwitch(4, 0);
-		if(SWITCH_ON == ssButton1)
+		if(cLedsStates[0])
 		{
 			ledswi_setLed(1);
 		}
@@ -92,7 +107,7 @@ int main(void)
 			ledswi_clearLed(1);
 		}
 
-		if(SWITCH_ON == ssButton2)
+		if(cLedsStates[1])
 		{
 			ledswi_setLed(2);
 		}
@@ -101,7 +116,7 @@ int main(void)
 			ledswi_clearLed(2);
 		}
 
-		if(SWITCH_ON == ssButton3)
+		if(cLedsStates[2])
 		{
 			ledswi_setLed(3);
 		}
@@ -110,7 +125,7 @@ int main(void)
 			ledswi_clearLed(3);
 		}
 
-		if(SWITCH_ON == ssButton4)
+		if(cLedsStates[3])
 		{
 			ledswi_setLed(4);
 		}
@@ -125,27 +140,18 @@ int main(void)
 		 * Rate of 1/100 of loop count to displayed count,
 		 * otherwise the counter is to fast
 		 */
-		count = i/100;
+		if(iBuzzerTimer>0)
+		{
+			playBuzzer1ms();
+			iBuzzerTimer--;
+		}
 
 		/*
 		 * Puts the counter in the displays.
 		 * We need to put a delay between each display in order to avoid
 		 * having the same data showing in multiple displays
 		 */
-		display7seg_setDisplay(count%16,0,4);
-		count = count/16;
-		util_genDelay1ms();
 
-		display7seg_setDisplay(count%16,0,3);
-		count = count/16;
-		util_genDelay1ms();
-
-		display7seg_setDisplay(count%16,0,2);
-		count = count/16;
-		util_genDelay1ms();
-
-		display7seg_setDisplay(count%16,0,1);
-		util_genDelay1ms();
 
 	} /* Never leave main */
 	return 0;

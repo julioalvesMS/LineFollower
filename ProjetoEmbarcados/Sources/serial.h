@@ -21,23 +21,6 @@
 
 #define NOT_READ 255
 
-typedef enum
-{
-    IDLE,
-
-    LED,
-	LED_CLEAR,
-	LED_SET,
-	LED_CLEAR_1, LED_CLEAR_2, LED_CLEAR_3, LED_CLEAR_4,
-	LED_SET_1, LED_SET_2, LED_SET_3, LED_SET_4,
-
-	SWITCH,
-	SWITCH_1, SWITCH_2, SWITCH_3, SWITCH_4,
-
-	BUZZER,
-	BUZZER_TIMER_X00, BUZZER_TIMER_0X0, BUZZER_TIMER_00X
-} state_machine_type_e;
-
 /* ************************************************ */
 /* Method name:        buzzer_init                  */
 /* Method description: Initialize the buzzer device */
@@ -56,7 +39,6 @@ char serial_haveData(void);
 void serial_sendAck(void);
 
 void serial_sendErr(void);
-void serial_ledCommand(void);
 
 /* ************************************************ */
 /* Method name:        buzzer_setBuz                */
@@ -66,6 +48,6 @@ void serial_ledCommand(void);
 /* ************************************************ */
 unsigned char serial_readData(void);
 
-void serial_stateMachine(void);
+void serial_sendData(char cDataToSend);
 
 #endif /* SOURCES_SERIAL_H_ */

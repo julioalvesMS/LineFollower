@@ -55,37 +55,6 @@ void serial_sendErr(void)
 	PUTCHAR('\r');
 }
 
-void serial_ledCommand(void)
-{
-	unsigned char action = NOT_READ;
-	unsigned char ledID = NOT_READ;
-	if(UART0_BRD_S1_RDRF(UART0))
-	{
-		action = GETCHAR();
-		if(action != 'C' && action != 'S'){
-			action = NOT_READ;
-		}
-	}
-
-	if(UART0_BRD_S1_RDRF(UART0) && action != NOT_READ)
-	{
-		ledID = GETCHAR();
-		if(ledID < '1' || ledID > '4'){
-			ledID = NOT_READ;
-		}
-	}
-
-	if(ledID != NOT_READ)
-	{
-		serial_sendAck();
-		/* EXECUTA */
-	}
-	else
-	{
-		serial_sendErr();
-	}
-}
-
 /* ************************************************ */
 /* Method name:        buzzer_setBuz                */
 /* Method description: Set the buzze                */
@@ -94,17 +63,10 @@ void serial_ledCommand(void)
 /* ************************************************ */
 unsigned char serial_readData(void)
 {
-	unsigned char ucDataValue = NOT_READ;
-	if(UART0_BRD_S1_RDRF(UART0))
-	{
-		ucDataValue = GETCHAR();
-	}
-	return ucDataValue;
+	return GETCHAR();
 }
 
-
-void serial_stateMachine(void)
+void serial_sendData(char cDataToSend)
 {
-	static state_machine_type_e ssmCurrentState;
+	PUTCHAR(cDataToSend);
 }
-

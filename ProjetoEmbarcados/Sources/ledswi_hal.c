@@ -154,10 +154,6 @@ void ledswi_clearLed(char cLedNum)
 /* Output params:      n/a                          */
 /* ************************************************ */
 void ledswi_changeAllLeds(char cLedsStates[]){
-	/* Future improvement
-    GPIOA_PSOR = GPIO_PSOR_PTSO( (ucLedStates << LS1_PIN) );
-	GPIOA_PCOR = GPIO_PCOR_PTCO( ( ((!ucLedStates) & 0x0f) << LS1_PIN) );
-    */
     ledswi_initLedSwitch(4, 0);
 
     /* LED 1 */

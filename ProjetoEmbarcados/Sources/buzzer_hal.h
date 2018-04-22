@@ -11,6 +11,7 @@
 #ifndef SOURCES_BUZZER_HAL_H_
 #define SOURCES_BUZZER_HAL_H_
 
+
 /* ************************************************ */
 /* Method name:        buzzer_init                  */
 /* Method description: Initialize the buzzer device */
@@ -38,5 +39,12 @@ void buzzer_clearBuzz(void);
 void buzzer_setBuzz(void);
 
 
+/* ************************************************ */
+/* Method name:        buzzer_play1ms               */
+/* Method description: Plays the buzzer for 1 ms    */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void buzzer_play1ms(void)
 
 #endif /* SOURCES_BUZZER_HAL_H_ */

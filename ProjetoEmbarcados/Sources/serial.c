@@ -8,6 +8,7 @@
 /* ***************************************************************** */
 
 #include "serial.h"
+
 #include "es670_peripheral_board.h"
 #include "debugUart.h"
 #include "fsl_debug_console.h"
@@ -15,8 +16,8 @@
 
 
 /* ************************************************ */
-/* Method name:        buzzer_init                  */
-/* Method description: Initialize the buzzer device */
+/* Method name:        serial_init                  */
+/* Method description: Initialize the serial port   */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
@@ -29,16 +30,25 @@ void serial_init(void)
 
 
 /* ************************************************ */
-/* Method name:        buzzer_clearBuzz             */
-/* Method description: Clear the buzzer             */
+/* Method name:        serial_haveData              */
+/* Method description: Informs if there is data in  */
+/*                     the buffer that can be read  */
 /* Input params:       n/a                          */
-/* Output params:      n/a                          */
+/* Output params:      char: 1 if true else 0       */
 /* ************************************************ */
 char serial_haveData(void)
 {
 	return UART0_BRD_S1_RDRF(UART0);
 }
 
+
+/* ************************************************ */
+/* Method name:        serial_sendAck               */
+/* Method description: Send "ACK" through the       */
+/*                     serial port                  */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void serial_sendAck(void)
 {
 	PUTCHAR('A');
@@ -46,25 +56,17 @@ void serial_sendAck(void)
 	PUTCHAR('K');
 }
 
+
+/* ************************************************ */
+/* Method name:        serial_sendErr               */
+/* Method description: Send "ERR" through the       */
+/*                     serial port                  */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void serial_sendErr(void)
 {
 	PUTCHAR('E');
 	PUTCHAR('R');
 	PUTCHAR('R');
-}
-
-/* ************************************************ */
-/* Method name:        buzzer_setBuz                */
-/* Method description: Set the buzze                */
-/* Input params:       n/a                          */
-/* Output params:       n/a                         */
-/* ************************************************ */
-unsigned char serial_readData(void)
-{
-	return GETCHAR();
-}
-
-void serial_sendData(char cDataToSend)
-{
-	PUTCHAR(cDataToSend);
 }

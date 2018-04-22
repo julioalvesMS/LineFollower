@@ -12,6 +12,7 @@
 
 #define USING_OPENSDA_DEBUG
 
+
 /* ************************************************ */
 /* Method name:        ledswi_initLedSwitch         */
 /* Method description: As the hardware board was    */
@@ -82,7 +83,6 @@ void ledswi_initLedSwitch(char cLedNum, char cSwitchNum)
 }
 
 
-
 /* ************************************************ */
 /* Method name:        ledswi_setLed                */
 /* Method description: set the led ON               */
@@ -112,7 +112,6 @@ void ledswi_setLed(char cLedNum)
 
     } /* if(cLedNum <= MAX_LED_SWI) */
 }
-
 
 
 /* ************************************************ */
@@ -145,10 +144,47 @@ void ledswi_clearLed(char cLedNum)
     } /* if(cLedNum <= MAX_LED_SWI) */
 }
 
-void ledswi_defineMultipleLeds(unsigned char ucLedStates){
-	GPIOA_PSOR = GPIO_PSOR_PTSO( (ucLedStates << LS1_PIN) );
+
+/* ************************************************ */
+/* Method name:        ledswi_changeAllLeds         */
+/* Method description: Change the state of all LEDs */
+/*                     according to the input       */
+/* Input params:       ucLedStates = wich LEDs to   */
+/*                       turn ON/OFF                */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void ledswi_changeAllLeds(char cLedsStates[]){
+	/* Future improvement
+    GPIOA_PSOR = GPIO_PSOR_PTSO( (ucLedStates << LS1_PIN) );
 	GPIOA_PCOR = GPIO_PCOR_PTCO( ( ((!ucLedStates) & 0x0f) << LS1_PIN) );
+    */
+    ledswi_initLedSwitch(4, 0);
+
+    /* LED 1 */
+    if(cLedsStates[0])
+        ledswi_setLed(1);
+    else
+        ledswi_clearLed(1);
+
+    /* LED 2 */
+    if(cLedsStates[1])
+        ledswi_setLed(2);
+    else
+        ledswi_clearLed(2);
+
+    /* LED 3 */
+    if(cLedsStates[2])
+        ledswi_setLed(3);
+    else
+        ledswi_clearLed(3);
+
+    /* LED 4 */
+    if(cLedsStates[3])
+        ledswi_setLed(4);
+    else
+        ledswi_clearLed(4);
 }
+
 
 /* ************************************************ */
 /* Method name:        ledswi_getSwitchStatus       */

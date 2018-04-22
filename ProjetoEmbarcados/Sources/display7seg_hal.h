@@ -1,8 +1,9 @@
 /* ***************************************************************** */
 /* File name:        display7seg_hal.h                               */
-/* File description: This file has a couple of useful functions to   */
-/*                   control LEDs and Switches from peripheral board */
-/* Author name:      julioalvesMS IagoAF                             */
+/* File description: Header file containing the functions/methods    */
+/*                   interfaces for handling the four 7 segments     */
+/*                   displays from the peripheral board              */
+/* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    05abr2018                                       */
 /* Revision date:    05abr2018                                       */
 /* ***************************************************************** */
@@ -23,6 +24,7 @@
 /* ************************************************ */
 void display7seg_initDisplay(void);
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_setDisplay            */
 /* Method description: Set a HEX number and dot in a     */
@@ -34,6 +36,7 @@ void display7seg_initDisplay(void);
 /* ***************************************************** */
 void display7seg_setDisplay(char cDisplayChar, char cDot, char cDisplayID);
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_setSegment            */
 /* Method description: Set a segment ON or OFF           */
@@ -42,6 +45,7 @@ void display7seg_setDisplay(char cDisplayChar, char cDot, char cDisplayID);
 /* Output params:      n/a                               */
 /* ***************************************************** */
 void display7seg_setSegment(char cValue,char cPin);
+
 
 /* ***************************************************** */
 /* Method name:        display7seg_decoder               */
@@ -54,6 +58,7 @@ void display7seg_setSegment(char cValue,char cPin);
 /* ***************************************************** */
 void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[]);
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_selectDisplay         */
 /* Method description: Enable a specific display.        */
@@ -61,5 +66,15 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[]);
 /* Output params:      n/a                               */
 /* ***************************************************** */
 void display7seg_selectDisplay(char cDisplayID);
+
+
+/* ****************************************************** */
+/* Method name:         display7seg_showHexNumber         */
+/* Method description:  Display a 2 bytes hex value using */
+/*                      all four 7 segments displayes     */
+/* Input params:        iValue: Value to be shown         */
+/* Output params:       n/a                               */
+/* ****************************************************** */
+void display7seg_showHexNumber(unsigned int iValue);
 
 #endif /* SOURCES_DISPLAY7SEG_HAL_H_ */

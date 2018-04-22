@@ -10,6 +10,7 @@
 #include "buzzer_hal.h"
 #include "es670_peripheral_board.h"
 
+
 /* ************************************************ */
 /* Method name:        buzzer_init                  */
 /* Method description: Initialize the buzzer device */
@@ -30,7 +31,6 @@ void buzzer_init(void)
 }
 
 
-
 /* ************************************************ */
 /* Method name:        buzzer_clearBuzz             */
 /* Method description: Clear the buzzer             */
@@ -45,16 +45,37 @@ void buzzer_clearBuzz(void)
 }
 
 
-
 /* ************************************************ */
 /* Method name:        buzzer_setBuz                */
 /* Method description: Set the buzze                */
 /* Input params:       n/a                          */
-/* Output params:       n/a                         */
+/* Output params:      n/a                          */
 /* ************************************************ */
 void buzzer_setBuzz(void)
 {
     /* set desired led */
     GPIOD_PSOR = GPIO_PSOR_PTSO(0x01);
 
+}
+
+
+/* ************************************************ */
+/* Method name:        buzzer_play1ms               */
+/* Method description: Plays the buzzer for 1 ms    */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void buzzer_play1ms(void)
+{
+    /* Wave 1 */
+	buzzer_setBuzz();
+	util_genDelay250us();
+	buzzer_clearBuzz();
+	util_genDelay250us();
+
+    /* Wave 2 */
+	buzzer_setBuzz();
+	util_genDelay250us();
+	buzzer_clearBuzz();
+	util_genDelay250us();
 }

@@ -18,6 +18,7 @@ typedef enum
     SWITCH_OFF
 } switch_status_type_e;
 
+
 /* ************************************************ */
 /* Method name:        ledswi_initLedSwitch         */
 /* Method description: As the hardware board was    */
@@ -25,11 +26,15 @@ typedef enum
 /*                     sharing the same pins, this  */
 /*                     method configures how many   */
 /*                     LEDS and switches will be    */
-/*                     available for the application*/
+/*                     available for the system.    */
+/*                     the number of LEDs plus the  */
+/*                     number of switchs must be    */
+/*                     lower then or equal to       */
+/*                     MAX_LED_SWI                  */
 /* Input params:       cLedNum    = num of LEDs     */
 /*                     cSwitchNum = num of Switches */
-/*                     cLedNum +                    */
-/*                     cSwitchNum <= MAX_LED_SWI    */
+/*                       cLedNum + cSwitchNum       */
+/*                                   = MAX_LED_SWI */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void ledswi_initLedSwitch(char cLedNum, char cSwitchNum);
@@ -38,12 +43,22 @@ void ledswi_initLedSwitch(char cLedNum, char cSwitchNum);
 /* ************************************************ */
 /* Method name:        ledswi_setLed                */
 /* Method description: set the led ON               */
-/* Input params:       cLedNum    = which LED {1..4}*/
+/* Input params:       cLedNum = which LED {1..4}   */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void ledswi_setLed(char cLedNum);
 
-void ledswi_defineMultipleLeds(unsigned char ucLedStates);
+
+/* ************************************************ */
+/* Method name:        ledswi_changeAllLeds         */
+/* Method description: Change the state of all LEDs */
+/*                     according to the input       */
+/* Input params:       ucLedStates = wich LEDs to   */
+/*                       turn ON/OFF                */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void ledswi_changeAllLeds(unsigned char ucLedStates);
+
 
 /* ************************************************ */
 /* Method name:        ledswi_clearLed              */

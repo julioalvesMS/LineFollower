@@ -1,53 +1,72 @@
 /* ***************************************************************** */
-/* File name:        buzzer_hal.h                                    */
+/* File name:        serial.h                                        */
 /* File description: Header file containing the functions/methods    */
-/*                   interfaces for handling BUZZER from the         */
-/*                   peripheral board                                */
-/* Author name:      dloubach                                        */
-/* Creation date:    12jan2016                                       */
-/* Revision date:    25fev2016                                       */
+/*                   interfaces for handling the serial port         */
+/*                   communication                                   */
+/* Author name:      julioalvesMS & IagoAF                           */
+/* Creation date:    12abr2018                                       */
+/* Revision date:    21abr2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_SERIAL_H_
 #define SOURCES_SERIAL_H_
-/* ***************************************************************** */
-/* File name:        buzzer_hal.c                                    */
-/* File description: File dedicated to the hardware abstraction layer*/
-/*                   related buzzer from the peripheral board        */
-/* Author name:      dloubach                                        */
-/* Creation date:    12jan2016                                       */
-/* Revision date:    25fev2016                                       */
-/* ***************************************************************** */
 
-#define NOT_READ 255
 
 /* ************************************************ */
-/* Method name:        buzzer_init                  */
-/* Method description: Initialize the buzzer device */
+/* Method name:        serial_init                  */
+/* Method description: Initialize the serial port   */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void serial_init(void);
 
+
 /* ************************************************ */
-/* Method name:        buzzer_clearBuzz             */
-/* Method description: Clear the buzzer             */
+/* Method name:        serial_haveData              */
+/* Method description: Informs if there is data in  */
+/*                     the buffer that can be read  */
+/* Input params:       n/a                          */
+/* Output params:      char: 1 if true else 0       */
+/* ************************************************ */
+char serial_haveData(void);
+
+
+/* ************************************************ */
+/* Method name:        serial_sendAck               */
+/* Method description: Send "ACK" through the       */
+/*                     serial port                  */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-char serial_haveData(void);
 void serial_sendAck(void);
 
+
+/* ************************************************ */
+/* Method name:        serial_sendErr               */
+/* Method description: Send "ERR" through the       */
+/*                     serial port                  */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void serial_sendErr(void);
 
-/* ************************************************ */
-/* Method name:        buzzer_setBuz                */
-/* Method description: Set the buzze                */
-/* Input params:       n/a                          */
-/* Output params:       n/a                         */
-/* ************************************************ */
-unsigned char serial_readData(void);
 
-void serial_sendData(char cDataToSend);
+/* ************************************************ */
+/* Method name:        serial_getChar               */
+/* Method description: Reads a character            */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+#define serial_getChar GETCHAR;
+
+
+/* ************************************************ */
+/* Method name:        serial_putChar               */
+/* Method description: Sends a character            */
+/* Input params:       cDataToSend: Character to    */
+/*                       be sent                    */
+/* Output params:      n/a                          */
+/* ************************************************ */
+#define serial_putChar PUTCHAR;
 
 #endif /* SOURCES_SERIAL_H_ */

@@ -1,14 +1,16 @@
 /* ***************************************************************** */
 /* File name:        display7seg_hal.c                               */
 /* File description: This file has a couple of useful functions to   */
-/*                   control Displays from peripheral board          */
-/* Author name:      julioalvesMS IagoAF                             */
+/*                   control the four 7 segments display from the    */
+/*                   peripheral board                                */
+/* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    05abr2018                                       */
 /* Revision date:    05abr2018                                       */
 /* ***************************************************************** */
 
 #include "display7seg_hal.h"
 #include "es670_peripheral_board.h"
+#include "util.h"
 
 
 /* ************************************************ */
@@ -43,6 +45,7 @@ void display7seg_initDisplay(void)
 								D7S13_DIR | D7S12_DIR | D7S11_DIR | D7S10_DIR);
 }
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_setDisplay            */
 /* Method description: Set a HEX number and dot in a     */
@@ -71,6 +74,7 @@ void display7seg_setDisplay(char cDisplayChar, char cDot, char cDisplayID)
     display7seg_setSegment(vCharDecoded[7], D7S7_PIN);
 }
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_setSegment            */
 /* Method description: Set a segment ON or OFF           */
@@ -90,6 +94,7 @@ void display7seg_setSegment(char cValue,char cPin)
 	}
 }
 
+
 /* ***************************************************** */
 /* Method name:        display7seg_decoder               */
 /* Method description: Convert a number and the dot in a */
@@ -101,9 +106,13 @@ void display7seg_setSegment(char cValue,char cPin)
 /* ***************************************************** */
 void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 {
+    /* If the value for the dot is not valid, turn it off */
+    if(D7S_OFF != cDot && D7S_OFF != cDot)
+        cDot = D7S_OFF;
+
 	switch(cDisplayChar) /* set a binary vector based on the number(cDisplayChar) and the dot(cDot) */
     {
-	    case 0:
+	    case 0:  /* 0 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -113,7 +122,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_OFF;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 1:
+	    case 1:  /* 1 */
 	    	vCharDecoded[0] = D7S_OFF;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -123,7 +132,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_OFF;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 2:
+	    case 2:  /* 2 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_OFF;
@@ -133,7 +142,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 3:
+	    case 3:  /* 3 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -143,7 +152,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 4:
+	    case 4:  /* 4 */
 	    	vCharDecoded[0] = D7S_OFF;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -153,7 +162,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 5:
+	    case 5:  /* 5 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_OFF;
 	    	vCharDecoded[2] = D7S_ON;
@@ -163,7 +172,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 6:
+	    case 6:  /* 6 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_OFF;
 	    	vCharDecoded[2] = D7S_ON;
@@ -173,7 +182,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 7:
+	    case 7:  /* 7 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -183,7 +192,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_OFF;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 8:
+	    case 8:  /* 8 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -193,7 +202,7 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_ON;
 	    	vCharDecoded[7] = cDot;
 	        break;
-	    case 9:
+	    case 9:  /* 9 */
 	    	vCharDecoded[0] = D7S_ON;
 	    	vCharDecoded[1] = D7S_ON;
 	    	vCharDecoded[2] = D7S_ON;
@@ -273,9 +282,10 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
 	    	vCharDecoded[6] = D7S_OFF;
 	    	vCharDecoded[7] = cDot;
 	        break;
-        
+
     } /* switch(cDisplayChar) */
 }
+
 
 /* ***************************************************** */
 /* Method name:        display7seg_selectDisplay         */
@@ -312,4 +322,34 @@ void display7seg_selectDisplay(char cDisplayID)
 			GPIOC_PCOR = GPIO_PCOR_PTCO( (0x01U << D7S11_PIN) );
 			break;
 	} /* switch(cDisplayID) */
+}
+
+
+/* ****************************************************** */
+/* Method name:         display7seg_showHexNumber         */
+/* Method description:  Display a 2 bytes hex value using */
+/*                      all four 7 segments displayes     */
+/* Input params:        iValue: Value to be shown         */
+/* Output params:       n/a                               */
+/* ****************************************************** */
+void display7seg_showHexNumber(unsigned int iValue)
+{
+    /* Extreme left display */
+	display7seg_setDisplay(iValue%16,0,4);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+    /* Middle left display */
+	display7seg_setDisplay(iValue%16,0,3);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+    /* Middle right display */
+	display7seg_setDisplay(iValue%16,0,2);
+	iValue = iValue/16;
+	util_genDelay1ms();
+
+    /* Extreme right display */
+	display7seg_setDisplay(iValue%16,0,1);
+	util_genDelay1ms();
 }

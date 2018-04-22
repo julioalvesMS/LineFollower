@@ -68,14 +68,14 @@ void buzzer_setBuzz(void)
 void buzzer_play1ms(void)
 {
     /* Wave 1 */
-	buzzer_setBuzz();
-	util_genDelay250us();
-	buzzer_clearBuzz();
-	util_genDelay250us();
+    buzzer_setBuzz();
+    util_genDelay250us();
+    buzzer_clearBuzz();
+    util_genDelay250us();
 
     /* Wave 2 */
-	buzzer_setBuzz();
-	util_genDelay250us();
-	buzzer_clearBuzz();
-	util_genDelay250us();
+    buzzer_setBuzz();
+    util_genDelay250us();
+    buzzer_clearBuzz();
+    util_genDelay250us();
 }

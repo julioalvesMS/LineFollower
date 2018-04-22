@@ -23,8 +23,8 @@
 /* ************************************************ */
 void serial_init(void)
 {
-	/* Start serial communication */
-	debugUart_init();
+    /* Start serial communication */
+    debugUart_init();
 
 }
 
@@ -38,7 +38,7 @@ void serial_init(void)
 /* ************************************************ */
 char serial_haveData(void)
 {
-	return UART0_BRD_S1_RDRF(UART0);
+    return UART0_BRD_S1_RDRF(UART0);
 }
 
 
@@ -51,9 +51,9 @@ char serial_haveData(void)
 /* ************************************************ */
 void serial_sendAck(void)
 {
-	PUTCHAR('A');
-	PUTCHAR('C');
-	PUTCHAR('K');
+    PUTCHAR('A');
+    PUTCHAR('C');
+    PUTCHAR('K');
 }
 
 
@@ -66,7 +66,7 @@ void serial_sendAck(void)
 /* ************************************************ */
 void serial_sendErr(void)
 {
-	PUTCHAR('E');
-	PUTCHAR('R');
-	PUTCHAR('R');
+    PUTCHAR('E');
+    PUTCHAR('R');
+    PUTCHAR('R');
 }

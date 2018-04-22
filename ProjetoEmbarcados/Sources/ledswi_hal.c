@@ -149,33 +149,33 @@ void ledswi_clearLed(char cLedNum)
 /* Method name:        ledswi_changeAllLeds         */
 /* Method description: Change the state of all LEDs */
 /*                     according to the input       */
-/* Input params:       ucLedStates = wich LEDs to   */
+/* Input params:       cvLedsStates = wich LEDs to  */
 /*                       turn ON/OFF                */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void ledswi_changeAllLeds(char cLedsStates[]){
+void ledswi_changeAllLeds(char cvLedsStates[]){
     ledswi_initLedSwitch(4, 0);
 
     /* LED 1 */
-    if(cLedsStates[0])
+    if(cvLedsStates[0])
         ledswi_setLed(1);
     else
         ledswi_clearLed(1);
 
     /* LED 2 */
-    if(cLedsStates[1])
+    if(cvLedsStates[1])
         ledswi_setLed(2);
     else
         ledswi_clearLed(2);
 
     /* LED 3 */
-    if(cLedsStates[2])
+    if(cvLedsStates[2])
         ledswi_setLed(3);
     else
         ledswi_clearLed(3);
 
     /* LED 4 */
-    if(cLedsStates[3])
+    if(cvLedsStates[3])
         ledswi_setLed(4);
     else
         ledswi_clearLed(4);

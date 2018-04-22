@@ -1,4 +1,4 @@
-/* ***************************************************************** */
+cvCharDecoded/* ***************************************************************** */
 /* File name:        display7seg_hal.c                               */
 /* File description: This file has a couple of useful functions to   */
 /*                   control the four 7 segments display from the    */
@@ -57,21 +57,21 @@ void display7seg_initDisplay(void)
 /* ***************************************************** */
 void display7seg_setDisplay(char cDisplayChar, char cDot, char cDisplayID)
 {
-    char vCharDecoded[8];
+    char cvCharDecoded[8];
 
     /* choose a display to receive the character/dot */
     display7seg_selectDisplay(cDisplayID);
     /* decode the number to a binary for the 7segDisplay */
-    display7seg_decoder(cDisplayChar, cDot, vCharDecoded);
+    display7seg_decoder(cDisplayChar, cDot, cvCharDecoded);
     /* set the specific segments based on the binary vector */
-    display7seg_setSegment(vCharDecoded[0], D7S0_PIN);
-    display7seg_setSegment(vCharDecoded[1], D7S1_PIN);
-    display7seg_setSegment(vCharDecoded[2], D7S2_PIN);
-    display7seg_setSegment(vCharDecoded[3], D7S3_PIN);
-    display7seg_setSegment(vCharDecoded[4], D7S4_PIN);
-    display7seg_setSegment(vCharDecoded[5], D7S5_PIN);
-    display7seg_setSegment(vCharDecoded[6], D7S6_PIN);
-    display7seg_setSegment(vCharDecoded[7], D7S7_PIN);
+    display7seg_setSegment(cvCharDecoded[0], D7S0_PIN);
+    display7seg_setSegment(cvCharDecoded[1], D7S1_PIN);
+    display7seg_setSegment(cvCharDecoded[2], D7S2_PIN);
+    display7seg_setSegment(cvCharDecoded[3], D7S3_PIN);
+    display7seg_setSegment(cvCharDecoded[4], D7S4_PIN);
+    display7seg_setSegment(cvCharDecoded[5], D7S5_PIN);
+    display7seg_setSegment(cvCharDecoded[6], D7S6_PIN);
+    display7seg_setSegment(cvCharDecoded[7], D7S7_PIN);
 }
 
 
@@ -101,10 +101,10 @@ void display7seg_setSegment(char cValue,char cPin)
 /*                     binary sequence.                  */
 /* Input params:       cDisplayChar = number {0..15}     */
 /*                     cDot = ON(1) or OFF(0)            */
-/*                     vCharDecoded[] = binary vector[8] */
+/*                     cvCharDecoded[] = binary vector[8] */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
+void display7seg_decoder(char cDisplayChar,char cDot, char cvCharDecoded[])
 {
     /* If the value for the dot is not valid, turn it off */
     if(D7S_OFF != cDot && D7S_OFF != cDot)
@@ -113,174 +113,174 @@ void display7seg_decoder(char cDisplayChar,char cDot, char vCharDecoded[])
     switch(cDisplayChar) /* set a binary vector based on the number(cDisplayChar) and the dot(cDot) */
     {
         case 0:  /* 0 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_OFF;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_OFF;
+            cvCharDecoded[7] = cDot;
             break;
         case 1:  /* 1 */
-            vCharDecoded[0] = D7S_OFF;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_OFF;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_OFF;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_OFF;
+            cvCharDecoded[7] = cDot;
             break;
         case 2:  /* 2 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_OFF;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_OFF;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 3:  /* 3 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 4:  /* 4 */
-            vCharDecoded[0] = D7S_OFF;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_OFF;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 5:  /* 5 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 6:  /* 6 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 7:  /* 7 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_OFF;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_OFF;
+            cvCharDecoded[7] = cDot;
             break;
         case 8:  /* 8 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 9:  /* 9 */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 10: /* A */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 11: /* B */
-            vCharDecoded[0] = D7S_OFF;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_OFF;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 12:  /* C */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_OFF;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_OFF;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_OFF;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_OFF;
+            cvCharDecoded[7] = cDot;
             break;
         case 13:  /* D */
-            vCharDecoded[0] = D7S_OFF;
-            vCharDecoded[1] = D7S_ON;
-            vCharDecoded[2] = D7S_ON;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_OFF;
+            cvCharDecoded[1] = D7S_ON;
+            cvCharDecoded[2] = D7S_ON;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 14:  /* E */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_OFF;
-            vCharDecoded[3] = D7S_ON;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_OFF;
+            cvCharDecoded[3] = D7S_ON;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
         case 15:  /* F */
-            vCharDecoded[0] = D7S_ON;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_OFF;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_ON;
-            vCharDecoded[5] = D7S_ON;
-            vCharDecoded[6] = D7S_ON;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_ON;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_OFF;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_ON;
+            cvCharDecoded[5] = D7S_ON;
+            cvCharDecoded[6] = D7S_ON;
+            cvCharDecoded[7] = cDot;
             break;
       default: /* If the value is not configured, turn off the display */
-            vCharDecoded[0] = D7S_OFF;
-            vCharDecoded[1] = D7S_OFF;
-            vCharDecoded[2] = D7S_OFF;
-            vCharDecoded[3] = D7S_OFF;
-            vCharDecoded[4] = D7S_OFF;
-            vCharDecoded[5] = D7S_OFF;
-            vCharDecoded[6] = D7S_OFF;
-            vCharDecoded[7] = cDot;
+            cvCharDecoded[0] = D7S_OFF;
+            cvCharDecoded[1] = D7S_OFF;
+            cvCharDecoded[2] = D7S_OFF;
+            cvCharDecoded[3] = D7S_OFF;
+            cvCharDecoded[4] = D7S_OFF;
+            cvCharDecoded[5] = D7S_OFF;
+            cvCharDecoded[6] = D7S_OFF;
+            cvCharDecoded[7] = cDot;
             break;
 
     } /* switch(cDisplayChar) */
@@ -329,27 +329,27 @@ void display7seg_selectDisplay(char cDisplayID)
 /* Method name:         display7seg_showHexNumber         */
 /* Method description:  Display a 2 bytes hex value using */
 /*                      all four 7 segments displayes     */
-/* Input params:        iValue: Value to be shown         */
+/* Input params:        uiValue: Value to be shown        */
 /* Output params:       n/a                               */
 /* ****************************************************** */
-void display7seg_showHexNumber(unsigned int iValue)
+void display7seg_showHexNumber(unsigned int uiValue)
 {
     /* Extreme left display */
-    display7seg_setDisplay(iValue%16,0,4);
-    iValue = iValue/16;
+    display7seg_setDisplay(uiValue%16,0,4);
+    uiValue = uiValue/16;
     util_genDelay1ms();
 
     /* Middle left display */
-    display7seg_setDisplay(iValue%16,0,3);
-    iValue = iValue/16;
+    display7seg_setDisplay(uiValue%16,0,3);
+    uiValue = uiValue/16;
     util_genDelay1ms();
 
     /* Middle right display */
-    display7seg_setDisplay(iValue%16,0,2);
-    iValue = iValue/16;
+    display7seg_setDisplay(uiValue%16,0,2);
+    uiValue = uiValue/16;
     util_genDelay1ms();
 
     /* Extreme right display */
-    display7seg_setDisplay(iValue%16,0,1);
+    display7seg_setDisplay(uiValue%16,0,1);
     util_genDelay1ms();
 }

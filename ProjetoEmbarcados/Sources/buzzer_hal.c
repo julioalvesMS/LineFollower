@@ -9,6 +9,7 @@
 
 #include "buzzer_hal.h"
 #include "es670_peripheral_board.h"
+#include "util.h"
 
 
 /* ************************************************ */
@@ -60,12 +61,12 @@ void buzzer_setBuzz(void)
 
 
 /* ************************************************ */
-/* Method name:        buzzer_play1ms               */
+/* Method name:        buzzer_playBuzz1ms           */
 /* Method description: Plays the buzzer for 1 ms    */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void buzzer_play1ms(void)
+void buzzer_playBuzz1ms(void)
 {
     /* Wave 1 */
     buzzer_setBuzz();

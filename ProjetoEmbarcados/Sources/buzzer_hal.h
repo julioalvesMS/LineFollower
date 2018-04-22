@@ -45,6 +45,6 @@ void buzzer_setBuzz(void);
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void buzzer_play1ms(void)
+void buzzer_playBuzz1ms(void)
 
 #endif /* SOURCES_BUZZER_HAL_H_ */

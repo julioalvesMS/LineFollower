@@ -53,11 +53,11 @@ void ledswi_setLed(char cLedNum);
 /* Method name:        ledswi_changeAllLeds         */
 /* Method description: Change the state of all LEDs */
 /*                     according to the input       */
-/* Input params:       ucLedStates = wich LEDs to   */
+/* Input params:       cvLedsStates = wich LEDs to  */
 /*                       turn ON/OFF                */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void ledswi_changeAllLeds(unsigned char ucLedStates);
+void ledswi_changeAllLeds(char cvLedsStates[]);
 
 
 /* ************************************************ */

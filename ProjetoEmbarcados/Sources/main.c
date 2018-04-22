@@ -85,7 +85,7 @@ int main(void)
         /* If needed, play the buzzer */
         if(iBuzzerTimer>0)
         {
-            buzzer_play1ms();
+            buzzer_playBuzz1ms();
             iBuzzerTimer--;
         }
 

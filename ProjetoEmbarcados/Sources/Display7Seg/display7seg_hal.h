@@ -11,8 +11,8 @@
 #ifndef SOURCES_DISPLAY7SEG_HAL_H_
 #define SOURCES_DISPLAY7SEG_HAL_H_
 
-#define D7S_ON  1;
-#define D7S_OFF 0;
+#define D7S_ON  1
+#define D7S_OFF 0
 
 
 /* ************************************************ */
@@ -22,7 +22,7 @@
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void display7seg_initDisplay(void);
+void display7seg_initDisplay();
 
 
 /* ***************************************************** */
@@ -67,14 +67,5 @@ void display7seg_decoder(char cDisplayChar, char cDot, char cvCharDecoded[]);
 /* ***************************************************** */
 void display7seg_selectDisplay(char cDisplayID);
 
-
-/* ****************************************************** */
-/* Method name:         display7seg_showHexNumber         */
-/* Method description:  Display a 2 bytes hex value using */
-/*                      all four 7 segments displayes     */
-/* Input params:        uiValue: Value to be shown        */
-/* Output params:       n/a                               */
-/* ****************************************************** */
-void display7seg_showHexNumber(unsigned int uiValue);
 
 #endif /* SOURCES_DISPLAY7SEG_HAL_H_ */

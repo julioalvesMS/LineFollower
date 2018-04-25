@@ -7,17 +7,14 @@
 /* Revision date:    21abr2018                                       */
 /* ***************************************************************** */
 
-#include "stateMachine.h"
+#include "cmdMachine.h"
 
 /* System includes */
-#include "es670_peripheral_board.h"
-#include "debugUart.h"
-#include "fsl_debug_console.h"
-#include "fsl_device_registers.h"
+#include "KL25Z4\es670_peripheral_board.h"
 
 /* Hardware abstraction layers and communication */
-#include "serial.h"
-#include "ledswi_hal.h"
+#include "Serial\serial.h"
+#include "LedSwi\ledswi_hal.h"
 
 
 /* ***************************************************** */
@@ -94,9 +91,9 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
                 serial_sendAck();
 
                 if(cLedsStates[ucDataValue-'1'] == 1)
-                    PUTCHAR('C');
+                    serial_putChar('C');
                 else
-                    PUTCHAR('O');
+                	serial_putChar('O');
             }
             else cErr = ERR;
             break;
@@ -107,9 +104,9 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
                 serial_sendAck();
                 ledswi_initLedSwitch(0, 4);
                 if(SWITCH_ON == ledswi_getSwitchStatus(ucDataValue-'0'))
-                    PUTCHAR('C');
+                	serial_putChar('C');
                 else
-                    PUTCHAR('O');
+                	serial_putChar('O');
             }
             else cErr = ERR;
         break;
@@ -126,7 +123,7 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
         case BUZZER_TIMER_X00:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-                siBuzzerTimer = siBuzzerTimer+10*(ucDataValue-'0');
+                siBuzzerTimer = siBuzzerTimer + 10*(ucDataValue-'0');
                 smNextState = BUZZER_TIMER_XX0;
             }
             else cErr = ERR;
@@ -136,7 +133,7 @@ void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[]
             if('0'<=ucDataValue && ucDataValue <='9')
             {
                 /* Update the buzzer timer variable with the read value */
-                siBuzzerTimer = siBuzzerTimer+(ucDataValue-'0');
+                siBuzzerTimer = siBuzzerTimer + (ucDataValue-'0');
                 (*iBuzzerTimer) = siBuzzerTimer;
                 serial_sendAck();
 

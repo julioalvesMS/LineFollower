@@ -7,8 +7,8 @@
 /* Revision date:    21abr2018                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_STATEMASCHINE_H_
-#define SOURCES_STATEMASCHINE_H_
+#ifndef SOURCES_CMDMASCHINE_H_
+#define SOURCES_CMDMASCHINE_H_
 
 typedef enum
 {
@@ -40,4 +40,4 @@ typedef enum
 /* ***************************************************** */
 void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer);
 
-#endif /* SOURCES_STATEMASCHINE_H_ */
+#endif /* SOURCES_CMDMASCHINE_H_ */

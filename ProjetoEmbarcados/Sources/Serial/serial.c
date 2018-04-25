@@ -9,7 +9,7 @@
 
 #include "serial.h"
 
-#include "es670_peripheral_board.h"
+#include "KL25Z4\es670_peripheral_board.h"
 #include "debugUart.h"
 #include "fsl_debug_console.h"
 #include "fsl_device_registers.h"
@@ -30,13 +30,13 @@ void serial_init(void)
 
 
 /* ************************************************ */
-/* Method name:        serial_haveData              */
+/* Method name:        serial_hasData               */
 /* Method description: Informs if there is data in  */
 /*                     the buffer that can be read  */
 /* Input params:       n/a                          */
 /* Output params:      char: 1 if true else 0       */
 /* ************************************************ */
-char serial_haveData(void)
+char serial_hasData(void)
 {
     return UART0_BRD_S1_RDRF(UART0);
 }
@@ -69,4 +69,29 @@ void serial_sendErr(void)
     PUTCHAR('E');
     PUTCHAR('R');
     PUTCHAR('R');
+}
+
+
+/* ************************************************ */
+/* Method name:        serial_getChar               */
+/* Method description: Reads a character            */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+unsigned char serial_getChar()
+{
+	return GETCHAR();
+}
+
+
+/* ************************************************ */
+/* Method name:        serial_putChar               */
+/* Method description: Sends a character            */
+/* Input params:       ucDataToSend: Character to   */
+/*                       be sent                    */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void serial_putChar(unsigned char ucDataToSend)
+{
+	PUTCHAR(ucDataToSend);
 }

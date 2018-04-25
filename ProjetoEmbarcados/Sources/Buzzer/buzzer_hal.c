@@ -1,15 +1,14 @@
 /* ***************************************************************** */
-/* File name:        buzzer_hal.h                                    */
-/* File description: Header file containing the functions/methods    */
-/*                   interfaces for handling BUZZER from the         */
-/*                   peripheral board                                */
+/* File name:        buzzer_hal.c                                    */
+/* File description: File dedicated to the hardware abstraction layer*/
+/*                   related buzzer from the peripheral board        */
 /* Author name:      dloubach                                        */
 /* Creation date:    12jan2016                                       */
 /* Revision date:    25fev2016                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_BUZZER_HAL_H_
-#define SOURCES_BUZZER_HAL_H_
+#include "buzzer_hal.h"
+#include "KL25Z4\es670_peripheral_board.h"
 
 
 /* ************************************************ */
@@ -18,7 +17,18 @@
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void buzzer_init(void);
+void buzzer_init(void)
+{
+    /* un-gate port clock*/
+    SIM_SCGC5 |= SIM_SCGC5_PORTD(CGC_CLOCK_ENABLED);
+
+    /* set pin as gpio */
+    PORTD_PCR0 |= PORT_PCR_MUX(BUZZER_ALT);
+
+    /* set pin as digital output */
+    GPIOD_PDDR |= GPIO_PDDR_PDD(BUZZER_PIN);
+
+}
 
 
 /* ************************************************ */
@@ -27,24 +37,24 @@ void buzzer_init(void);
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void buzzer_clearBuzz(void);
+void buzzer_clearBuzz(void)
+{
+    /* clear desired led */
+    GPIOD_PCOR = GPIO_PCOR_PTCO(0x01);
+
+}
 
 
 /* ************************************************ */
-/* Method name:        buzzer_setBuzz               */
-/* Method description: Set the buzzer               */
+/* Method name:        buzzer_setBuz                */
+/* Method description: Set the buzze                */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void buzzer_setBuzz(void);
+void buzzer_setBuzz(void)
+{
+    /* set desired led */
+    GPIOD_PSOR = GPIO_PSOR_PTSO(0x01);
 
+}
 
-/* ************************************************ */
-/* Method name:        buzzer_play1ms               */
-/* Method description: Plays the buzzer for 1 ms    */
-/* Input params:       n/a                          */
-/* Output params:      n/a                          */
-/* ************************************************ */
-void buzzer_playBuzz1ms(void)
-
-#endif /* SOURCES_BUZZER_HAL_H_ */

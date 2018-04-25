@@ -8,7 +8,7 @@
 /* ***************************************************************** */
 
 #include "ledswi_hal.h"
-#include "es670_peripheral_board.h"
+#include "KL25Z4\es670_peripheral_board.h"
 
 #define USING_OPENSDA_DEBUG
 

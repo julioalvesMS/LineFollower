@@ -1,4 +1,4 @@
-cvCharDecoded/* ***************************************************************** */
+/* ***************************************************************** */
 /* File name:        display7seg_hal.c                               */
 /* File description: This file has a couple of useful functions to   */
 /*                   control the four 7 segments display from the    */
@@ -9,8 +9,7 @@ cvCharDecoded/* ****************************************************************
 /* ***************************************************************** */
 
 #include "display7seg_hal.h"
-#include "es670_peripheral_board.h"
-#include "util.h"
+#include "KL25Z4\es670_peripheral_board.h"
 
 
 /* ************************************************ */
@@ -322,34 +321,4 @@ void display7seg_selectDisplay(char cDisplayID)
             GPIOC_PCOR = GPIO_PCOR_PTCO( (0x01U << D7S11_PIN) );
             break;
     } /* switch(cDisplayID) */
-}
-
-
-/* ****************************************************** */
-/* Method name:         display7seg_showHexNumber         */
-/* Method description:  Display a 2 bytes hex value using */
-/*                      all four 7 segments displayes     */
-/* Input params:        uiValue: Value to be shown        */
-/* Output params:       n/a                               */
-/* ****************************************************** */
-void display7seg_showHexNumber(unsigned int uiValue)
-{
-    /* Extreme left display */
-    display7seg_setDisplay(uiValue%16,0,4);
-    uiValue = uiValue/16;
-    util_genDelay1ms();
-
-    /* Middle left display */
-    display7seg_setDisplay(uiValue%16,0,3);
-    uiValue = uiValue/16;
-    util_genDelay1ms();
-
-    /* Middle right display */
-    display7seg_setDisplay(uiValue%16,0,2);
-    uiValue = uiValue/16;
-    util_genDelay1ms();
-
-    /* Extreme right display */
-    display7seg_setDisplay(uiValue%16,0,1);
-    util_genDelay1ms();
 }

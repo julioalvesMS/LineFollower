@@ -9,21 +9,69 @@
 /* ********************************************** */
 
 /* System includes */
-#include "fsl_device_registers.h"
-#include "fsl_debug_console.h"
-#include "debugUart.h"
-#include "util.h"
+#include "Util\util.h"
 
 /* Hardware abstraction layers */
-#include "buzzer_hal.h"
-#include "mcg_hal.h"
-#include "ledswi_hal.h"
-#include "display7seg_hal.h"
+#include "Buzzer\buzzer_hal.h"
+#include "Mcg\mcg_hal.h"
+#include "LedSwi\ledswi_hal.h"
+#include "Display7Seg\display7seg_hal.h"
 
 /* communication */
-#include "serial.h"
-#include "stateMachine.h"
+#include "Serial\serial.h"
+#include "Protocolo\cmdMachine.h"
 
+
+
+/* ****************************************************** */
+/* Method name:         showHexNumber                     */
+/* Method description:  Display a 2 bytes hex value using */
+/*                      all four 7 segments displayes     */
+/* Input params:        uiValue: Value to be shown        */
+/* Output params:       n/a                               */
+/* ****************************************************** */
+void showHexNumber(unsigned int uiValue)
+{
+    /* Extreme left display */
+    display7seg_setDisplay(uiValue%16,0,4);
+    uiValue = uiValue/16;
+    util_genDelay1ms();
+
+    /* Middle left display */
+    display7seg_setDisplay(uiValue%16,0,3);
+    uiValue = uiValue/16;
+    util_genDelay1ms();
+
+    /* Middle right display */
+    display7seg_setDisplay(uiValue%16,0,2);
+    uiValue = uiValue/16;
+    util_genDelay1ms();
+
+    /* Extreme right display */
+    display7seg_setDisplay(uiValue%16,0,1);
+    util_genDelay1ms();
+}
+
+/* ************************************************ */
+/* Method name:        playBuzz1ms                  */
+/* Method description: Plays the buzzer for 1 ms    */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void playBuzz1ms(void)
+{
+    /* Wave 1 */
+    buzzer_setBuzz();
+    util_genDelay250us();
+    buzzer_clearBuzz();
+    util_genDelay250us();
+
+    /* Wave 2 */
+    buzzer_setBuzz();
+    util_genDelay250us();
+    buzzer_clearBuzz();
+    util_genDelay250us();
+}
 
 /* ****************************************************** */
 /* Method name:         setupPeripherals                  */
@@ -74,18 +122,18 @@ int main(void)
 
     for (;;)
     {
-        if(UART0_BRD_S1_RDRF(UART0)){
-            ucDataValue = GETCHAR();
+        if(serial_hasData()){
+            ucDataValue = serial_getChar();
             stateMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 
         /* Set the LEDs ON/OFF according to the state vector */
-        ledswi_changeAllLeds(cLedsStates)
+        ledswi_changeAllLeds(cLedsStates);
 
         /* If needed, play the buzzer */
         if(iBuzzerTimer>0)
         {
-            buzzer_playBuzz1ms();
+            playBuzz1ms();
             iBuzzerTimer--;
         }
 

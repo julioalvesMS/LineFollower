@@ -22,13 +22,13 @@ void serial_init(void);
 
 
 /* ************************************************ */
-/* Method name:        serial_haveData              */
+/* Method name:        serial_hasData               */
 /* Method description: Informs if there is data in  */
 /*                     the buffer that can be read  */
 /* Input params:       n/a                          */
 /* Output params:      char: 1 if true else 0       */
 /* ************************************************ */
-char serial_haveData(void);
+char serial_hasData(void);
 
 
 /* ************************************************ */
@@ -57,7 +57,7 @@ void serial_sendErr(void);
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-#define serial_getChar GETCHAR;
+unsigned char serial_getChar();
 
 
 /* ************************************************ */
@@ -67,6 +67,6 @@ void serial_sendErr(void);
 /*                       be sent                    */
 /* Output params:      n/a                          */
 /* ************************************************ */
-#define serial_putChar PUTCHAR;
+void serial_putChar(unsigned char cDataToSend);
 
 #endif /* SOURCES_SERIAL_H_ */

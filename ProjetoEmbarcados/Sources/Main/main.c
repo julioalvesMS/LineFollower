@@ -1,11 +1,11 @@
 /* ********************************************** */
-/* File name:                    main.c            */
+/* File name:         main.c                      */
 /* File description:  Main file of the code.      */
 /*                    Contains the initialization */
 /*                    sequence and the main loop  */
 /* Author name:       julioalvesMS & IagoAF       */
 /* Creation date:     08mar2018                   */
-/* Revision date:     05abr2018                   */
+/* Revision date:     25abr2018                   */
 /* ********************************************** */
 
 /* System includes */
@@ -124,7 +124,7 @@ int main(void)
     {
         if(serial_hasData()){
             ucDataValue = serial_getChar();
-            stateMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
+            cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 
         /* Set the LEDs ON/OFF according to the state vector */

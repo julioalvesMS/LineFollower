@@ -5,7 +5,7 @@
 /*                   communication                                   */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    21abr2018                                       */
+/* Revision date:    25abr2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_SERIAL_H_

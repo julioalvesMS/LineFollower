@@ -72,7 +72,7 @@ void lcd_setCursor(unsigned char cLine, unsigned char cColumn);
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_dummyText(void);
+void lcd_writeText(const char *cLine1,const char *cLine2);
 
 
 #endif /* SOURCES_LCD_HAL_H_ */

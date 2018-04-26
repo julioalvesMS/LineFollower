@@ -30,7 +30,7 @@
 void ledswi_initLedSwitch(char cLedNum, char cSwitchNum)
 {
     /* un-gate port clock*/
-    SIM_SCGC5 = SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
+    SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
 
     /* set pin as gpio */
 #ifndef USING_OPENSDA_DEBUG

@@ -9,7 +9,7 @@
 /* ***************************************************************** */
 
 #include "lcd_hal.h"
-#include "KL25Z/es670_peripheral_board.h"
+#include "KL25Z4/es670_peripheral_board.h"
 #include "Util/util.h"
 
 /* system includes */
@@ -36,31 +36,23 @@ void lcd_initLcd(void)
     /* pins configured as outputs */
 
     /* un-gate port clock*/
-    CLOCK_SYS_EnablePortClock(PORTC_IDX);
+	SIM_SCGC5 |= SIM_SCGC5_PORTC(CGC_CLOCK_ENABLED);
 
     /* set pin as gpio */
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_RS_PIN, LCD_RS_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_ENABLE_PIN, LCD_ENABLE_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB0_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB1_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB2_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB3_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB4_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB5_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB6_PIN, LCD_DATA_ALT);
-    PORT_HAL_SetMuxMode(LCD_PORT_BASE_PNT, LCD_DATA_DB7_PIN, LCD_DATA_ALT);
+	PORTC_PCR8 |= PORT_PCR_MUX(LCD_RS_ALT);
+	PORTC_PCR9 |= PORT_PCR_MUX(LCD_ENABLE_ALT);
+	PORTC_PCR0 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR1 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR2 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR3 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR4 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR5 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR6 |= PORT_PCR_MUX(LCD_DATA_ALT);
+	PORTC_PCR7 |= PORT_PCR_MUX(LCD_DATA_ALT);
 
     /* set pin as digital output */
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_ENABLE_PIN, LCD_ENABLE_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB0_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB1_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB2_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB3_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB4_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB5_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB6_PIN, LCD_DATA_DIR);
-    GPIO_HAL_SetPinDir(LCD_GPIO_BASE_PNT, LCD_DATA_DB7_PIN, LCD_DATA_DIR);
+	GPIOC_PDDR |= GPIO_PDDR_PDD(LCD_DATA_DB0_DIR | LCD_DATA_DB1_DIR | LCD_DATA_DB2_DIR | LCD_DATA_DB3_DIR |
+				LCD_DATA_DB4_DIR | LCD_DATA_DB5_DIR | LCD_DATA_DB6_DIR | LCD_DATA_DB7_DIR | LCD_RS_DIR | LCD_ENABLE_DIR );
 
     // turn-on LCD, with no cursor and no blink
     lcd_sendCommand(CMD_NO_CUR_NO_BLINK);
@@ -94,26 +86,59 @@ void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char cDataType)
     /* writing data or command */
     if(LCD_RS_CMD == cDataType)
         /* will send a command */
-        GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_CMD);
+       /* GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_CMD);*/
+    	GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_RS_HIGH << LCD_RS_PIN);
     else
         /* will send data */
-        GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_DATA);
+        /*GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_DATA);*/
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_RS_HIGH << LCD_RS_PIN);
 
     /* write in the LCD bus */
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB0_PIN, ((ucBuffer & (1u << 0u)) >> 0u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB1_PIN, ((ucBuffer & (1u << 1u)) >> 1u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB2_PIN, ((ucBuffer & (1u << 2u)) >> 2u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB3_PIN, ((ucBuffer & (1u << 3u)) >> 3u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB4_PIN, ((ucBuffer & (1u << 4u)) >> 4u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB5_PIN, ((ucBuffer & (1u << 5u)) >> 5u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB6_PIN, ((ucBuffer & (1u << 6u)) >> 6u));
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_DATA_DB7_PIN, ((ucBuffer & (1u << 7u)) >> 7u));
+    if(LCD_ENABLED == ((ucBuffer & (1u << 0u)) >> 0u))
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB0_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB0_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 1u)) >> 1u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB1_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB1_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 2u)) >> 2u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB2_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB2_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 3u)) >> 3u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB3_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB3_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 4u)) >> 4u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB4_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB4_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 5u)) >> 5u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB5_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB5_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 6u)) >> 6u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB6_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB6_PIN);
+
+    if(LCD_ENABLED == ((ucBuffer & (1u << 7u)) >> 7u))
+		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB7_PIN);
+	else
+		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB7_PIN);
 
     /* enable, delay, disable LCD */
     /* this generates a pulse in the enable pin */
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_ENABLE_PIN, LCD_ENABLED);
+    GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_ENABLE_PIN);
     util_genDelay1ms();
-    GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_ENABLE_PIN, LCD_DISABLED);
+    GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_ENABLE_PIN);
     util_genDelay1ms();
     util_genDelay1ms();
 }
@@ -198,18 +223,18 @@ void lcd_writeString(const char *cBuffer)
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_dummyText(void)
+void lcd_writeText(const char *cLine1,const char *cLine2)
 {
     // clear LCD
     lcd_sendCommand(CMD_CLEAR);
 
     // set the cursor line 0, column 1
-    lcd_setCursor(0,1);
+    lcd_setCursor(0,0);
 
     // send string
-    lcd_writeString("*** ES670 ***");
+    lcd_writeString(cLine1);
 
     // set the cursor line 1, column 0
     lcd_setCursor(1,0);
-    lcd_writeString("Prj Sis Embarcad");
+    lcd_writeString(cLine2);
 }

@@ -22,7 +22,7 @@
 void display7seg_initDisplay(void)
 {
     /* un-gate port clock*/
-    SIM_SCGC5 = SIM_SCGC5_PORTC(CGC_CLOCK_ENABLED);
+    SIM_SCGC5 |= SIM_SCGC5_PORTC(CGC_CLOCK_ENABLED);
 
     /* set pin as gpio */
     PORTC_PCR0 |= PORT_PCR_MUX(D7S0_ALT);

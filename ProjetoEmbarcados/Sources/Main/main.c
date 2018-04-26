@@ -16,6 +16,7 @@
 #include "Mcg\mcg_hal.h"
 #include "LedSwi\ledswi_hal.h"
 #include "Display7Seg\display7seg_hal.h"
+#include "LCD\lcd_hal.h"
 
 /* communication */
 #include "Serial\serial.h"
@@ -93,10 +94,13 @@ void setupPeripherals()
     ledswi_initLedSwitch(0, 4);
 
     /* Start display7seg */
-    display7seg_initDisplay();
+   // display7seg_initDisplay();
 
     /* Start the buzzer */
     buzzer_init();
+
+    /* Start the LCD */
+    lcd_initLcd();
 }
 
 
@@ -115,15 +119,18 @@ int main(void)
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
+    char *cLine1 = " Seu Claudio";
+	char *cLine2 = "O Garimpeiro <3";
 
     /* Make all the required inicializations */
     setupPeripherals();
 
+    lcd_writeText(cLine1,cLine2);
 
     for (;;)
     {
         if(serial_hasData()){
-            ucDataValue = serial_getChar();
+           ucDataValue = serial_getChar();
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 

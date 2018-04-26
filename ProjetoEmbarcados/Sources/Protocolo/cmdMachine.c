@@ -1,10 +1,10 @@
 /* ***************************************************************** */
-/* File name:        stateMachine.c                                  */
+/* File name:        cmdMachine.c                                    */
 /* File description: File dedicated for handling the state machine   */
 /*                   responsable for the user interaction response.  */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    21abr2018                                       */
+/* Revision date:    25abr2018                                       */
 /* ***************************************************************** */
 
 #include "cmdMachine.h"
@@ -18,7 +18,7 @@
 
 
 /* ***************************************************** */
-/* Method name:        stateMachine_stateProgression     */
+/* Method name:        cmdMachine_stateProgression       */
 /* Method description: Change the state machine state    */
 /*                     according to the user input       */
 /* Input params:       ucDataValue = character read from */
@@ -30,7 +30,7 @@
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void stateMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer)
+void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer)
 {
     static state_machine_type_e ssmCurrentState = IDLE;
     static int siBuzzerTimer;

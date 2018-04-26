@@ -1,10 +1,10 @@
 /* ***************************************************************** */
-/* File name:        buzzer_hal.c                                    */
-/* File description: File dedicated to the hardware abstraction layer*/
-/*                   related buzzer from the peripheral board        */
-/* Author name:      dloubach                                        */
-/* Creation date:    12jan2016                                       */
-/* Revision date:    25fev2016                                       */
+/* File name:        serial.c                                        */
+/* File description: File dedicated to the abstraction of the serial */
+/*                   port communication                              */
+/* Author name:      julioalvesMS & IagoAF                           */
+/* Creation date:    12abr2018                                       */
+/* Revision date:    25abr2018                                       */
 /* ***************************************************************** */
 
 #include "serial.h"

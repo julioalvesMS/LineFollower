@@ -8,7 +8,7 @@
 /* ***************************************************************** */
 
 #include "buzzer_hal.h"
-#include "KL25Z4\es670_peripheral_board.h"
+#include "KL25Z\es670_peripheral_board.h"
 
 
 /* ************************************************ */

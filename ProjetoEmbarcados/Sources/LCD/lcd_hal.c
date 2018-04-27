@@ -9,7 +9,7 @@
 /* ***************************************************************** */
 
 #include "lcd_hal.h"
-#include "KL25Z4/es670_peripheral_board.h"
+#include "KL25Z/es670_peripheral_board.h"
 #include "Util/util.h"
 
 /* system includes */
@@ -218,9 +218,13 @@ void lcd_writeString(const char *cBuffer)
 
 
 /* ************************************************ */
-/* Method name:        lcd_dummyText                */
-/* Method description: Write a dummy hard coded text*/
-/* Input params:       n/a                          */
+/* Method name:        lcd_writeText                */
+/* Method description: Write a text in LCD both     */
+/*                     lines from the LCD           */
+/* Input params:       cLine1 => string to be       */
+/*                       written in line 1 from LCD */
+/*                     cLine2 => string to be       */
+/*                       written in line 2 from LCD */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void lcd_writeText(const char *cLine1,const char *cLine2)

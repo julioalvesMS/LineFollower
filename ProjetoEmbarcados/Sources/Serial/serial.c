@@ -9,8 +9,8 @@
 
 #include "serial.h"
 
-#include "KL25Z4\es670_peripheral_board.h"
-#include "debugUart.h"
+#include "KL25Z\es670_peripheral_board.h"
+#include "Util\debugUart.h"
 #include "fsl_debug_console.h"
 #include "fsl_device_registers.h"
 

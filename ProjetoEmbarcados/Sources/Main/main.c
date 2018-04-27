@@ -13,7 +13,7 @@
 
 /* Hardware abstraction layers */
 #include "Buzzer\buzzer_hal.h"
-#include "Mcg\mcg_hal.h"
+#include "Util\mcg_hal.h"
 #include "LedSwi\ledswi_hal.h"
 #include "Display7Seg\display7seg_hal.h"
 #include "LCD\lcd_hal.h"

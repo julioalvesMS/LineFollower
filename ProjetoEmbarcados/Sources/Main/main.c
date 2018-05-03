@@ -119,8 +119,8 @@ int main(void)
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char *cLine1 = " Seu Claudio";
-	char *cLine2 = "O Garimpeiro <3";
+    char *cLine1 = " 156061 - Julio";
+	char *cLine2 = " 155746 - Iago";
 
     /* Make all the required inicializations */
     setupPeripherals();

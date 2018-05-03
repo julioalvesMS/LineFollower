@@ -77,11 +77,11 @@ void lcd_initLcd(void)
 /* Method name:        lcd_write2Lcd                */
 /* Method description: Send command or data to LCD  */
 /* Input params:       ucBuffer => char to be send  */
-/*                     cDataType=>command LCD_RS_CMD*/
+/*                     ucDataType=command LCD_RS_CMD*/
 /*                     or data LCD_RS_DATA          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char cDataType)
+void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char ucDataType)
 {
     /* writing data or command */
     if(LCD_RS_CMD == cDataType)

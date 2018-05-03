@@ -26,6 +26,7 @@ void tachometer_initSensor(void)
     SIM_SOPT4 &= ~SIM_SOPT4_TPM0CLKSEL(CLKIN0);
 
     /* FEITO ATE AQUI */
+    /* 553, 196 */
 
     /* Set as GPIO */
     PORTA_PCR13 |= PORT_PCR_MUX(COOLER_ALT);

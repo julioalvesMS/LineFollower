@@ -49,34 +49,34 @@ void lcd_sendCommand(unsigned char ucCmd);
 /* ************************************************ */
 /* Method name:        lcd_WriteString              */
 /* Method description: Write string to be displayed */
-/* Input params:       cBuffer => string to be      */
+/* Input params:       cpBuffer => string to be     */
 /*                     written in LCD               */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeString(const char *cBuffer);
+void lcd_writeString(const char *cpBuffer);
 
 
 /* ************************************************ */
 /* Method name:        lcd_setCursor                */
 /* Method description: Set cursor line and column   */
-/* Input params:       cLine = LINE0..LINE1         */
-/*                     cColumn = COLUMN0..MAX_COLUMN*/
+/* Input params:       ucLine = LINE0..LINE1        */
+/*                     ucColumn =COLUMN0..MAX_COLUMN*/
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_setCursor(unsigned char cLine, unsigned char cColumn);
+void lcd_setCursor(unsigned char ucLine, unsigned char ucColumn);
 
 
 /* ************************************************ */
 /* Method name:        lcd_writeText                */
 /* Method description: Write a text in LCD both     */
 /*                     lines from the LCD           */
-/* Input params:       cLine1 => string to be       */
+/* Input params:       cpLine1 => string to be      */
 /*                       written in line 1 from LCD */
-/*                     cLine2 => string to be       */
+/*                     cpLine2 => string to be      */
 /*                       written in line 2 from LCD */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeText(const char *cLine1,const char *cLine2);
+void lcd_writeText(const char *cpLine1, const char *cpLine2);
 
 
 #endif /* SOURCES_LCD_HAL_H_ */

@@ -77,14 +77,14 @@ void lcd_initLcd(void)
 /* Method name:        lcd_write2Lcd                */
 /* Method description: Send command or data to LCD  */
 /* Input params:       ucBuffer => char to be send  */
-/*                     cDataType=>command LCD_RS_CMD*/
+/*                     ucDataType=command LCD_RS_CMD*/
 /*                     or data LCD_RS_DATA          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char cDataType)
+void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char ucDataType)
 {
     /* writing data or command */
-    if(LCD_RS_CMD == cDataType)
+    if(LCD_RS_CMD == ucDataType)
         /* will send a command */
        /* GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_CMD);*/
     	GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_RS_HIGH << LCD_RS_PIN);
@@ -176,15 +176,15 @@ void lcd_sendCommand(unsigned char ucCmd)
 /* ************************************************ */
 /* Method name:        lcd_setCursor                */
 /* Method description: Set cursor line and column   */
-/* Input params:       cLine = LINE0..LINE1         */
-/*                     cColumn = COLUMN0..MAX_COLUMN*/
+/* Input params:       ucLine = LINE0..LINE1        */
+/*                     ucColumn =COLUMN0..MAX_COLUMN*/
 /* Output params:       n/a                         */
 /* ************************************************ */
-void lcd_setCursor(unsigned char cLine, unsigned char cColumn)
+void lcd_setCursor(unsigned char ucLine, unsigned char ucColumn)
 {
     char cCommand;
 
-    if(LINE0 == cLine)
+    if(LINE0 == ucLine)
         /* line 0 */
         cCommand = L0C0_BASE;
     else
@@ -192,7 +192,7 @@ void lcd_setCursor(unsigned char cLine, unsigned char cColumn)
         cCommand = L1C0_BASE;
 
     /* maximum MAX_COLUMN columns */
-    cCommand += (cColumn & MAX_COLUMN);
+    cCommand += (ucColumn & MAX_COLUMN);
 
     // send the command to set the cursor
     lcd_sendCommand(cCommand);
@@ -203,15 +203,15 @@ void lcd_setCursor(unsigned char cLine, unsigned char cColumn)
 /* ************************************************ */
 /* Method name:        lcd_writeString              */
 /* Method description: Write string to be displayed */
-/* Input params:       cBuffer => string to be      */
+/* Input params:       cpBuffer => string to be     */
 /*                     written in LCD               */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeString(const char *cBuffer)
+void lcd_writeString(const char *cpBuffer)
 {
-    while(*cBuffer)
+    while(*cpBuffer)
     {
-        lcd_writeData(*cBuffer++);
+        lcd_writeData(*cpBuffer++);
     };
 }
 
@@ -221,13 +221,13 @@ void lcd_writeString(const char *cBuffer)
 /* Method name:        lcd_writeText                */
 /* Method description: Write a text in LCD both     */
 /*                     lines from the LCD           */
-/* Input params:       cLine1 => string to be       */
+/* Input params:       cpLine1 => string to be      */
 /*                       written in line 1 from LCD */
-/*                     cLine2 => string to be       */
+/*                     cpLine2 => string to be      */
 /*                       written in line 2 from LCD */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeText(const char *cLine1,const char *cLine2)
+void lcd_writeText(const char *cpLine1,const char *cpLine2)
 {
     // clear LCD
     lcd_sendCommand(CMD_CLEAR);
@@ -236,9 +236,9 @@ void lcd_writeText(const char *cLine1,const char *cLine2)
     lcd_setCursor(0,0);
 
     // send string
-    lcd_writeString(cLine1);
+    lcd_writeString(cpLine1);
 
     // set the cursor line 1, column 0
     lcd_setCursor(1,0);
-    lcd_writeString(cLine2);
+    lcd_writeString(cpLine2);
 }

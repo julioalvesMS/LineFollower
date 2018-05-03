@@ -10,6 +10,7 @@
 
 /* System includes */
 #include "Util\util.h"
+#include "Util\tc_hal.h"
 
 /* Hardware abstraction layers */
 #include "Buzzer\buzzer_hal.h"
@@ -17,11 +18,19 @@
 #include "LedSwi\ledswi_hal.h"
 #include "Display7Seg\display7seg_hal.h"
 #include "LCD\lcd_hal.h"
+#include "Cooler\cooler_hal.h"
 
 /* communication */
 #include "Serial\serial.h"
 #include "Protocolo\cmdMachine.h"
 
+
+/* defines */
+#define CYCLIC_EXECUTIVE_PERIOD         1000 * 1000 /* 1000000 micro seconds */
+
+
+/* globals */
+volatile unsigned int uiFlagNextPeriod = 0;         /* cyclic executive flag */
 
 
 /* ****************************************************** */
@@ -51,7 +60,9 @@ void showHexNumber(unsigned int uiValue)
     /* Extreme right display */
     display7seg_setDisplay(uiValue%16,0,1);
     util_genDelay1ms();
+
 }
+
 
 /* ************************************************ */
 /* Method name:        playBuzz1ms                  */
@@ -73,6 +84,21 @@ void playBuzz1ms(void)
     buzzer_clearBuzz();
     util_genDelay250us();
 }
+
+
+/* ************************************************ */
+/* Method name:        main_cyclicExecuteIsr        */
+/* Method description: cyclic executive interrupt   */
+/*                     service routine              */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void main_cyclicExecuteIsr(void)
+{
+    /* set the cyclic executive flag */
+    uiFlagNextPeriod = 1;
+}
+
 
 /* ****************************************************** */
 /* Method name:         setupPeripherals                  */
@@ -101,6 +127,9 @@ void setupPeripherals()
 
     /* Start the LCD */
     lcd_initLcd();
+
+    /* Prepare the cooler */
+    cooler_initCooler();
 }
 
 
@@ -120,17 +149,22 @@ int main(void)
     int iBuzzerTimer = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
     char *cLine1 = " Seu Claudio";
-	char *cLine2 = "O Garimpeiro <3";
+    char *cLine2 = "O Garimpeiro <3";
 
     /* Make all the required inicializations */
     setupPeripherals();
 
     lcd_writeText(cLine1,cLine2);
 
+    cooler_startCooler();
+
+    /* configure cyclic executive interruption */
+    tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+
     for (;;)
     {
         if(serial_hasData()){
-           ucDataValue = serial_getChar();
+            ucDataValue = serial_getChar();
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 
@@ -143,6 +177,11 @@ int main(void)
             playBuzz1ms();
             iBuzzerTimer--;
         }
+
+
+        /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
+        while(!uiFlagNextPeriod);
+        uiFlagNextPeriod = 0;
 
     } /* Never leave main */
     return 0;

@@ -173,4 +173,16 @@
 /*                 END OF LCD definitions                 */
 
 
+
+/*                 COOLER Definitions                    */
+#define COOLER_PORT_BASE_PNT        PORTA                                   /* peripheral port base pointer */
+#define COOLER_GPIO_BASE_PNT        PTA                                     /* peripheral gpio base pointer */
+
+#define COOLER_PIN                  13U                                      /* cooler pin */
+#define COOLER_DIR                  (GPIO_OUTPUT << COOLER_PIN)
+#define COOLER_ALT                  0x01u
+/*                 END OF COOLER definitions             */
+
+
+
 #endif /* SOURCES_ES670_PERIPHERAL_BOARD_H_ */

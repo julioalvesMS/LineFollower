@@ -120,7 +120,7 @@ int main(void)
     int iBuzzerTimer = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
     char *cLine1 = " 156061 - Julio";
-	char *cLine2 = " 155746 - Iago";
+    char *cLine2 = " 155746 - Iago";
 
     /* Make all the required inicializations */
     setupPeripherals();

@@ -19,6 +19,7 @@
 #include "Display7Seg\display7seg_hal.h"
 #include "LCD\lcd_hal.h"
 #include "Cooler\cooler_hal.h"
+#include "Cooler\tachometer_hal.h"
 
 /* communication */
 #include "Serial\serial.h"
@@ -113,6 +114,9 @@ void setupPeripherals()
     /* Start clock */
     mcg_clockInit();
 
+    /* Prepare the tachometer */
+    tachometer_initSensor();
+
     /* Start serial communication */
     serial_init();
 
@@ -130,6 +134,7 @@ void setupPeripherals()
 
     /* Prepare the cooler */
     cooler_initCooler();
+
 }
 
 
@@ -147,14 +152,13 @@ int main(void)
     unsigned char ucDataValue;
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
+    int iCoolerSpeed = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char *cLine1 = " Seu Claudio";
-    char *cLine2 = "O Garimpeiro <3";
-
+    char cLine1[17] = "Seu Claudio tem";
+	char cLine2[17] = "###@ filhos!";
+	cLine2[3] = 247;
     /* Make all the required inicializations */
     setupPeripherals();
-
-    lcd_writeText(cLine1,cLine2);
 
     cooler_startCooler();
 
@@ -177,7 +181,16 @@ int main(void)
             playBuzz1ms();
             iBuzzerTimer--;
         }
+        iCoolerSpeed = tachometer_readSensor();
+        cLine2[2] = (char) (iCoolerSpeed % 10) + '0';
+        iCoolerSpeed = iCoolerSpeed/10;
 
+        cLine2[1] = (char) (iCoolerSpeed % 10) + '0';
+        iCoolerSpeed = iCoolerSpeed/10;
+
+        cLine2[0] = (char) (iCoolerSpeed % 10) + '0';
+
+        lcd_writeText(cLine1,cLine2);
 
         /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
         while(!uiFlagNextPeriod);

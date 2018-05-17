@@ -10,6 +10,13 @@
 #include "tachometer_hal.h"
 #include "KL25Z\es670_peripheral_board.h"
 
+#define CLKIN0 1U
+#define EXTCLK_4 2U
+#define EXTCLK_3 1U
+#define PRESCALE_FACTOR_1 7U
+#define OSCERCLK_25 2U
+#define OSCERCLK_24 1U
+
 /* ************************************************ */
 /* Method name:        tachometer_initSensor        */
 /* Method description: Initialize the board         */
@@ -19,19 +26,28 @@
 /* ************************************************ */
 void tachometer_initSensor(void)
 {
+
 	/* Enable device */
     SIM_SCGC6 |= SIM_SCGC6_TPM0(CGC_CLOCK_ENABLED);
 
 	/* Enable device */
+    SIM_SCGC5 |= SIM_SCGC5_PORTE(CGC_CLOCK_ENABLED);
+
+    PORTE_PCR29 |= PORT_PCR_MUX(TACHOMETER_ALT);
+
+	/* Select output port to counter */
     SIM_SOPT4 &= ~SIM_SOPT4_TPM0CLKSEL(CLKIN0);
 
-    /* FEITO ATE AQUI */
-    /* 553, 196 */
+    /* Use a external clock */
+    TPM0_SC |= TPM_SC_CMOD(EXTCLK_4);
+    TPM0_SC &= ~TPM_SC_CMOD(EXTCLK_3);
 
-    /* Set as GPIO */
-    PORTA_PCR13 |= PORT_PCR_MUX(COOLER_ALT);
-    /* Set as Output */
-    GPIOA_PDDR |= GPIO_PDDR_PDD(COOLER_DIR);
+    /* Set Prescale factor to 1:1 */
+    TPM0_SC &= ~TPM_SC_PS(PRESCALE_FACTOR_1);
+
+    /* Uses the internal reference clock */
+    SIM_SOPT2 |= SIM_SOPT2_TPMSRC(OSCERCLK_25);
+    SIM_SOPT2 &= ~SIM_SOPT2_TPMSRC(OSCERCLK_24);
 }
 
 
@@ -39,10 +55,14 @@ void tachometer_initSensor(void)
 /* Method name:        tachometer_readSensor             */
 /* Method description: Read the board tachometer sensor. */
 /* Input params:       n/a                               */
-/* Output params:      n/a                               */
+/* Output params:      int                               */
 /* ***************************************************** */
-void tachometer_readSensor(void)
+int tachometer_readSensor(void)
 {
-    GPIOA_PSOR = GPIO_PSOR_PTSO(0x01 << COOLER_PIN);
+	int iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+	TPM0_CNT = 0;
+	return iCoolerSpeed/7;
 }
+
+
 

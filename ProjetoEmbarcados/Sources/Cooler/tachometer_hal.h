@@ -11,8 +11,6 @@
 #ifndef SOURCES_TACHOMETER_HAL_H_
 #define SOURCES_TACHOMETER_HAL_H_
 
-#define CLKIN0 1U
-
 /* ************************************************ */
 /* Method name:        tachometer_initSensor        */
 /* Method description: Initialize the board         */
@@ -27,9 +25,9 @@ void tachometer_initSensor(void);
 /* Method name:        tachometer_readSensor             */
 /* Method description: Read the board tachometer sensor. */
 /* Input params:       n/a                               */
-/* Output params:      n/a                               */
+/* Output params:      int                               */
 /* ***************************************************** */
-void tachometer_readSensor(void);
+int tachometer_readSensor(void);
 
 
 #endif /* SOURCES_TACHOMETER_HAL_H_ */

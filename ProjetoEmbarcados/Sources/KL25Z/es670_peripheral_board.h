@@ -184,5 +184,15 @@
 /*                 END OF COOLER definitions             */
 
 
+/*                 TACHOMETER Definitions                    */
+#define TACHOMETER_PORT_BASE_PNT    PORTE                                   /* peripheral port base pointer */
+#define TACHOMETER_GPIO_BASE_PNT    PTE                                     /* peripheral gpio base pointer */
+
+#define TACHOMETER_PIN              29U                                      /* tachometer pin */
+#define TACHOMETER_DIR              (GPIO_INPUT << TACHOMETER_PIN)
+#define TACHOMETER_ALT              0x04u
+#define TACHOMETER_READ_MASK        0xffffu
+/*                 END OF TACHOMETER definitions             */
+
 
 #endif /* SOURCES_ES670_PERIPHERAL_BOARD_H_ */

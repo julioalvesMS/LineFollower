@@ -181,6 +181,7 @@
 #define COOLER_PIN                  13U                                      /* cooler pin */
 #define COOLER_DIR                  (GPIO_OUTPUT << COOLER_PIN)
 #define COOLER_ALT                  0x01u
+#define COOLER_ALT_PWM              0x03u
 /*                 END OF COOLER definitions             */
 
 

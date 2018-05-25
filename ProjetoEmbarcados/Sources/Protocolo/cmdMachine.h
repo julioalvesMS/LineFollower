@@ -19,6 +19,8 @@ typedef enum
 	SWITCH,
 
 	BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
+
+	COOLER,
 } state_machine_type_e;
 
 /* Constants to inform if the input was wrong or not */

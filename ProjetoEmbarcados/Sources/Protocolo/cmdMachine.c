@@ -15,6 +15,7 @@
 /* Hardware abstraction layers and communication */
 #include "Serial\serial.h"
 #include "LedSwi\ledswi_hal.h"
+#include "Cooler\timer_counter.h"
 
 
 /* ***************************************************** */
@@ -48,6 +49,9 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             else if('B'==ucDataValue)
                 smNextState = BUZZER;
 
+            else if('C'==ucDataValue)
+                smNextState = COOLER;
+
             else
                 cErr = ERR;
 
@@ -74,7 +78,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 serial_sendAck();
             }
             else cErr = ERR;
-        break;
+            break;
 
         case LED_SET:
             if('1'<=ucDataValue && ucDataValue <='4')
@@ -83,7 +87,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 serial_sendAck();
             }
             else cErr = ERR;
-        break;
+            break;
 
         case LED_READ:
             if('1'<=ucDataValue && ucDataValue <='4')
@@ -109,7 +113,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 	serial_putChar('O');
             }
             else cErr = ERR;
-        break;
+            break;
 
         case BUZZER:
             if('0'<=ucDataValue && ucDataValue <='9')
@@ -118,7 +122,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 smNextState = BUZZER_TIMER_X00;
             }
             else cErr = ERR;
-        break;
+            break;
 
         case BUZZER_TIMER_X00:
             if('0'<=ucDataValue && ucDataValue <='9')
@@ -127,7 +131,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 smNextState = BUZZER_TIMER_XX0;
             }
             else cErr = ERR;
-        break;
+            break;
 
         case BUZZER_TIMER_XX0:
             if('0'<=ucDataValue && ucDataValue <='9')
@@ -139,7 +143,17 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 
             }
             else cErr = ERR;
-        break;
+            break;
+        case COOLER:
+            if('0'<=ucDataValue && ucDataValue <='4')
+            {
+            	timer_cooler_setSpeed(ucDataValue-'0');
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+        	break;
+
     } /* switch(ssmCurrentState) */
 
     /* Changes the current state to the next */

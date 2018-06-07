@@ -20,6 +20,7 @@
 #include "LCD\lcd_hal.h"
 #include "Cooler\cooler_hal.h"
 #include "Cooler\tachometer_hal.h"
+#include "Cooler\timer_counter.h"
 
 /* communication */
 #include "Serial\serial.h"
@@ -132,8 +133,9 @@ void setupPeripherals()
     /* Start the LCD */
     lcd_initLcd();
 
-    /* Prepare the cooler */
-    cooler_initCooler();
+    /* Prepare the cooler as PWM */
+    timer_initTPM1AsPWM();
+    timer_cooler_init();
 
 }
 

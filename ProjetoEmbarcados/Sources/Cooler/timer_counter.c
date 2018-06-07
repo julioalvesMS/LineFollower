@@ -39,14 +39,9 @@ void timer_initTPM1AsPWM(void)
 	/* Resets CNT register */
 	TPM1_CNT = TPM_CNT_COUNT(0x00U);
 
-	//TPM1_MOD &= ~MASK_16BITS;
 	TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
 
-    TPM1_C1V = TPM_CnV_VAL(PWM_100pct*85/100); //PWM 100%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_75pct); //PWM 75%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_50pct); //PWM 50%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_25pct); //PWM 25%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
+    TPM1_C1V = TPM_CnV_VAL(PWM_100pct*85/100);
 
 
 }
@@ -72,20 +67,20 @@ void timer_cooler_setSpeed(char cCoolerSpeed)
 	switch(cCoolerSpeed)
 	{
 		case 4:
-			TPM1_C1V = TPM_CnV_VAL(PWM_100pct); //PWM 100%
+			TPM1_C1V = TPM_CnV_VAL(PWM_100pct); /* PWM 100% */
 			break;
 		case 3:
-			TPM1_C1V = TPM_CnV_VAL(PWM_75pct); //PWM 75%
+			TPM1_C1V = TPM_CnV_VAL(PWM_75pct); /* PWM 75% */
 			break;
 		case 2:
-			TPM1_C1V = TPM_CnV_VAL(PWM_50pct); //PWM 50%
+			TPM1_C1V = TPM_CnV_VAL(PWM_50pct); /* PWM 50% */
 			break;
 		case 1:
-			TPM1_C1V = TPM_CnV_VAL(PWM_25pct); //PWM 25%
+			TPM1_C1V = TPM_CnV_VAL(PWM_25pct); /* PWM 25% */
 			break;
 		case 0:
 		default:
-			TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
+			TPM1_C1V = TPM_CnV_VAL(PWM_0pct); /* PWM 0% */
 			break;
 	}
 }

@@ -21,6 +21,8 @@
 #include "Cooler\cooler_hal.h"
 #include "Cooler\tachometer_hal.h"
 #include "Cooler\timer_counter.h"
+#include "ADC\adc.h"
+#include "ADC\lut_adc_3v3.c"
 
 /* communication */
 #include "Serial\serial.h"
@@ -28,7 +30,7 @@
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         1000 * 1000 /* 1000000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         300 * 1000 /* 300000 micro seconds */
 
 
 /* globals */
@@ -125,7 +127,7 @@ void setupPeripherals()
     ledswi_initLedSwitch(0, 4);
 
     /* Start display7seg */
-   // display7seg_initDisplay();
+    /* display7seg_initDisplay(); */
 
     /* Start the buzzer */
     buzzer_init();
@@ -136,6 +138,25 @@ void setupPeripherals()
     /* Prepare the cooler as PWM */
     timer_initTPM1AsPWM();
     timer_cooler_init();
+
+}
+
+
+/* ****************************************************** */
+/* Method name:         setupPeripherals                  */
+/* Method description:  Makes the necessaries setups and  */
+/*                      initializations for a proper      */
+/*                      preparation of the peripherals    */
+/* Input params:        n/a                               */
+/* Output params:       n/a                               */
+/* ****************************************************** */
+void enableInterruptions()
+{
+
+    /* configure cyclic executive interruption */
+    tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+
+    serial_enableIRQ();
 
 }
 
@@ -159,18 +180,16 @@ int main(void)
     char cLine1[17] = "Seu Claudio tem";
 	char cLine2[17] = "###@ filhos!";
 	cLine2[3] = 247;
+
     /* Make all the required inicializations */
     setupPeripherals();
 
-    cooler_startCooler();
-
-    /* configure cyclic executive interruption */
-    tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+    enableInterruptions();
 
     for (;;)
     {
-        if(serial_hasData()){
-            ucDataValue = serial_getChar();
+    	ucDataValue = serial_bufferReadData();
+        if(ucDataValue){
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 
@@ -183,7 +202,8 @@ int main(void)
             playBuzz1ms();
             iBuzzerTimer--;
         }
-        iCoolerSpeed = tachometer_readSensor();
+        //iCoolerSpeed = tachometer_readSensor();
+        iCoolerSpeed = adc_getConvertionValue();
         cLine2[2] = (char) (iCoolerSpeed % 10) + '0';
         iCoolerSpeed = iCoolerSpeed/10;
 

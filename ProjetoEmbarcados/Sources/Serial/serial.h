@@ -11,6 +11,7 @@
 #ifndef SOURCES_SERIAL_H_
 #define SOURCES_SERIAL_H_
 
+#define BUFFER_SIZE 16
 
 /* ************************************************ */
 /* Method name:        serial_init                  */
@@ -19,6 +20,10 @@
 /* Output params:      n/a                          */
 /* ************************************************ */
 void serial_init(void);
+
+void serial_enableIRQ(void);
+void UART0_IRQHandler(void);
+unsigned char serial_bufferReadData(void);
 
 
 /* ************************************************ */

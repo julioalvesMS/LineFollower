@@ -35,6 +35,8 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 {
     static state_machine_type_e ssmCurrentState = IDLE;
     static int siBuzzerTimer;
+    static unsigned char sucCoolerSpeed;
+
     state_machine_type_e smNextState = IDLE;
     char cErr = OK;
     switch(ssmCurrentState)
@@ -105,8 +107,8 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
         case SWITCH:
             if('1'<=ucDataValue && ucDataValue <='4')
             {
-                serial_sendAck();
                 ledswi_initLedSwitch(0, 4);
+                serial_sendAck();
                 if(SWITCH_ON == ledswi_getSwitchStatus(ucDataValue-'0'))
                 	serial_putChar('C');
                 else
@@ -145,9 +147,19 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             else cErr = ERR;
             break;
         case COOLER:
-            if('0'<=ucDataValue && ucDataValue <='4')
+            if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	timer_cooler_setSpeed(ucDataValue-'0');
+            	sucCoolerSpeed = (ucDataValue-'0')*10;
+            	smNextState = COOLER_SPEED_X0;
+
+            }
+            else cErr = ERR;
+        	break;
+        case COOLER_SPEED_X0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sucCoolerSpeed += (ucDataValue-'0');
+            	timer_cooler_setSpeed(sucCoolerSpeed);
                 serial_sendAck();
 
             }

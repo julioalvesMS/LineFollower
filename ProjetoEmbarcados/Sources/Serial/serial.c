@@ -14,6 +14,7 @@
 #include "fsl_debug_console.h"
 #include "fsl_device_registers.h"
 
+unsigned char ucvBuffer[BUFFER_SIZE];
 
 /* ************************************************ */
 /* Method name:        serial_init                  */
@@ -26,6 +27,62 @@ void serial_init(void)
     /* Start serial communication */
     debugUart_init();
 
+}
+
+
+/* ************************************************ */
+/* Method name:        serial_init                  */
+/* Method description: Initialize the serial port   */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void serial_enableIRQ(void)
+{
+	int i;
+
+	/* Start all buffer positions as \0 */
+	for(i=0;i<BUFFER_SIZE;i++)
+		ucvBuffer[i] = '\0';
+
+    /* Enable interruption */
+    NVIC_EnableIRQ(UART0_IRQn);
+    UART0_C2_REG(UART0) |= UART0_C2_RIE(1);
+}
+
+
+/* ************************************************ */
+/* Method name:        serial_hasData               */
+/* Method description: Informs if there is data in  */
+/*                     the buffer that can be read  */
+/* Input params:       n/a                          */
+/* Output params:      char: 1 if true else 0       */
+/* ************************************************ */
+void UART0_IRQHandler(void)
+{
+	static unsigned char ucBufferPointer = 0;
+	ucvBuffer[ucBufferPointer] = GETCHAR();
+	ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
+}
+
+
+/* ************************************************ */
+/* Method name:        serial_hasData               */
+/* Method description: Informs if there is data in  */
+/*                     the buffer that can be read  */
+/* Input params:       n/a                          */
+/* Output params:      char: 1 if true else 0       */
+/* ************************************************ */
+unsigned char serial_bufferReadData(void)
+{
+	static unsigned char ucBufferPointer = 0;
+	unsigned char ucData = ucvBuffer[ucBufferPointer];
+	if(ucData != '\0')
+	{
+		ucvBuffer[ucBufferPointer] = '\0';
+		ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
+
+	}
+	return ucData;
 }
 
 

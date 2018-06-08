@@ -37,7 +37,7 @@ void timer_initTPM1AsPWM(void);
 void timer_cooler_init(void);
 
 
-void timer_cooler_setSpeed(char cCoolerSpeed);
+void timer_cooler_setSpeed(unsigned char ucCoolerSpeed);
 
 
 

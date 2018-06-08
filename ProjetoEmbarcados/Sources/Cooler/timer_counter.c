@@ -42,11 +42,15 @@ void timer_initTPM1AsPWM(void)
 	//TPM1_MOD &= ~MASK_16BITS;
 	TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
 
+<<<<<<< Updated upstream
     TPM1_C1V = TPM_CnV_VAL(PWM_100pct*85/100); //PWM 100%
 //	TPM1_C1V = TPM_CnV_VAL(PWM_75pct); //PWM 75%
 //	TPM1_C1V = TPM_CnV_VAL(PWM_50pct); //PWM 50%
 //	TPM1_C1V = TPM_CnV_VAL(PWM_25pct); //PWM 25%
 //	TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
+=======
+    TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
+>>>>>>> Stashed changes
 
 
 }
@@ -67,8 +71,9 @@ void timer_cooler_init(void)
 
 }
 
-void timer_cooler_setSpeed(char cCoolerSpeed)
+void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
 {
+<<<<<<< Updated upstream
 	switch(cCoolerSpeed)
 	{
 		case 4:
@@ -88,4 +93,7 @@ void timer_cooler_setSpeed(char cCoolerSpeed)
 			TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
 			break;
 	}
+=======
+	TPM1_C1V = TPM_CnV_VAL(PWM_PERIOD * ucCoolerSpeed/100);
+>>>>>>> Stashed changes
 }

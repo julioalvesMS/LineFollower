@@ -9,16 +9,6 @@
 #ifndef SOURCES_TIMER_COUNTER_HAL_H_
 #define SOURCES_TIMER_COUNTER_HAL_H_
 
-typedef enum
-{
-    SPEED_100,
-    SPEED_75,
-    SPEED_50,
-    SPEED_25,
-	SPEED_0
-
-} cooler_speed_type_e;
-
 
 /* ************************************************** */
 /* Method name: 	   timer_initTPM1AsPWM        */

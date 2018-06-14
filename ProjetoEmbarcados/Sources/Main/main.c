@@ -216,7 +216,7 @@ int main(void)
         iLCDDisplayNumber = iLCDDisplayNumber/10;
         cLine2[2] = (char) (iLCDDisplayNumber % 10) + '0';
 
-        iRawTemperatureData = adc_convertion() & 0xff;
+        iRawTemperatureData = adc_convertion();
         iLCDDisplayNumber = tabela_temp[iRawTemperatureData];
         cLine1[4] = (char) (iLCDDisplayNumber % 10) + '0';
         iLCDDisplayNumber = iLCDDisplayNumber/10;

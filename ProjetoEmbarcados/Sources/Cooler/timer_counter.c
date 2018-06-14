@@ -6,9 +6,17 @@
 #define LPTPM_COUNTER_MODE_3    1U
 #define UP_COUNTER_MODE         1U
 #define PRESCALE_FACTOR_1       7U
+
 #define CH1_INTERRUPTION        1U
-#define CH1_EDGE_ALIGN          1U
-#define CH1_HIGH_TRUE           1U
+#define CH1_EDGE_ALIGN_A        0U
+#define CH1_EDGE_ALIGN_B        1U
+#define CH1_HIGH_TRUE_A         0U
+#define CH1_HIGH_TRUE_B         1U
+
+#define CH0_EDGE_ALIGN_A        0U
+#define CH0_EDGE_ALIGN_B        1U
+#define CH0_HIGH_TRUE_A         0U
+#define CH0_HIGH_TRUE_B         1U
 
 /* ************************************************** */
 /* Method name: 	   timer_initTPM1AsPWM            */
@@ -31,10 +39,13 @@ void timer_initTPM1AsPWM(void)
     /* Prescale ratio factor set to 1:1 */
     TPM1_SC &= ~TPM_SC_PS(PRESCALE_FACTOR_1);
 
+
+    /* COOLER CONFIGURATIONS */
+
     /* Enable interruptions */
 	/* Use edge aligned PWM mode */
 	/* Use as High True */
-	TPM1_C1SC |= TPM_CnSC_CHIE(CH1_INTERRUPTION) | TPM_CnSC_MSB(CH1_EDGE_ALIGN) | TPM_CnSC_ELSB(CH1_HIGH_TRUE);
+	TPM1_C1SC |= TPM_CnSC_CHIE(CH1_INTERRUPTION) | TPM_CnSC_MSB(CH1_EDGE_ALIGN_B) | TPM_CnSC_ELSB(CH1_HIGH_TRUE_B);
 
 	/* Resets CNT register */
 	TPM1_CNT = TPM_CNT_COUNT(0x00U);
@@ -42,15 +53,21 @@ void timer_initTPM1AsPWM(void)
 	//TPM1_MOD &= ~MASK_16BITS;
 	TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
 
-<<<<<<< Updated upstream
-    TPM1_C1V = TPM_CnV_VAL(PWM_100pct*85/100); //PWM 100%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_75pct); //PWM 75%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_50pct); //PWM 50%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_25pct); //PWM 25%
-//	TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
-=======
     TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
->>>>>>> Stashed changes
+
+    /* END COOLER CONFIGURATIONS */
+
+
+	/* HEATER CONFIGURATIONS */
+
+	/* Use edge aligned PWM mode */
+	/* Use as High True */
+    TPM1_C0SC |= (TPM_CnSC_MSB(CH0_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH0_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH0_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH0_HIGH_TRUE_A));
+
+    TPM1_C0V = 0x00; //PWM 00%
+
+    /* END HEATER CONFIGURATIONS */
+
 
 
 }
@@ -71,29 +88,45 @@ void timer_cooler_init(void)
 
 }
 
+
+/* ************************************************ */
+/* Method name:        timer_coolerfan_init         */
+/* Method description: Initialize the cooler device */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
 {
-<<<<<<< Updated upstream
-	switch(cCoolerSpeed)
-	{
-		case 4:
-			TPM1_C1V = TPM_CnV_VAL(PWM_100pct); //PWM 100%
-			break;
-		case 3:
-			TPM1_C1V = TPM_CnV_VAL(PWM_75pct); //PWM 75%
-			break;
-		case 2:
-			TPM1_C1V = TPM_CnV_VAL(PWM_50pct); //PWM 50%
-			break;
-		case 1:
-			TPM1_C1V = TPM_CnV_VAL(PWM_25pct); //PWM 25%
-			break;
-		case 0:
-		default:
-			TPM1_C1V = TPM_CnV_VAL(PWM_0pct); //PWM 0%
-			break;
-	}
-=======
 	TPM1_C1V = TPM_CnV_VAL(PWM_PERIOD * ucCoolerSpeed/100);
->>>>>>> Stashed changes
+}
+
+
+/* ************************************************** */
+/* Method name:        timer_heater_changeTemperature */
+/* Method description: change the cooler pwm          */
+/* Input params:       pwm desired (percentage)       */
+/* Output params:      n/a                            */
+/* ************************************************** */
+void timer_heater_changeTemperature(int iPwm)
+{
+	if(iPwm>50){
+		iPwm = 50;
+	}
+	iPwm = (iPwm*TPM1_MOD)/100;
+	TPM1_C0V = iPwm;
+}
+
+/* ************************************************ */
+/* Method name:        timer_initHeater             */
+/* Method description: Initialize the heater device */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void timer_heater_initHeater(void)
+{
+    /* un-gate port clock*/
+    SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
+
+    /* set pin as PWM */
+    PORTA_PCR12 |= PORT_PCR_MUX(HEATER_ALT);
 }

@@ -111,6 +111,7 @@ void serial_sendAck(void)
     PUTCHAR('A');
     PUTCHAR('C');
     PUTCHAR('K');
+    serial_sendLineBreak();
 }
 
 
@@ -126,8 +127,25 @@ void serial_sendErr(void)
     PUTCHAR('E');
     PUTCHAR('R');
     PUTCHAR('R');
+    serial_sendLineBreak();
 }
 
+
+void serial_sendADConversion(unsigned char ucValue)
+{
+    PUTCHAR('0'+ucValue/100);
+    ucValue = ucValue%100;
+    PUTCHAR('0'+ucValue/10);
+    ucValue = ucValue%10;
+    PUTCHAR('0'+ucValue);
+    serial_sendLineBreak();
+}
+
+void serial_sendLineBreak()
+{
+    PUTCHAR(13);
+    PUTCHAR(10);
+}
 
 /* ************************************************ */
 /* Method name:        serial_getChar               */

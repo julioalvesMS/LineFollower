@@ -140,7 +140,6 @@ void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char ucDataType)
     util_genDelay1ms();
     GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_ENABLE_PIN);
     util_genDelay1ms();
-    util_genDelay1ms();
 }
 
 

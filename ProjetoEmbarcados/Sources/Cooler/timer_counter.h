@@ -27,8 +27,28 @@ void timer_initTPM1AsPWM(void);
 void timer_cooler_init(void);
 
 
+/* ************************************************ */
+/* Method name:        timer_coolerfan_init         */
+/* Method description: Initialize the cooler device */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void timer_cooler_setSpeed(unsigned char ucCoolerSpeed);
 
+/* ************************************************** */
+/* Method name:        timer_heater_changeTemperature */
+/* Method description: change the cooler pwm          */
+/* Input params:       pwm desired (percentage)       */
+/* Output params:      n/a                            */
+/* ************************************************** */
+void timer_heater_changeTemperature(int iPwm);
 
+/* ************************************************ */
+/* Method name:        timer_initHeater             */
+/* Method description: Initialize the heater device */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void timer_heater_initHeater(void);
 
 #endif /* SOURCES_TIMER_COUNTER_HAL_H_ */

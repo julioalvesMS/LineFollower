@@ -27,7 +27,7 @@ void adc_initConvertion(void);
 /* Input params:	   n/a 		              */
 /* Outpu params:	   n/a 			      */
 /* ************************************************** */
-int adc_isAdcDone(void);
+char adc_isAdcDone(void);
 
 
 /* ************************************************** */
@@ -38,5 +38,13 @@ int adc_isAdcDone(void);
 /* ************************************************** */
 int adc_getConvertionValue(void);
 
+
+/* ************************************************** */
+/* Method name: 	   adc_convertion     */
+/* Method description: retrieve converted value       */
+/* Input params:	   n/a 			      */
+/* Outpu params:	   n/a 			      */
+/* ************************************************** */
+int adc_convertion(void);
 
 #endif /* SOURCES_ADC_HAL_H_ */

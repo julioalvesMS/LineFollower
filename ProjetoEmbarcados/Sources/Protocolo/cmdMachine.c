@@ -36,6 +36,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
     static state_machine_type_e ssmCurrentState = IDLE;
     static int siBuzzerTimer;
     static unsigned char sucCoolerSpeed;
+    static unsigned char sucHeaterPower;
 
     state_machine_type_e smNextState = IDLE;
     char cErr = OK;
@@ -53,6 +54,9 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 
             else if('C'==ucDataValue)
                 smNextState = COOLER;
+
+            else if('H'==ucDataValue)
+                smNextState = HEATER;
 
             else
                 cErr = ERR;
@@ -160,6 +164,25 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             {
             	sucCoolerSpeed += (ucDataValue-'0');
             	timer_cooler_setSpeed(sucCoolerSpeed);
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+        	break;
+        case HEATER:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sucHeaterPower = (ucDataValue-'0')*10;
+            	smNextState = HEATER_POT_X0;
+
+            }
+            else cErr = ERR;
+        	break;
+        case HEATER_POT_X0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sucHeaterPower += (ucDataValue-'0');
+            	timer_heater_changeTemperature(sucHeaterPower);
                 serial_sendAck();
 
             }

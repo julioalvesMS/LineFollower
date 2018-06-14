@@ -3,8 +3,6 @@
  *                   modificado para o range 0 - 3v3                     *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-#ifndef TABELA_TEMP
-#define TABELA_TEMP
 const unsigned char tabela_temp[256] = {
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,					//15
 		0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,					//31
@@ -24,4 +22,3 @@ const unsigned char tabela_temp[256] = {
 		73, 73, 73, 73, 74, 74, 75, 75, 75, 75, 76, 76, 77, 77, 77, 77	//255
 };
 
-#endif

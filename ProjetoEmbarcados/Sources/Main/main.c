@@ -22,7 +22,7 @@
 #include "Cooler\tachometer_hal.h"
 #include "Cooler\timer_counter.h"
 #include "ADC\adc.h"
-#include "ADC\lut_adc_3v3.c"
+#include "ADC\lut_adc_3v3.h"
 
 /* communication */
 #include "Serial\serial.h"
@@ -30,12 +30,12 @@
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         300 * 1000 /* 300000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 300000 micro seconds */
 
 
 /* globals */
 volatile unsigned int uiFlagNextPeriod = 0;         /* cyclic executive flag */
-
+extern const unsigned char tabela_temp[256];
 
 /* ****************************************************** */
 /* Method name:         showHexNumber                     */
@@ -139,6 +139,10 @@ void setupPeripherals()
     timer_initTPM1AsPWM();
     timer_cooler_init();
 
+    adc_initADCModule();
+
+    timer_heater_initHeater();
+
 }
 
 
@@ -175,11 +179,13 @@ int main(void)
     unsigned char ucDataValue;
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
-    int iCoolerSpeed = 0;
+    int iLCDDisplayNumber = 0;
+    int iRawTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char cLine1[17] = "Seu Claudio tem";
-	char cLine2[17] = "###@ filhos!";
-	cLine2[3] = 247;
+    char cLine1[17] = "T:###°C R:###";
+	char cLine2[17] = "S:###@Hz RIP SC";
+	cLine1[5] = 223;
+	cLine2[5] = 247;
 
     /* Make all the required inicializations */
     setupPeripherals();
@@ -202,15 +208,28 @@ int main(void)
             playBuzz1ms();
             iBuzzerTimer--;
         }
-        //iCoolerSpeed = tachometer_readSensor();
-        iCoolerSpeed = adc_getConvertionValue();
-        cLine2[2] = (char) (iCoolerSpeed % 10) + '0';
-        iCoolerSpeed = iCoolerSpeed/10;
 
-        cLine2[1] = (char) (iCoolerSpeed % 10) + '0';
-        iCoolerSpeed = iCoolerSpeed/10;
+        iLCDDisplayNumber = tachometer_readSensor();
+        cLine2[4] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine2[3] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine2[2] = (char) (iLCDDisplayNumber % 10) + '0';
 
-        cLine2[0] = (char) (iCoolerSpeed % 10) + '0';
+        iRawTemperatureData = adc_convertion() & 0xff;
+        iLCDDisplayNumber = tabela_temp[iRawTemperatureData];
+        cLine1[4] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine1[3] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine1[2] = (char) (iLCDDisplayNumber % 10) + '0';
+
+        iLCDDisplayNumber = iRawTemperatureData;
+        cLine1[12] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine1[11] = (char) (iLCDDisplayNumber % 10) + '0';
+        iLCDDisplayNumber = iLCDDisplayNumber/10;
+        cLine1[10] = (char) (iLCDDisplayNumber % 10) + '0';
 
         lcd_writeText(cLine1,cLine2);
 

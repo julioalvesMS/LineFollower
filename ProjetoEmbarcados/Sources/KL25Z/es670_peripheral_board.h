@@ -220,4 +220,14 @@
 
 
 
+/*                 HEATER DEFINITIONS                    */
+#define HEATER_PORT_BASE_PNT    PORTA                                   /* peripheral port base pointer */
+#define HEATER_GPIO_BASE_PNT    PTA                                     /* peripheral gpio base pointer */
+
+#define HEATER_PIN              12U                                      /* thermometer pin */
+#define HEATER_DIR              (GPIO_INPUT << HEATER_PIN)
+#define HEATER_ALT              0x03u
+/*                 END OF HEATER DEFINITIONS             */
+
+
 #endif /* SOURCES_ES670_PERIPHERAL_BOARD_H_ */

@@ -45,6 +45,7 @@ char serial_hasData(void);
 /* ************************************************ */
 void serial_sendAck(void);
 
+void serial_sendADConversion(unsigned char ucValue);
 
 /* ************************************************ */
 /* Method name:        serial_sendErr               */

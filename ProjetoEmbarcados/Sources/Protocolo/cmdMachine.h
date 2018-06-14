@@ -20,7 +20,9 @@ typedef enum
 
 	BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
 
-	COOLER, COOLER_SPEED_X0
+	COOLER, COOLER_SPEED_X0,
+
+	HEATER, HEATER_POT_X0
 } state_machine_type_e;
 
 /* Constants to inform if the input was wrong or not */

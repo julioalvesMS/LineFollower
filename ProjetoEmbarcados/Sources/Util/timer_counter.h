@@ -39,9 +39,9 @@ void timer_cooler_init(void);
 /* ************************************************ */
 /* Method name:        timer_coolerfan_init         */
 /* Method description: Initialize the cooler device */
-/* Input params:       n/a                          */
+/* Input params:       ucCoolerSpeed = Cooler power */
+/*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
-/* ************************************************ */
 void timer_cooler_setSpeed(unsigned char ucCoolerSpeed);
 
 /* ************************************************** */

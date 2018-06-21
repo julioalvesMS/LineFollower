@@ -160,7 +160,7 @@ void serial_sendADConversion(unsigned char ucValue)
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void serial_sendLineBreak()
+void serial_sendLineBreak(void)
 {
     PUTCHAR(13);
     PUTCHAR(10);
@@ -172,7 +172,7 @@ void serial_sendLineBreak()
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-unsigned char serial_getChar()
+unsigned char serial_getChar(void)
 {
     return GETCHAR();
 }

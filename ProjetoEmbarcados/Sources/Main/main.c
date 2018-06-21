@@ -152,7 +152,7 @@ void setupPeripherals()
 /* Input params:        n/a                               */
 /* Output params:       n/a                               */
 /* ****************************************************** */
-void enableInterruptions()
+void enableInterruptions(void)
 {
 
     /* configure cyclic executive interruption */

@@ -22,7 +22,7 @@
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void display7seg_initDisplay();
+void display7seg_initDisplay(void);
 
 
 /* ***************************************************** */

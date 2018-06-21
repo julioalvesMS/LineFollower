@@ -75,7 +75,7 @@ void timer_initTPM1AsPWM(void)
     /* Use as High True */
     TPM1_C0SC |= (TPM_CnSC_MSB(CH0_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH0_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH0_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH0_HIGH_TRUE_A));
 
-    TPM1_C0V = 0x00; //PWM 00%
+    TPM1_C0V = PWM_0pct; //PWM 00%
 
     /* END HEATER CONFIGURATIONS */
 

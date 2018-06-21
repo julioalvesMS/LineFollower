@@ -10,10 +10,6 @@
 /* ***************************************************************** */
 
 #define PWM_PERIOD 99
-#define PWM_100pct PWM_PERIOD
-#define PWM_75pct  PWM_PERIOD*3/4
-#define PWM_50pct  PWM_PERIOD/2
-#define PWM_25pct  PWM_PERIOD/4
 #define PWM_0pct   0
 
 #ifndef SOURCES_TIMER_COUNTER_HAL_H_

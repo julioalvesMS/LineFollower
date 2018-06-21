@@ -88,14 +88,14 @@ void serial_sendAck(void);
 void serial_sendErr(void);
 
 /* ************************************************ */
-/* Method name:        serial_sendADConversion      */
+/* Method name:        serial_sendADConvertion      */
 /* Method description: Sends a 3 digits value from  */
 /*                     the AD through the serial    */
 /*                     port                         */
 /* Input params:       ucValue = value to send      */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void serial_sendADConversion(unsigned char ucValue);
+void serial_sendADConvertion(unsigned char ucValue);
 
 /* ************************************************ */
 /* Method name:        serial_sendLineBreak         */

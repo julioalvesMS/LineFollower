@@ -18,41 +18,41 @@
 #include "fsl_gpio_hal.h"
 
 /* line and columns */
-#define LINE0        0U
+#define LINE0          0U
 #define COLUMN0        0U
 
 #define L0C0_BASE    0x80 /* line 0, column 0 */
 #define L1C0_BASE    0xC0 /* line 1, column 0 */
-#define MAX_COLUMN  15U
+#define MAX_COLUMN    15U
 
 /* ************************************************ */
 /* Method name:        lcd_initLcd                  */
 /* Method description: Initialize the LCD function  */
 /* Input params:       n/a                          */
-/* Output params:       n/a                         */
+/* Output params:      n/a                          */
 /* ************************************************ */
 void lcd_initLcd(void)
 {
     /* pins configured as outputs */
 
     /* un-gate port clock*/
-	SIM_SCGC5 |= SIM_SCGC5_PORTC(CGC_CLOCK_ENABLED);
+    SIM_SCGC5 |= SIM_SCGC5_PORTC(CGC_CLOCK_ENABLED);
 
     /* set pin as gpio */
-	PORTC_PCR8 |= PORT_PCR_MUX(LCD_RS_ALT);
-	PORTC_PCR9 |= PORT_PCR_MUX(LCD_ENABLE_ALT);
-	PORTC_PCR0 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR1 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR2 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR3 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR4 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR5 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR6 |= PORT_PCR_MUX(LCD_DATA_ALT);
-	PORTC_PCR7 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR8 |= PORT_PCR_MUX(LCD_RS_ALT);
+    PORTC_PCR9 |= PORT_PCR_MUX(LCD_ENABLE_ALT);
+    PORTC_PCR0 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR1 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR2 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR3 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR4 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR5 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR6 |= PORT_PCR_MUX(LCD_DATA_ALT);
+    PORTC_PCR7 |= PORT_PCR_MUX(LCD_DATA_ALT);
 
     /* set pin as digital output */
-	GPIOC_PDDR |= GPIO_PDDR_PDD(LCD_DATA_DB0_DIR | LCD_DATA_DB1_DIR | LCD_DATA_DB2_DIR | LCD_DATA_DB3_DIR |
-				LCD_DATA_DB4_DIR | LCD_DATA_DB5_DIR | LCD_DATA_DB6_DIR | LCD_DATA_DB7_DIR | LCD_RS_DIR | LCD_ENABLE_DIR );
+    GPIOC_PDDR |= GPIO_PDDR_PDD(LCD_DATA_DB0_DIR | LCD_DATA_DB1_DIR | LCD_DATA_DB2_DIR | LCD_DATA_DB3_DIR |
+                LCD_DATA_DB4_DIR | LCD_DATA_DB5_DIR | LCD_DATA_DB6_DIR | LCD_DATA_DB7_DIR | LCD_RS_DIR | LCD_ENABLE_DIR );
 
     // turn-on LCD, with no cursor and no blink
     lcd_sendCommand(CMD_NO_CUR_NO_BLINK);
@@ -87,7 +87,7 @@ void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char ucDataType)
     if(LCD_RS_CMD == ucDataType)
         /* will send a command */
        /* GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_CMD);*/
-    	GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_RS_HIGH << LCD_RS_PIN);
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_RS_HIGH << LCD_RS_PIN);
     else
         /* will send data */
         /*GPIO_HAL_WritePinOutput(LCD_GPIO_BASE_PNT, LCD_RS_PIN, LCD_RS_DATA);*/
@@ -100,46 +100,45 @@ void lcd_write2Lcd(unsigned char ucBuffer,  unsigned char ucDataType)
         GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB0_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 1u)) >> 1u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB1_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB1_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB1_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB1_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 2u)) >> 2u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB2_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB2_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB2_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB2_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 3u)) >> 3u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB3_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB3_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB3_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB3_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 4u)) >> 4u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB4_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB4_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB4_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB4_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 5u)) >> 5u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB5_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB5_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB5_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB5_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 6u)) >> 6u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB6_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB6_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB6_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB6_PIN);
 
     if(LCD_ENABLED == ((ucBuffer & (1u << 7u)) >> 7u))
-		GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB7_PIN);
-	else
-		GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB7_PIN);
+        GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_DATA_DB7_PIN);
+    else
+        GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_DATA_DB7_PIN);
 
     /* enable, delay, disable LCD */
     /* this generates a pulse in the enable pin */
     GPIOC_PSOR = GPIO_PSOR_PTSO(LCD_ENABLED << LCD_ENABLE_PIN);
     util_genDelay1ms();
     GPIOC_PCOR = GPIO_PCOR_PTCO(LCD_ENABLED << LCD_ENABLE_PIN);
-    util_genDelay1ms();
     util_genDelay1ms();
 }
 
@@ -241,4 +240,27 @@ void lcd_writeText(const char *cpLine1,const char *cpLine2)
     // set the cursor line 1, column 0
     lcd_setCursor(1,0);
     lcd_writeString(cpLine2);
+}
+
+
+/* ************************************************ */
+/* Method name:        lcd_writeNumberLine          */
+/* Method description: Write a number in a line to  */
+/*                     be sent to the LCD           */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     iValue => Number value to be */
+/*                       written.                   */
+/*                     cDigits => Number of digits  */
+/*                       that should be used to     */
+/*                       write the number           */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits)
+{
+    for(;cDigits>0;cDigits--){
+        cpLine[ucPointer+cDigits-1] = (char) (iValue % 10) + '0';
+        iValue = iValue/10;
+    }
 }

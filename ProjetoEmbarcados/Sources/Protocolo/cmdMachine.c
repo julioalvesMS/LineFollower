@@ -4,7 +4,7 @@
 /*                   responsable for the user interaction response.  */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    25abr2018                                       */
+/* Revision date:    21jun2018                                       */
 /* ***************************************************************** */
 
 #include "cmdMachine.h"
@@ -15,7 +15,7 @@
 /* Hardware abstraction layers and communication */
 #include "Serial\serial.h"
 #include "LedSwi\ledswi_hal.h"
-#include "Cooler\timer_counter.h"
+#include "Util\timer_counter.h"
 
 
 /* ***************************************************** */
@@ -35,6 +35,9 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 {
     static state_machine_type_e ssmCurrentState = IDLE;
     static int siBuzzerTimer;
+    static unsigned char sucCoolerSpeed;
+    static unsigned char sucHeaterPower;
+
     state_machine_type_e smNextState = IDLE;
     char cErr = OK;
     switch(ssmCurrentState)
@@ -51,6 +54,9 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 
             else if('C'==ucDataValue)
                 smNextState = COOLER;
+
+            else if('H'==ucDataValue)
+                smNextState = HEATER;
 
             else
                 cErr = ERR;
@@ -97,7 +103,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 if(cLedsStates[ucDataValue-'1'] == 1)
                     serial_putChar('C');
                 else
-                	serial_putChar('O');
+                    serial_putChar('O');
             }
             else cErr = ERR;
             break;
@@ -105,12 +111,12 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
         case SWITCH:
             if('1'<=ucDataValue && ucDataValue <='4')
             {
-                serial_sendAck();
                 ledswi_initLedSwitch(0, 4);
+                serial_sendAck();
                 if(SWITCH_ON == ledswi_getSwitchStatus(ucDataValue-'0'))
-                	serial_putChar('C');
+                    serial_putChar('C');
                 else
-                	serial_putChar('O');
+                    serial_putChar('O');
             }
             else cErr = ERR;
             break;
@@ -145,14 +151,43 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             else cErr = ERR;
             break;
         case COOLER:
-            if('0'<=ucDataValue && ucDataValue <='4')
+            if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	timer_cooler_setSpeed(ucDataValue-'0');
+                sucCoolerSpeed = (ucDataValue-'0')*10;
+                smNextState = COOLER_SPEED_X0;
+
+            }
+            else cErr = ERR;
+            break;
+        case COOLER_SPEED_X0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+                sucCoolerSpeed += (ucDataValue-'0');
+                timer_cooler_setSpeed(sucCoolerSpeed);
                 serial_sendAck();
 
             }
             else cErr = ERR;
-        	break;
+            break;
+        case HEATER:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+                sucHeaterPower = (ucDataValue-'0')*10;
+                smNextState = HEATER_POT_X0;
+
+            }
+            else cErr = ERR;
+            break;
+        case HEATER_POT_X0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+                sucHeaterPower += (ucDataValue-'0');
+                timer_heater_changeTemperature(sucHeaterPower);
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+            break;
 
     } /* switch(ssmCurrentState) */
 

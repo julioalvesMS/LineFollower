@@ -27,7 +27,6 @@ void buzzer_init(void)
 
     /* set pin as digital output */
     GPIOD_PDDR |= GPIO_PDDR_PDD(BUZZER_PIN);
-
 }
 
 
@@ -39,9 +38,7 @@ void buzzer_init(void)
 /* ************************************************ */
 void buzzer_clearBuzz(void)
 {
-    /* clear desired led */
     GPIOD_PCOR = GPIO_PCOR_PTCO(0x01);
-
 }
 
 
@@ -53,8 +50,5 @@ void buzzer_clearBuzz(void)
 /* ************************************************ */
 void buzzer_setBuzz(void)
 {
-    /* set desired led */
     GPIOD_PSOR = GPIO_PSOR_PTSO(0x01);
-
 }
-

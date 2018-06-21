@@ -79,4 +79,20 @@ void lcd_setCursor(unsigned char ucLine, unsigned char ucColumn);
 void lcd_writeText(const char *cpLine1, const char *cpLine2);
 
 
+/* ************************************************ */
+/* Method name:        lcd_writeNumberLine          */
+/* Method description: Write a number in a line to  */
+/*                     be sent to the LCD           */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     iValue => Number value to be */
+/*                       written.                   */
+/*                     cDigits => Number of digits  */
+/*                       that should be used to     */
+/*                       write the number           */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits);
+
 #endif /* SOURCES_LCD_HAL_H_ */

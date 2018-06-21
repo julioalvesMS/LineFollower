@@ -4,7 +4,7 @@
 /*                   interfaces for handling the state machine       */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    25abr2018                                       */
+/* Revision date:    21jun2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_CMDMASCHINE_H_
@@ -16,11 +16,13 @@ typedef enum
 
     LED,LED_CLEAR,LED_SET,LED_READ,
 
-	SWITCH,
+    SWITCH,
 
-	BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
+    BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
 
-	COOLER,
+    COOLER, COOLER_SPEED_X0,
+
+    HEATER, HEATER_POT_X0
 } state_machine_type_e;
 
 /* Constants to inform if the input was wrong or not */

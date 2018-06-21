@@ -5,14 +5,12 @@
 /*                    sequence and the main loop  */
 /* Author name:       julioalvesMS & IagoAF       */
 /* Creation date:     08mar2018                   */
-/* Revision date:     25abr2018                   */
+/* Revision date:     21jun2018                   */
 /* ********************************************** */
 
-/* System includes */
 #include "Util\util.h"
 #include "Util\tc_hal.h"
 
-/* Hardware abstraction layers */
 #include "Buzzer\buzzer_hal.h"
 #include "Util\mcg_hal.h"
 #include "LedSwi\ledswi_hal.h"
@@ -20,20 +18,21 @@
 #include "LCD\lcd_hal.h"
 #include "Cooler\cooler_hal.h"
 #include "Cooler\tachometer_hal.h"
-#include "Cooler\timer_counter.h"
+#include "Util\timer_counter.h"
+#include "ADC\adc.h"
+#include "ADC\lut_adc_3v3.h"
 
-/* communication */
 #include "Serial\serial.h"
 #include "Protocolo\cmdMachine.h"
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         1000 * 1000 /* 1000000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 300000 micro seconds */
 
 
 /* globals */
 volatile unsigned int uiFlagNextPeriod = 0;         /* cyclic executive flag */
-
+extern const unsigned char tabela_temp[256];
 
 /* ****************************************************** */
 /* Method name:         showHexNumber                     */
@@ -124,8 +123,9 @@ void setupPeripherals()
     /* Start leds */
     ledswi_initLedSwitch(0, 4);
 
+    /* DISABLED */
     /* Start display7seg */
-   // display7seg_initDisplay();
+    /* display7seg_initDisplay(); */
 
     /* Start the buzzer */
     buzzer_init();
@@ -137,6 +137,29 @@ void setupPeripherals()
     timer_initTPM1AsPWM();
     timer_cooler_init();
 
+    adc_initADCModule();
+
+    timer_heater_initHeater();
+
+}
+
+
+/* ****************************************************** */
+/* Method name:         setupPeripherals                  */
+/* Method description:  Makes the necessaries setups and  */
+/*                      initializations for a proper      */
+/*                      preparation of the peripherals    */
+/* Input params:        n/a                               */
+/* Output params:       n/a                               */
+/* ****************************************************** */
+void enableInterruptions()
+{
+
+    /* configure cyclic executive interruption */
+    tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+
+    /* Serial port interruption */
+    serial_enableIRQ();
 }
 
 
@@ -155,22 +178,26 @@ int main(void)
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
     int iCoolerSpeed = 0;
+    int iRawTemperatureData = 0;
+    int iTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char cLine1[17] = "Seu Claudio tem";
-	char cLine2[17] = "###@ filhos!";
-	cLine2[3] = 247;
+    char cLine1[17] = "T:###@C R:###";
+    char cLine2[17] = "C:###@Hz RIP SC";
+    cLine1[5] = 223;
+    cLine2[5] = 247;
+
     /* Make all the required inicializations */
     setupPeripherals();
 
-    cooler_startCooler();
-
-    /* configure cyclic executive interruption */
-    tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+    /* Enable needed interruptions */
+    enableInterruptions();
 
     for (;;)
     {
-        if(serial_hasData()){
-            ucDataValue = serial_getChar();
+        /* Checks the serial port buffer */
+        ucDataValue = serial_bufferReadData();
+        /* If new data, run state machine */
+        if(ucDataValue){
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
 
@@ -183,15 +210,22 @@ int main(void)
             playBuzz1ms();
             iBuzzerTimer--;
         }
+
+        /* Reads the cooler speed */
         iCoolerSpeed = tachometer_readSensor();
-        cLine2[2] = (char) (iCoolerSpeed % 10) + '0';
-        iCoolerSpeed = iCoolerSpeed/10;
 
-        cLine2[1] = (char) (iCoolerSpeed % 10) + '0';
-        iCoolerSpeed = iCoolerSpeed/10;
+        /* Reads the Temperature */
+        iRawTemperatureData = adc_converter();
+        iTemperatureData = tabela_temp[iRawTemperatureData];
 
-        cLine2[0] = (char) (iCoolerSpeed % 10) + '0';
+        /* Temperature in LCD */
+        lcd_writeNumberLine(cLine1, 2, iTemperatureData, 3);
+        /* Temperature sensor value in LCD */
+        lcd_writeNumberLine(cLine1, 10, iRawTemperatureData, 3);
+        /* Cooler speed in LCD */
+        lcd_writeNumberLine(cLine2, 2, iCoolerSpeed, 3);
 
+        /* Send lines to LCD */
         lcd_writeText(cLine1,cLine2);
 
         /* WAIT FOR CYCLIC EXECUTIVE PERIOD */

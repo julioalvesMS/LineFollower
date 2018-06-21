@@ -17,6 +17,4 @@
 /* ************************************************ */
 void debugUart_init(void);
 
-
-
 #endif /* SOURCES_DEBUGUART_H_ */

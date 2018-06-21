@@ -185,6 +185,7 @@
 /*                 END OF COOLER definitions             */
 
 
+
 /*                 TACHOMETER Definitions                    */
 #define TACHOMETER_PORT_BASE_PNT    PORTE                                   /* peripheral port base pointer */
 #define TACHOMETER_GPIO_BASE_PNT    PTE                                     /* peripheral gpio base pointer */
@@ -194,6 +195,39 @@
 #define TACHOMETER_ALT              0x04u
 #define TACHOMETER_READ_MASK        0xffffu
 /*                 END OF TACHOMETER definitions             */
+
+
+
+/*                 TEMPERATURE SENSOR DIODE DEFINITIONS                    */
+#define THERMOMETER_PORT_BASE_PNT    PORTE                                   /* peripheral port base pointer */
+#define THERMOMETER_GPIO_BASE_PNT    PTE                                     /* peripheral gpio base pointer */
+
+#define THERMOMETER_PIN              21U                                      /* thermometer pin */
+#define THERMOMETER_DIR              (GPIO_INPUT << TERMOMETER_PIN)
+#define THERMOMETER_ALT              0x00u
+/*                 END OF TEMPERATURE SENSOR DIODE DEFINITIONS             */
+
+
+
+/*                 VOLTAGE SENSOR DEFINITIONS                    */
+#define VOLTMETER_PORT_BASE_PNT    PORTE                                   /* peripheral port base pointer */
+#define VOLTMETER_GPIO_BASE_PNT    PTE                                     /* peripheral gpio base pointer */
+
+#define VOLTMETER_PIN              20U                                      /* thermometer pin */
+#define VOLTMETER_DIR              (GPIO_INPUT << VOLTMETER_PIN)
+#define VOLTMETER_ALT              0x00u
+/*                 END OF VOLTAGE SENSOR DEFINITIONS             */
+
+
+
+/*                 HEATER DEFINITIONS                    */
+#define HEATER_PORT_BASE_PNT    PORTA                                   /* peripheral port base pointer */
+#define HEATER_GPIO_BASE_PNT    PTA                                     /* peripheral gpio base pointer */
+
+#define HEATER_PIN              12U                                      /* thermometer pin */
+#define HEATER_DIR              (GPIO_INPUT << HEATER_PIN)
+#define HEATER_ALT              0x03u
+/*                 END OF HEATER DEFINITIONS             */
 
 
 #endif /* SOURCES_ES670_PERIPHERAL_BOARD_H_ */

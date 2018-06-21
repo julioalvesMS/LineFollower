@@ -150,7 +150,7 @@ int adc_getConvertionValue(void)
 /* ************************************************** */
 int adc_converter(void)
 {
-    static int siConversionValue = 0;
+    static int siConvertionValue = 0;
     static conversion_state_type_e csCurrentState = IDLE;
 
     switch(csCurrentState)
@@ -164,11 +164,11 @@ int adc_converter(void)
                 csCurrentState = DONE;
             break;
         case DONE:
-            siConversionValue = adc_getConvertionValue() & ADC_RESULT_MASK;
+            siConvertionValue = adc_getConvertionValue() & ADC_RESULT_MASK;
             csCurrentState = IDLE;
-            serial_sendADConversion(siConversionValue);
+            serial_sendADConvertion(siConvertionValue);
             break;
     }
 
-    return siConversionValue;
+    return siConvertionValue;
 }

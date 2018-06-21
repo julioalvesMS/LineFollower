@@ -123,6 +123,7 @@ void setupPeripherals()
     /* Start leds */
     ledswi_initLedSwitch(0, 4);
 
+    /* DISABLED */
     /* Start display7seg */
     /* display7seg_initDisplay(); */
 
@@ -157,8 +158,8 @@ void enableInterruptions()
     /* configure cyclic executive interruption */
     tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
 
+    /* Serial port interruption */
     serial_enableIRQ();
-
 }
 
 
@@ -176,8 +177,9 @@ int main(void)
     unsigned char ucDataValue;
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
-    int iLCDDisplayNumber = 0;
+    int iCoolerSpeed = 0;
     int iRawTemperatureData = 0;
+    int iTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
     char cLine1[17] = "T:###@C R:###";
     char cLine2[17] = "C:###@Hz RIP SC";
@@ -187,11 +189,14 @@ int main(void)
     /* Make all the required inicializations */
     setupPeripherals();
 
+    /* Enable needed interruptions */
     enableInterruptions();
 
     for (;;)
     {
+        /* Checks the serial port buffer */
         ucDataValue = serial_bufferReadData();
+        /* If new data, run state machine */
         if(ucDataValue){
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }
@@ -206,28 +211,21 @@ int main(void)
             iBuzzerTimer--;
         }
 
-        iLCDDisplayNumber = tachometer_readSensor();
-        cLine2[4] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine2[3] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine2[2] = (char) (iLCDDisplayNumber % 10) + '0';
+        /* Reads the cooler speed */
+        iCoolerSpeed = tachometer_readSensor();
 
+        /* Reads the Temperature */
         iRawTemperatureData = adc_converter();
-        iLCDDisplayNumber = tabela_temp[iRawTemperatureData];
-        cLine1[4] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine1[3] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine1[2] = (char) (iLCDDisplayNumber % 10) + '0';
+        iTemperatureData = tabela_temp[iRawTemperatureData];
 
-        iLCDDisplayNumber = iRawTemperatureData;
-        cLine1[12] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine1[11] = (char) (iLCDDisplayNumber % 10) + '0';
-        iLCDDisplayNumber = iLCDDisplayNumber/10;
-        cLine1[10] = (char) (iLCDDisplayNumber % 10) + '0';
+        /* Temperature in LCD */
+        lcd_writeNumberLine(cLine1, 2, iTemperatureData, 3);
+        /* Temperature sensor value in LCD */
+        lcd_writeNumberLine(cLine1, 10, iRawTemperatureData, 3);
+        /* Cooler speed in LCD */
+        lcd_writeNumberLine(cLine2, 2, iCoolerSpeed, 3);
 
+        /* Send lines to LCD */
         lcd_writeText(cLine1,cLine2);
 
         /* WAIT FOR CYCLIC EXECUTIVE PERIOD */

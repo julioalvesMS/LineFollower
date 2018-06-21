@@ -18,12 +18,12 @@
 #include "fsl_gpio_hal.h"
 
 /* line and columns */
-#define LINE0        0U
+#define LINE0          0U
 #define COLUMN0        0U
 
 #define L0C0_BASE    0x80 /* line 0, column 0 */
 #define L1C0_BASE    0xC0 /* line 1, column 0 */
-#define MAX_COLUMN  15U
+#define MAX_COLUMN    15U
 
 /* ************************************************ */
 /* Method name:        lcd_initLcd                  */
@@ -240,4 +240,27 @@ void lcd_writeText(const char *cpLine1,const char *cpLine2)
     // set the cursor line 1, column 0
     lcd_setCursor(1,0);
     lcd_writeString(cpLine2);
+}
+
+
+/* ************************************************ */
+/* Method name:        lcd_writeNumberLine          */
+/* Method description: Write a number in a line to  */
+/*                     be sent to the LCD           */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     iValue => Number value to be */
+/*                       written.                   */
+/*                     cDigits => Number of digits  */
+/*                       that should be used to     */
+/*                       write the number           */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeNumberLine(const char *cpLine, unsigned char ucPointer, int iValue, char cDigits)
+{
+    for(;cDigits>0;cDigits--){
+        cpLine[ucPointer+cDigits-1] = (char) (iValue % 10) + '0';
+        iValue = iValue/10;
+    }
 }

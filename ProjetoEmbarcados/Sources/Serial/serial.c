@@ -40,11 +40,11 @@ void serial_init(void)
 /* ************************************************ */
 void serial_enableIRQ(void)
 {
-    int i;
+    int iPointer;
 
     /* Start all buffer positions as \0 */
-    for(i=0;i<BUFFER_SIZE;i++)
-        ucvBuffer[i] = '\0';
+    for(iPointer=0;iPointer<BUFFER_SIZE;i++)
+        ucvBuffer[iPointer] = '\0';
 
     /* Enable interruption */
     NVIC_EnableIRQ(UART0_IRQn);

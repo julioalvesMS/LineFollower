@@ -18,7 +18,7 @@
 /* ************************************************ */
 void cooler_initCooler(void)
 {
-	/* Enable device */
+    /* Enable device */
     SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
     /* Set as GPIO */
     PORTA_PCR13 |= PORT_PCR_MUX(COOLER_ALT);

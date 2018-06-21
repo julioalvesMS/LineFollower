@@ -21,10 +21,10 @@
 
 
 /* ************************************************** */
-/* Method name: 	   timer_initTPM1AsPWM        */
+/* Method name:        timer_initTPM1AsPWM        */
 /* Method description: configure Timer1 to act as PWM */
-/* Input params:	   n/a 			      */
-/* Outpu params:	   n/a 		              */
+/* Input params:       n/a                   */
+/* Outpu params:       n/a                       */
 /* ************************************************** */
 void timer_initTPM1AsPWM(void);
 

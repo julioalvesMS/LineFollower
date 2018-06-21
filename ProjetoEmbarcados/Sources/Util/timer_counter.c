@@ -30,17 +30,17 @@
 #define CH0_HIGH_TRUE_B         1U
 
 /* ************************************************** */
-/* Method name: 	   timer_initTPM1AsPWM            */
+/* Method name:        timer_initTPM1AsPWM            */
 /* Method description: configure Timer1 to act as PWM */
-/* Input params:	   n/a                            */
-/* Outpu params:	   n/a                            */
+/* Input params:       n/a                            */
+/* Outpu params:       n/a                            */
 /* ************************************************** */
 void timer_initTPM1AsPWM(void)
 {
-	/* un-gate port clock for TPM1 */
-	SIM_SCGC6 |= SIM_SCGC6_TPM1(CGC_CLOCK_ENABLED);
+    /* un-gate port clock for TPM1 */
+    SIM_SCGC6 |= SIM_SCGC6_TPM1(CGC_CLOCK_ENABLED);
 
-	/* Up counting mode */
+    /* Up counting mode */
     TPM1_SC &= ~TPM_SC_CPWMS(UP_COUNTER_MODE);
 
     /* LPTPM Counter increments on every LPTPM counter clock */
@@ -54,25 +54,25 @@ void timer_initTPM1AsPWM(void)
     /* COOLER CONFIGURATIONS */
 
     /* Enable interruptions */
-	/* Use edge aligned PWM mode */
-	/* Use as High True */
-	TPM1_C1SC |= TPM_CnSC_CHIE(CH1_INTERRUPTION) | TPM_CnSC_MSB(CH1_EDGE_ALIGN_B) | TPM_CnSC_ELSB(CH1_HIGH_TRUE_B);
+    /* Use edge aligned PWM mode */
+    /* Use as High True */
+    TPM1_C1SC |= TPM_CnSC_CHIE(CH1_INTERRUPTION) | TPM_CnSC_MSB(CH1_EDGE_ALIGN_B) | TPM_CnSC_ELSB(CH1_HIGH_TRUE_B);
 
-	/* Resets CNT register */
-	TPM1_CNT = TPM_CNT_COUNT(0x00U);
+    /* Resets CNT register */
+    TPM1_CNT = TPM_CNT_COUNT(0x00U);
 
-	//TPM1_MOD &= ~MASK_16BITS;
-	TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
+    //TPM1_MOD &= ~MASK_16BITS;
+    TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
 
     TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
 
     /* END COOLER CONFIGURATIONS */
 
 
-	/* HEATER CONFIGURATIONS */
+    /* HEATER CONFIGURATIONS */
 
-	/* Use edge aligned PWM mode */
-	/* Use as High True */
+    /* Use edge aligned PWM mode */
+    /* Use as High True */
     TPM1_C0SC |= (TPM_CnSC_MSB(CH0_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH0_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH0_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH0_HIGH_TRUE_A));
 
     TPM1_C0V = 0x00; //PWM 00%
@@ -107,7 +107,7 @@ void timer_cooler_init(void)
 /* ************************************************ */
 void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
 {
-	TPM1_C1V = TPM_CnV_VAL(PWM_PERIOD * ucCoolerSpeed/100);
+    TPM1_C1V = TPM_CnV_VAL(PWM_PERIOD * ucCoolerSpeed/100);
 }
 
 
@@ -121,11 +121,11 @@ void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
 /* ************************************************** */
 void timer_heater_changeTemperature(int iPwm)
 {
-	if(iPwm>50){
-		iPwm = 50;
-	}
-	iPwm = (iPwm*TPM1_MOD)/100;
-	TPM1_C0V = iPwm;
+    if(iPwm>50){
+        iPwm = 50;
+    }
+    iPwm = (iPwm*TPM1_MOD)/100;
+    TPM1_C0V = iPwm;
 }
 
 

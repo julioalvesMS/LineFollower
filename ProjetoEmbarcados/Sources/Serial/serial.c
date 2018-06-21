@@ -40,11 +40,11 @@ void serial_init(void)
 /* ************************************************ */
 void serial_enableIRQ(void)
 {
-	int i;
+    int i;
 
-	/* Start all buffer positions as \0 */
-	for(i=0;i<BUFFER_SIZE;i++)
-		ucvBuffer[i] = '\0';
+    /* Start all buffer positions as \0 */
+    for(i=0;i<BUFFER_SIZE;i++)
+        ucvBuffer[i] = '\0';
 
     /* Enable interruption */
     NVIC_EnableIRQ(UART0_IRQn);
@@ -63,9 +63,9 @@ void serial_enableIRQ(void)
 /* ************************************************ */
 void UART0_IRQHandler(void)
 {
-	static unsigned char ucBufferPointer = 0;
-	ucvBuffer[ucBufferPointer] = GETCHAR();
-	ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
+    static unsigned char ucBufferPointer = 0;
+    ucvBuffer[ucBufferPointer] = GETCHAR();
+    ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
 }
 
 
@@ -80,14 +80,14 @@ void UART0_IRQHandler(void)
 /* ************************************************** */
 unsigned char serial_bufferReadData(void)
 {
-	static unsigned char ucBufferPointer = 0;
-	unsigned char ucData = ucvBuffer[ucBufferPointer];
-	if(ucData != '\0')
-	{
-		ucvBuffer[ucBufferPointer] = '\0';
-		ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
-	}
-	return ucData;
+    static unsigned char ucBufferPointer = 0;
+    unsigned char ucData = ucvBuffer[ucBufferPointer];
+    if(ucData != '\0')
+    {
+        ucvBuffer[ucBufferPointer] = '\0';
+        ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
+    }
+    return ucData;
 }
 
 
@@ -174,7 +174,7 @@ void serial_sendLineBreak()
 /* ************************************************ */
 unsigned char serial_getChar()
 {
-	return GETCHAR();
+    return GETCHAR();
 }
 
 
@@ -187,5 +187,5 @@ unsigned char serial_getChar()
 /* ************************************************ */
 void serial_putChar(unsigned char ucDataToSend)
 {
-	PUTCHAR(ucDataToSend);
+    PUTCHAR(ucDataToSend);
 }

@@ -15,7 +15,7 @@
 /* Hardware abstraction layers and communication */
 #include "Serial\serial.h"
 #include "LedSwi\ledswi_hal.h"
-#include "Cooler\timer_counter.h"
+#include "Util\timer_counter.h"
 
 
 /* ***************************************************** */
@@ -103,7 +103,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 if(cLedsStates[ucDataValue-'1'] == 1)
                     serial_putChar('C');
                 else
-                	serial_putChar('O');
+                    serial_putChar('O');
             }
             else cErr = ERR;
             break;
@@ -114,9 +114,9 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
                 ledswi_initLedSwitch(0, 4);
                 serial_sendAck();
                 if(SWITCH_ON == ledswi_getSwitchStatus(ucDataValue-'0'))
-                	serial_putChar('C');
+                    serial_putChar('C');
                 else
-                	serial_putChar('O');
+                    serial_putChar('O');
             }
             else cErr = ERR;
             break;
@@ -153,41 +153,41 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
         case COOLER:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	sucCoolerSpeed = (ucDataValue-'0')*10;
-            	smNextState = COOLER_SPEED_X0;
+                sucCoolerSpeed = (ucDataValue-'0')*10;
+                smNextState = COOLER_SPEED_X0;
 
             }
             else cErr = ERR;
-        	break;
+            break;
         case COOLER_SPEED_X0:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	sucCoolerSpeed += (ucDataValue-'0');
-            	timer_cooler_setSpeed(sucCoolerSpeed);
+                sucCoolerSpeed += (ucDataValue-'0');
+                timer_cooler_setSpeed(sucCoolerSpeed);
                 serial_sendAck();
 
             }
             else cErr = ERR;
-        	break;
+            break;
         case HEATER:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	sucHeaterPower = (ucDataValue-'0')*10;
-            	smNextState = HEATER_POT_X0;
+                sucHeaterPower = (ucDataValue-'0')*10;
+                smNextState = HEATER_POT_X0;
 
             }
             else cErr = ERR;
-        	break;
+            break;
         case HEATER_POT_X0:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-            	sucHeaterPower += (ucDataValue-'0');
-            	timer_heater_changeTemperature(sucHeaterPower);
+                sucHeaterPower += (ucDataValue-'0');
+                timer_heater_changeTemperature(sucHeaterPower);
                 serial_sendAck();
 
             }
             else cErr = ERR;
-        	break;
+            break;
 
     } /* switch(ssmCurrentState) */
 

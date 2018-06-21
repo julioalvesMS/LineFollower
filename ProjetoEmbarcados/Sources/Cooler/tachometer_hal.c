@@ -27,15 +27,15 @@
 void tachometer_initSensor(void)
 {
 
-	/* Enable device */
+    /* Enable device */
     SIM_SCGC6 |= SIM_SCGC6_TPM0(CGC_CLOCK_ENABLED);
 
-	/* Enable device */
+    /* Enable device */
     SIM_SCGC5 |= SIM_SCGC5_PORTE(CGC_CLOCK_ENABLED);
 
     PORTE_PCR29 |= PORT_PCR_MUX(TACHOMETER_ALT);
 
-	/* Select output port to counter */
+    /* Select output port to counter */
     SIM_SOPT4 &= ~SIM_SOPT4_TPM0CLKSEL(CLKIN0);
 
     /* Use a external clock */
@@ -59,9 +59,9 @@ void tachometer_initSensor(void)
 /* ***************************************************** */
 int tachometer_readSensor(void)
 {
-	int iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
-	TPM0_CNT = 0;
-	return iCoolerSpeed/7;
+    int iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+    TPM0_CNT = 0;
+    return iCoolerSpeed/7;
 }
 
 

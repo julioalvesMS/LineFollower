@@ -5,14 +5,12 @@
 /*                    sequence and the main loop  */
 /* Author name:       julioalvesMS & IagoAF       */
 /* Creation date:     08mar2018                   */
-/* Revision date:     25abr2018                   */
+/* Revision date:     21jun2018                   */
 /* ********************************************** */
 
-/* System includes */
 #include "Util\util.h"
 #include "Util\tc_hal.h"
 
-/* Hardware abstraction layers */
 #include "Buzzer\buzzer_hal.h"
 #include "Util\mcg_hal.h"
 #include "LedSwi\ledswi_hal.h"
@@ -20,11 +18,10 @@
 #include "LCD\lcd_hal.h"
 #include "Cooler\cooler_hal.h"
 #include "Cooler\tachometer_hal.h"
-#include "Cooler\timer_counter.h"
+#include "Util\timer_counter.h"
 #include "ADC\adc.h"
 #include "ADC\lut_adc_3v3.h"
 
-/* communication */
 #include "Serial\serial.h"
 #include "Protocolo\cmdMachine.h"
 
@@ -183,9 +180,9 @@ int main(void)
     int iRawTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
     char cLine1[17] = "T:###@C R:###";
-	char cLine2[17] = "C:###@Hz RIP SC";
-	cLine1[5] = 223;
-	cLine2[5] = 247;
+    char cLine2[17] = "C:###@Hz RIP SC";
+    cLine1[5] = 223;
+    cLine2[5] = 247;
 
     /* Make all the required inicializations */
     setupPeripherals();
@@ -194,7 +191,7 @@ int main(void)
 
     for (;;)
     {
-    	ucDataValue = serial_bufferReadData();
+        ucDataValue = serial_bufferReadData();
         if(ucDataValue){
             cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
         }

@@ -31,8 +31,10 @@ void serial_init(void)
 
 
 /* ************************************************ */
-/* Method name:        serial_init                  */
-/* Method description: Initialize the serial port   */
+/* Method name:        serial_enableIRQ             */
+/* Method description: Enable the interruption for  */
+/*                     serial port inputs and       */
+/*                     prepare the buffer           */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
@@ -51,11 +53,13 @@ void serial_enableIRQ(void)
 
 
 /* ************************************************ */
-/* Method name:        serial_hasData               */
-/* Method description: Informs if there is data in  */
-/*                     the buffer that can be read  */
+/* Method name:        UART0_IRQHandler             */
+/* Method description: Serial port interruption     */
+/*                     handler method. It Reads the */
+/*                     new character and saves in   */
+/*                     the buffer                   */
 /* Input params:       n/a                          */
-/* Output params:      char: 1 if true else 0       */
+/* Output params:      n/a                          */
 /* ************************************************ */
 void UART0_IRQHandler(void)
 {
@@ -65,13 +69,15 @@ void UART0_IRQHandler(void)
 }
 
 
-/* ************************************************ */
-/* Method name:        serial_hasData               */
-/* Method description: Informs if there is data in  */
-/*                     the buffer that can be read  */
-/* Input params:       n/a                          */
-/* Output params:      char: 1 if true else 0       */
-/* ************************************************ */
+/* ************************************************** */
+/* Method name:        serial_bufferReadData          */
+/* Method description: Gets the next unread character */
+/*                     in the buffer. Returns 0 if    */
+/*                     there is nothing new.          */
+/* Input params:       n/a                            */
+/* Output params:      unsigned char: Next char       */
+/*                     in buffer                      */
+/* ************************************************** */
 unsigned char serial_bufferReadData(void)
 {
 	static unsigned char ucBufferPointer = 0;
@@ -80,7 +86,6 @@ unsigned char serial_bufferReadData(void)
 	{
 		ucvBuffer[ucBufferPointer] = '\0';
 		ucBufferPointer = (ucBufferPointer+1)%BUFFER_SIZE;
-
 	}
 	return ucData;
 }
@@ -130,7 +135,14 @@ void serial_sendErr(void)
     serial_sendLineBreak();
 }
 
-
+/* ************************************************ */
+/* Method name:        serial_sendADConversion      */
+/* Method description: Sends a 3 digits value from  */
+/*                     the AD through the serial    */
+/*                     port                         */
+/* Input params:       ucValue = value to send      */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void serial_sendADConversion(unsigned char ucValue)
 {
     PUTCHAR('0'+ucValue/100);
@@ -141,6 +153,13 @@ void serial_sendADConversion(unsigned char ucValue)
     serial_sendLineBreak();
 }
 
+/* ************************************************ */
+/* Method name:        serial_sendLineBreak         */
+/* Method description: Send a line break through    */
+/*                     to the serial port           */
+/* Input params:       n/a                          */
+/* Output params:      n/a                          */
+/* ************************************************ */
 void serial_sendLineBreak()
 {
     PUTCHAR(13);

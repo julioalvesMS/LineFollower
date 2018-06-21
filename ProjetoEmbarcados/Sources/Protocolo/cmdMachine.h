@@ -4,7 +4,7 @@
 /*                   interfaces for handling the state machine       */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    25abr2018                                       */
+/* Revision date:    21jun2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_CMDMASCHINE_H_

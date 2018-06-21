@@ -29,7 +29,7 @@
 /* Method name:        lcd_initLcd                  */
 /* Method description: Initialize the LCD function  */
 /* Input params:       n/a                          */
-/* Output params:       n/a                         */
+/* Output params:      n/a                          */
 /* ************************************************ */
 void lcd_initLcd(void)
 {

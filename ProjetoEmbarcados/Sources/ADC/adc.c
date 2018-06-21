@@ -1,6 +1,17 @@
+/* ***************************************************************** */
+/* File name:        adc.c                                           */
+/* File description: This file has a couple of useful functions to   */
+/*                   control the ADC from the peripheral board.      */
+/*                   The converter is connected to the Temperature   */
+/*                   sensor.                                         */
+/* Author name:      julioalvesMS & IagoAF                           */
+/* Creation date:    07jun2018                                       */
+/* Revision date:    21jun2018                                       */
+/* ***************************************************************** */
+
 #include "KL25Z/es670_peripheral_board.h"
-#include "adc.h"
 #include "Serial/serial.h"
+#include "adc.h"
 
 #define ADC0_SC1A_COCO (ADC0_SC1A >> 7)
 #define ADC0_SC2_ADACT (ADC0_SC2 >> 7)
@@ -25,23 +36,25 @@
 #define ADC_SC1A_INTERRUPT    0U
 #define ADC_SC1A_DIFFERENTIAL 0U
 
+#define ADC_RESULT_MASK     0xff
+
 typedef enum
 {
     IDLE,
-	CONVERTING,
+    CONVERTING,
     DONE
 } conversion_state_type_e;
 
-/* ************************************************** */
-/* Method name: 	   adc_initADCModule          */
-/* Method description: configure ADC module           */
-/* Input params:	   n/a 			      */
-/* Outpu params:	   n/a 			      */
-/* ************************************************** */
+/* *************************************************** */
+/* Method name:        adc_initADCModule               */
+/* Method description: Init a the ADC converter device */
+/* Input params:       n/a                             */
+/* Output params:      n/a                             */
+/* *************************************************** */
 void adc_initADCModule(void)
 {
    /* un-gate port clock*/
-   SIM_SCGC6 |= SIM_SCGC6_ADC0(CGC_CLOCK_ENABLED);	//Enable clock for ADC
+   SIM_SCGC6 |= SIM_SCGC6_ADC0(CGC_CLOCK_ENABLED);    //Enable clock for ADC
 
    /* un-gate port clock*/
    SIM_SCGC5 |= SIM_SCGC5_PORTE(CGC_CLOCK_ENABLED);
@@ -85,10 +98,10 @@ void adc_initADCModule(void)
 
 
 /* ************************************************** */
-/* Method name: 	   adc_initConvertion             */
-/* Method description: init a conversion from D to A  */
-/* Input params:	   n/a 							  */
-/* Outpu params:	   n/a 							  */
+/* Method name:        adc_initConvertion             */
+/* Method description: init a conversion from A to D  */
+/* Input params:       n/a                            */
+/* Output params:      n/a                            */
 /* ************************************************** */
 void adc_initConvertion(void)
 {
@@ -103,10 +116,10 @@ void adc_initConvertion(void)
 }
 
 /* ************************************************** */
-/* Method name: 	   adc_isAdcDone              */
+/* Method name:        adc_isAdcDone                  */
 /* Method description: check if conversion is done    */
-/* Input params:	   n/a 		              */
-/* Outpu params:	   n/a 			      */
+/* Input params:       n/a                            */
+/* Output params:      char: 1 if Done, else 0        */
 /* ************************************************** */
 char adc_isAdcDone(void)
 {
@@ -117,10 +130,10 @@ char adc_isAdcDone(void)
 }
 
 /* ************************************************** */
-/* Method name: 	   adc_getConvertionValue     */
-/* Method description: retrieve converted value       */
-/* Input params:	   n/a 			      */
-/* Outpu params:	   n/a 			      */
+/* Method name:        adc_getConvertionValue         */
+/* Method description: Retrieve converted value       */
+/* Input params:       n/a                            */
+/* Output params:      int: Result from convertion    */
 /* ************************************************** */
 int adc_getConvertionValue(void)
 {
@@ -129,32 +142,33 @@ int adc_getConvertionValue(void)
 
 
 /* ************************************************** */
-/* Method name: 	   adc_getEffectiveValue     */
-/* Method description: retrieve converted value       */
-/* Input params:	   n/a 			      */
-/* Outpu params:	   n/a 			      */
+/* Method name:        adc_converter                  */
+/* Method description: Retrieve converted value       */
+/* Input params:       n/a                            */
+/* Output params:      int: Result from the last      */
+/*                     A to D convertion              */
 /* ************************************************** */
-int adc_convertion(void)
+int adc_converter(void)
 {
-	static int siConversionValue = 0;
-	static conversion_state_type_e csCurrentState = IDLE;
+    static int siConversionValue = 0;
+    static conversion_state_type_e csCurrentState = IDLE;
 
-	switch(csCurrentState)
-	{
-		case IDLE:
-			adc_initConvertion();
-			csCurrentState = CONVERTING;
-			break;
-		case CONVERTING:
-			if(adc_isAdcDone())
-				csCurrentState = DONE;
-			break;
-		case DONE:
-			siConversionValue = adc_getConvertionValue() & 0xff;
-			csCurrentState = IDLE;
-			serial_sendADConversion(siConversionValue);
-			break;
-	}
+    switch(csCurrentState)
+    {
+        case IDLE:
+            adc_initConvertion();
+            csCurrentState = CONVERTING;
+            break;
+        case CONVERTING:
+            if(adc_isAdcDone())
+                csCurrentState = DONE;
+            break;
+        case DONE:
+            siConversionValue = adc_getConvertionValue() & ADC_RESULT_MASK;
+            csCurrentState = IDLE;
+            serial_sendADConversion(siConversionValue);
+            break;
+    }
 
     return siConversionValue;
 }

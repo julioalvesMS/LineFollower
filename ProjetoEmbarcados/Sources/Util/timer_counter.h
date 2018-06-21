@@ -1,3 +1,13 @@
+/* ***************************************************************** */
+/* File name:        tachometer_hal.h                                */
+/* File description: Header file containing the functions/methods    */
+/*                   interfaces for handling the PWM in TPM0, thus   */
+/*                   also the heater and cooler from the peripheral  */
+/*                   board.                                          */
+/* Author name:      julioalvesMS & IagoAF                           */
+/* Creation date:    07jun2018                                       */
+/* Revision date:    21jun2018                                       */
+/* ***************************************************************** */
 
 #define PWM_PERIOD 99
 #define PWM_100pct PWM_PERIOD
@@ -26,7 +36,6 @@ void timer_initTPM1AsPWM(void);
 /* ************************************************ */
 void timer_cooler_init(void);
 
-
 /* ************************************************ */
 /* Method name:        timer_coolerfan_init         */
 /* Method description: Initialize the cooler device */
@@ -37,8 +46,10 @@ void timer_cooler_setSpeed(unsigned char ucCoolerSpeed);
 
 /* ************************************************** */
 /* Method name:        timer_heater_changeTemperature */
-/* Method description: change the cooler pwm          */
-/* Input params:       pwm desired (percentage)       */
+/* Method description: Change the heater potency by   */
+/*                     changing the PWM duty cycle.   */
+/* Input params:       iPwm = Heater Potency {0..99}  */
+/*                            controled by duty cycle */
 /* Output params:      n/a                            */
 /* ************************************************** */
 void timer_heater_changeTemperature(int iPwm);

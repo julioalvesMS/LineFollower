@@ -182,8 +182,8 @@ int main(void)
     int iLCDDisplayNumber = 0;
     int iRawTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char cLine1[17] = "T:###°C R:###";
-	char cLine2[17] = "S:###@Hz RIP SC";
+    char cLine1[17] = "T:###@C R:###";
+	char cLine2[17] = "C:###@Hz RIP SC";
 	cLine1[5] = 223;
 	cLine2[5] = 247;
 
@@ -216,7 +216,7 @@ int main(void)
         iLCDDisplayNumber = iLCDDisplayNumber/10;
         cLine2[2] = (char) (iLCDDisplayNumber % 10) + '0';
 
-        iRawTemperatureData = adc_convertion();
+        iRawTemperatureData = adc_converter();
         iLCDDisplayNumber = tabela_temp[iRawTemperatureData];
         cLine1[4] = (char) (iLCDDisplayNumber % 10) + '0';
         iLCDDisplayNumber = iLCDDisplayNumber/10;

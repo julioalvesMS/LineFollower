@@ -1,3 +1,14 @@
+/* ***************************************************************** */
+/* File name:        timer_counter.c                                 */
+/* File description: This file has a couple of useful functions to   */
+/*                   control the PWM in TPM0 from the peripheral     */
+/*                   board. The PWM is connected to both, cooler and */
+/*                   heater.                                         */
+/* Author name:      julioalvesMS & IagoAF                           */
+/* Creation date:    07jun2018                                       */
+/* Revision date:    21jun2018                                       */
+/* ***************************************************************** */
+
 #include "KL25Z/es670_peripheral_board.h"
 #include "fsl_tpm_hal.h"
 #include "timer_counter.h"
@@ -68,8 +79,6 @@ void timer_initTPM1AsPWM(void)
 
     /* END HEATER CONFIGURATIONS */
 
-
-
 }
 
 /* ************************************************ */
@@ -92,7 +101,8 @@ void timer_cooler_init(void)
 /* ************************************************ */
 /* Method name:        timer_coolerfan_init         */
 /* Method description: Initialize the cooler device */
-/* Input params:       n/a                          */
+/* Input params:       ucCoolerSpeed = Cooler power */
+/*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
@@ -103,8 +113,10 @@ void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
 
 /* ************************************************** */
 /* Method name:        timer_heater_changeTemperature */
-/* Method description: change the cooler pwm          */
-/* Input params:       pwm desired (percentage)       */
+/* Method description: Change the heater potency by   */
+/*                     changing the PWM duty cycle.   */
+/* Input params:       iPwm = Heater Potency {0..99}  */
+/*                            controled by duty cycle */
 /* Output params:      n/a                            */
 /* ************************************************** */
 void timer_heater_changeTemperature(int iPwm)
@@ -115,6 +127,7 @@ void timer_heater_changeTemperature(int iPwm)
 	iPwm = (iPwm*TPM1_MOD)/100;
 	TPM1_C0V = iPwm;
 }
+
 
 /* ************************************************ */
 /* Method name:        timer_initHeater             */

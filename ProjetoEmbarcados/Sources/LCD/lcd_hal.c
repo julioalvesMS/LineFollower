@@ -257,7 +257,7 @@ void lcd_writeText(const char *cpLine1,const char *cpLine2)
 /*                       write the number           */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeNumberLine(const char *cpLine, unsigned char ucPointer, int iValue, char cDigits)
+void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits)
 {
     for(;cDigits>0;cDigits--){
         cpLine[ucPointer+cDigits-1] = (char) (iValue % 10) + '0';

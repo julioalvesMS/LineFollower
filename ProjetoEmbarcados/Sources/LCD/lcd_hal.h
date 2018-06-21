@@ -93,6 +93,6 @@ void lcd_writeText(const char *cpLine1, const char *cpLine2);
 /*                       write the number           */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void lcd_writeNumberLine(const char *cpLine, unsigned char ucPointer, int iValue, char cDigits);
+void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits);
 
 #endif /* SOURCES_LCD_HAL_H_ */

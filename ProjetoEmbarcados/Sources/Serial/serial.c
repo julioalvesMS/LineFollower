@@ -43,7 +43,7 @@ void serial_enableIRQ(void)
     int iPointer;
 
     /* Start all buffer positions as \0 */
-    for(iPointer=0;iPointer<BUFFER_SIZE;i++)
+    for(iPointer=0;iPointer<BUFFER_SIZE;iPointer++)
         ucvBuffer[iPointer] = '\0';
 
     /* Enable interruption */

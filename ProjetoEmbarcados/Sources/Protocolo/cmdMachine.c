@@ -16,6 +16,7 @@
 #include "Serial\serial.h"
 #include "LedSwi\ledswi_hal.h"
 #include "Util\timer_counter.h"
+#include "Controller\pid.h"
 
 
 /* ***************************************************** */
@@ -31,12 +32,14 @@
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer)
+void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer, int* ipCoolerReferenceSpeed)
 {
     static state_machine_type_e ssmCurrentState = IDLE;
     static int siBuzzerTimer;
     static unsigned char sucCoolerSpeed;
     static unsigned char sucHeaterPower;
+    static double sdPidGain;
+
 
     state_machine_type_e smNextState = IDLE;
     char cErr = OK;
@@ -57,6 +60,13 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
 
             else if('H'==ucDataValue)
                 smNextState = HEATER;
+
+            else if('P'==ucDataValue)
+                smNextState = PID_P;
+            else if('I'==ucDataValue)
+                smNextState = PID_I;
+            else if('D'==ucDataValue)
+                smNextState = PID_D;
 
             else
                 cErr = ERR;
@@ -163,7 +173,7 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             if('0'<=ucDataValue && ucDataValue <='9')
             {
                 sucCoolerSpeed += (ucDataValue-'0');
-                timer_cooler_setSpeed(sucCoolerSpeed);
+                (*ipCoolerReferenceSpeed) = sucCoolerSpeed;
                 serial_sendAck();
 
             }
@@ -183,6 +193,63 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
             {
                 sucHeaterPower += (ucDataValue-'0');
                 timer_heater_changeTemperature(sucHeaterPower);
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_P:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain = (ucDataValue-'0');
+                smNextState = PID_P_Xdot0;
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_I:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain = (ucDataValue-'0');
+                smNextState = PID_I_Xdot0;
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_D:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain = (ucDataValue-'0');
+                smNextState = PID_D_Xdot0;
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_P_Xdot0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain += (ucDataValue-'0')*0.1;
+            	pid_setKp(sdPidGain);
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_I_Xdot0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain += (ucDataValue-'0')*0.1;
+            	pid_setKi(sdPidGain);
+                serial_sendAck();
+
+            }
+            else cErr = ERR;
+            break;
+        case PID_D_Xdot0:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+            	sdPidGain += (ucDataValue-'0')*0.1;
+            	pid_setKd(sdPidGain);
                 serial_sendAck();
 
             }

@@ -24,6 +24,7 @@
 
 #include "Serial\serial.h"
 #include "Protocolo\cmdMachine.h"
+#include "Controller\pid.h"
 
 
 /* defines */
@@ -141,6 +142,8 @@ void setupPeripherals()
 
     timer_heater_initHeater();
 
+    pid_init();
+
 }
 
 
@@ -178,9 +181,12 @@ int main(void)
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
     int iCoolerSpeed = 0;
+    int iCoolerReferenceSpeed = 0;
+    int iMaxCoolerSpeed = 0.0;
     int iRawTemperatureData = 0;
     int iTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
+    double dPwmControlValue = 0.0;
     char cLine1[17] = "T:###@C R:###";
     char cLine2[17] = "C:###@Hz RIP SC";
     cLine1[5] = 223;
@@ -192,13 +198,24 @@ int main(void)
     /* Enable needed interruptions */
     enableInterruptions();
 
+    timer_cooler_setSpeed(PWM_100pct);
+    do{
+        iCoolerSpeed = tachometer_readSensor();
+    } while(!pid_findMaxSpeed((double) iCoolerSpeed));
+    timer_cooler_setSpeed(PWM_0pct);
+
+    iMaxCoolerSpeed = pid_getMaxSpeed();
+
     for (;;)
     {
         /* Checks the serial port buffer */
         ucDataValue = serial_bufferReadData();
         /* If new data, run state machine */
         if(ucDataValue){
-            cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
+            cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer, &iCoolerReferenceSpeed);
+
+            if(iCoolerReferenceSpeed > iMaxCoolerSpeed)
+            	iCoolerReferenceSpeed = iMaxCoolerSpeed;
         }
 
         /* Set the LEDs ON/OFF according to the state vector */
@@ -213,6 +230,9 @@ int main(void)
 
         /* Reads the cooler speed */
         iCoolerSpeed = tachometer_readSensor();
+
+        dPwmControlValue = pid_updateData((double) iCoolerSpeed, (double) iCoolerReferenceSpeed);
+        timer_cooler_setSpeed(dPwmControlValue);
 
         /* Reads the Temperature */
         iRawTemperatureData = adc_converter();

@@ -22,7 +22,11 @@ typedef enum
 
     COOLER, COOLER_SPEED_X0,
 
-    HEATER, HEATER_POT_X0
+    HEATER, HEATER_POT_X0,
+
+	PID_P, PID_P_Xdot0,
+	PID_I, PID_I_Xdot0,
+	PID_D, PID_D_Xdot0
 } state_machine_type_e;
 
 /* Constants to inform if the input was wrong or not */
@@ -42,6 +46,6 @@ typedef enum
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer);
+void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer, int* ipCoolerReferenceSpeed);
 
 #endif /* SOURCES_CMDMASCHINE_H_ */

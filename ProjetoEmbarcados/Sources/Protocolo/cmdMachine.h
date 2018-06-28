@@ -4,7 +4,7 @@
 /*                   interfaces for handling the state machine       */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    21jun2018                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_CMDMASCHINE_H_
@@ -20,9 +20,13 @@ typedef enum
 
     BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
 
-    COOLER, COOLER_SPEED_X0,
+    COOLER, COOLER_SPEED_X00, COOLER_SPEED_XX0,
 
-    HEATER, HEATER_POT_X0
+    HEATER, HEATER_POT_X0,
+
+	PID_P, PID_P_Xdot0,
+	PID_I, PID_I_Xdot0,
+	PID_D, PID_D_Xdot0
 } state_machine_type_e;
 
 /* Constants to inform if the input was wrong or not */
@@ -42,6 +46,6 @@ typedef enum
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer);
+void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer, int* ipCoolerReferenceSpeed);
 
 #endif /* SOURCES_CMDMASCHINE_H_ */

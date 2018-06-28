@@ -9,12 +9,13 @@
 /* Revision date:    21jun2018                                       */
 /* ***************************************************************** */
 
-#define PWM_PERIOD 99
-#define PWM_0pct   0
 
 #ifndef SOURCES_TIMER_COUNTER_HAL_H_
 #define SOURCES_TIMER_COUNTER_HAL_H_
 
+#define PWM_PERIOD 99
+#define PWM_0pct   0
+#define PWM_100pct 99.0
 
 /* ************************************************** */
 /* Method name:        timer_initTPM1AsPWM        */
@@ -38,7 +39,7 @@ void timer_cooler_init(void);
 /* Input params:       ucCoolerSpeed = Cooler power */
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
-void timer_cooler_setSpeed(unsigned char ucCoolerSpeed);
+void timer_cooler_setSpeed(double dCoolerSpeed);
 
 /* ************************************************** */
 /* Method name:        timer_heater_changeTemperature */

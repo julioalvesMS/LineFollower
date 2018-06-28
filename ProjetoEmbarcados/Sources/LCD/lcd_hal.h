@@ -3,9 +3,9 @@
 /* File description: Header file containing the functions/methods    */
 /*                   interfaces for handling the LCD hardware from   */
 /*                   the hardware kit                                */
-/* Author name:      dloubach                                        */
+/* Author name:      dloubach & julioalvesMS & IagoAF                */
 /* Creation date:    16out2015                                       */
-/* Revision date:    25fev2016                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_LCD_HAL_H_
@@ -94,5 +94,23 @@ void lcd_writeText(const char *cpLine1, const char *cpLine2);
 /* Output params:      n/a                          */
 /* ************************************************ */
 void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits);
+
+
+/* ************************************************ */
+/* Method name:        lcd_writeDoubleLine          */
+/* Method description: Write a double number in a   */
+/*                     line to  be sent to the LCD  */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     dValue => Number value to be */
+/*                       written.                   */
+/*                     cUnityDigits => Number of    */
+/*                      digits before the dot       */
+/*                     cDecimalDigits => Number of  */
+/*                      digits after the dot        */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeDoubleLine(char *cpLine, unsigned char ucPointer, double dValue, char cUnityDigits, char cDecimalDigits);
 
 #endif /* SOURCES_LCD_HAL_H_ */

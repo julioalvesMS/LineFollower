@@ -29,6 +29,8 @@
 #define CH0_HIGH_TRUE_A         0U
 #define CH0_HIGH_TRUE_B         1U
 
+const double cdPwmPeriodProportion = PWM_PERIOD/(100.0);
+
 /* ************************************************** */
 /* Method name:        timer_initTPM1AsPWM            */
 /* Method description: configure Timer1 to act as PWM */
@@ -61,10 +63,9 @@ void timer_initTPM1AsPWM(void)
     /* Resets CNT register */
     TPM1_CNT = TPM_CNT_COUNT(0x00U);
 
-    //TPM1_MOD &= ~MASK_16BITS;
     TPM1_MOD = TPM_MOD_MOD(PWM_PERIOD);
 
-    TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
+    //TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
 
     /* END COOLER CONFIGURATIONS */
 
@@ -75,7 +76,7 @@ void timer_initTPM1AsPWM(void)
     /* Use as High True */
     TPM1_C0SC |= (TPM_CnSC_MSB(CH0_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH0_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH0_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH0_HIGH_TRUE_A));
 
-    TPM1_C0V = PWM_0pct; //PWM 00%
+    TPM1_C0V = TPM_CnV_VAL(PWM_0pct); //PWM 00%
 
     /* END HEATER CONFIGURATIONS */
 
@@ -105,9 +106,18 @@ void timer_cooler_init(void)
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void timer_cooler_setSpeed(unsigned char ucCoolerSpeed)
+void timer_cooler_setSpeed(double dCoolerSpeed)
 {
-    TPM1_C1V = TPM_CnV_VAL(PWM_PERIOD * ucCoolerSpeed/100);
+	int iPwmDutyCycle;
+	double dPwmDutyCycle = (dCoolerSpeed*PWM_PERIOD)/(100.0);
+	double dDecimal = dPwmDutyCycle - ((int) dPwmDutyCycle);
+
+	if(dDecimal >= 0.5)
+		iPwmDutyCycle =(int) (dPwmDutyCycle - dDecimal + 1);
+	else
+		iPwmDutyCycle =(int) (dPwmDutyCycle - dDecimal);
+
+    TPM1_C1V = TPM_CnV_VAL(iPwmDutyCycle);
 }
 
 

@@ -3,9 +3,9 @@
 /* File description: File dedicated to the hardware abstraction layer*/
 /*                   related to the LCD HARDWARE based on the KS006U */
 /*                   controller                                      */
-/* Author name:      dloubach                                        */
+/* Author name:      dloubach & julioalvesMS & IagoAF                */
 /* Creation date:    16out2015                                       */
-/* Revision date:    25fev2016                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #include "lcd_hal.h"
@@ -263,4 +263,31 @@ void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char
         cpLine[ucPointer+cDigits-1] = (char) (iValue % 10) + '0';
         iValue = iValue/10;
     }
+}
+
+
+/* ************************************************ */
+/* Method name:        lcd_writeDoubleLine          */
+/* Method description: Write a double number in a   */
+/*                     line to  be sent to the LCD  */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     dValue => Number value to be */
+/*                       written.                   */
+/*                     cUnityDigits => Number of    */
+/*                      digits before the dot       */
+/*                     cDecimalDigits => Number of  */
+/*                      digits after the dot        */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeDoubleLine(char *cpLine, unsigned char ucPointer, double dValue, char cUnityDigits, char cDecimalDigits)
+{
+	int iUnity, iDecimal;
+	iUnity = dValue;
+	iDecimal = dValue*(10^cUnityDigits) - iUnity*(10^cUnityDigits);
+
+    lcd_writeNumberLine(cpLine, ucPointer, iUnity, cUnityDigits);
+    cpLine[ucPointer+cUnityDigits] = '.';
+    lcd_writeNumberLine(cpLine, ucPointer+cUnityDigits+1, iDecimal, cDecimalDigits);
 }

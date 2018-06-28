@@ -5,7 +5,7 @@
 /*                    sequence and the main loop  */
 /* Author name:       julioalvesMS & IagoAF       */
 /* Creation date:     08mar2018                   */
-/* Revision date:     21jun2018                   */
+/* Revision date:     28jun2018                   */
 /* ********************************************** */
 
 #include "Util\util.h"
@@ -24,10 +24,11 @@
 
 #include "Serial\serial.h"
 #include "Protocolo\cmdMachine.h"
+#include "Controller\pid.h"
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 300000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 250000 micro seconds */
 
 
 /* globals */
@@ -109,7 +110,7 @@ void main_cyclicExecuteIsr(void)
 /* Input params:        n/a                               */
 /* Output params:       n/a                               */
 /* ****************************************************** */
-void setupPeripherals()
+void setupPeripherals(void)
 {
     /* Start clock */
     mcg_clockInit();
@@ -137,9 +138,12 @@ void setupPeripherals()
     timer_initTPM1AsPWM();
     timer_cooler_init();
 
+    /* Initiate de ADC Module and prepare heater */
     adc_initADCModule();
-
     timer_heater_initHeater();
+
+    /* Setup the PID */
+    pid_init();
 
 }
 
@@ -177,13 +181,16 @@ int main(void)
     unsigned char ucDataValue;
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
-    int iCoolerSpeed = 0;
-    int iRawTemperatureData = 0;
-    int iTemperatureData = 0;
+    double dCoolerSpeed = 0.0;
+    int iCoolerReferenceSpeed = 0;
+    int iMaxCoolerSpeed = 0.0;
     int *piBuzzerTimer = &iBuzzerTimer;
-    char cLine1[17] = "T:###@C R:###";
-    char cLine2[17] = "C:###@Hz RIP SC";
-    cLine1[5] = 223;
+    int iWait;
+    double dPwmControlValue = 0.0;
+
+    char cLine1[17] = "P#.# D#.# I#.#";
+    char cLine2[17] = "C:###@Hz ###%";
+    /* cLine1[5] = 223; */
     cLine2[5] = 247;
 
     /* Make all the required inicializations */
@@ -192,13 +199,36 @@ int main(void)
     /* Enable needed interruptions */
     enableInterruptions();
 
+    timer_cooler_setSpeed(PWM_100pct);
+	lcd_writeText("Sr Claudio esta", "inicializando!");
+
+	/* Gets max cooler speed */
+    for (iWait=0;iWait<40;iWait++)
+    {
+    	dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+		while(!uiFlagNextPeriod);
+		uiFlagNextPeriod = 0;
+    }
+    do{
+    	dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+        /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
+        while(!uiFlagNextPeriod);
+        uiFlagNextPeriod = 0;
+    } while(!pid_findMaxSpeed(dCoolerSpeed));
+    timer_cooler_setSpeed(PWM_0pct);
+    iMaxCoolerSpeed = pid_getMaxSpeed();
+
+    /* Initiate ECC */
     for (;;)
     {
         /* Checks the serial port buffer */
         ucDataValue = serial_bufferReadData();
         /* If new data, run state machine */
         if(ucDataValue){
-            cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer);
+            cmdMachine_stateProgression(ucDataValue, cLedsStates, piBuzzerTimer, &iCoolerReferenceSpeed);
+
+            if(iCoolerReferenceSpeed > iMaxCoolerSpeed)
+            	iCoolerReferenceSpeed = iMaxCoolerSpeed;
         }
 
         /* Set the LEDs ON/OFF according to the state vector */
@@ -212,18 +242,23 @@ int main(void)
         }
 
         /* Reads the cooler speed */
-        iCoolerSpeed = tachometer_readSensor();
+        dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+
+        dPwmControlValue = pid_updateData((double) dCoolerSpeed, (double) iCoolerReferenceSpeed);
+        timer_cooler_setSpeed(dPwmControlValue);
 
         /* Reads the Temperature */
-        iRawTemperatureData = adc_converter();
-        iTemperatureData = tabela_temp[iRawTemperatureData];
+        adc_converter();
 
-        /* Temperature in LCD */
-        lcd_writeNumberLine(cLine1, 2, iTemperatureData, 3);
-        /* Temperature sensor value in LCD */
-        lcd_writeNumberLine(cLine1, 10, iRawTemperatureData, 3);
+        /* PID constants */
+        lcd_writeDoubleLine(cLine1, 1, pid_getKp(), 1, 1);
+        lcd_writeDoubleLine(cLine1, 6, pid_getKd(), 1, 1);
+        lcd_writeDoubleLine(cLine1, 11, pid_getKi(), 1, 1);
+
         /* Cooler speed in LCD */
-        lcd_writeNumberLine(cLine2, 2, iCoolerSpeed, 3);
+        lcd_writeNumberLine(cLine2, 2, dCoolerSpeed, 3);
+        /* PWM in LCD */
+        lcd_writeNumberLine(cLine2, 9, dPwmControlValue, 3);
 
         /* Send lines to LCD */
         lcd_writeText(cLine1,cLine2);

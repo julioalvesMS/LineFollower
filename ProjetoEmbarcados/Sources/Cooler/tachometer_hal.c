@@ -54,14 +54,15 @@ void tachometer_initSensor(void)
 /* ***************************************************** */
 /* Method name:        tachometer_readSensor             */
 /* Method description: Read the board tachometer sensor. */
-/* Input params:       n/a                               */
-/* Output params:      int                               */
+/* Input params:       dPeriodMc: ECC period             */
+/* Output params:      double: Cooler speed              */
 /* ***************************************************** */
-int tachometer_readSensor(void)
+double tachometer_readSensor(double dPeriodMc)
 {
-    int iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+    double dCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+    dCoolerSpeed = (dCoolerSpeed*1000000)/dPeriodMc;
     TPM0_CNT = 0;
-    return iCoolerSpeed/7;
+    return dCoolerSpeed/7;
 }
 
 

@@ -4,7 +4,7 @@
 /*                   interfaces for handling the state machine       */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    21jun2018                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #ifndef SOURCES_CMDMASCHINE_H_
@@ -20,7 +20,7 @@ typedef enum
 
     BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
 
-    COOLER, COOLER_SPEED_X0,
+    COOLER, COOLER_SPEED_X00, COOLER_SPEED_XX0,
 
     HEATER, HEATER_POT_X0,
 

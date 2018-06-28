@@ -24,10 +24,10 @@ void tachometer_initSensor(void);
 /* ***************************************************** */
 /* Method name:        tachometer_readSensor             */
 /* Method description: Read the board tachometer sensor. */
-/* Input params:       n/a                               */
-/* Output params:      int                               */
+/* Input params:       dPeriodMc: ECC period             */
+/* Output params:      double: Cooler speed              */
 /* ***************************************************** */
-double tachometer_readSensor(double iPeriodMc);
+double tachometer_readSensor(double dPeriodMc);
 
 
 #endif /* SOURCES_TACHOMETER_HAL_H_ */

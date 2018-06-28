@@ -5,7 +5,7 @@
 /*                    sequence and the main loop  */
 /* Author name:       julioalvesMS & IagoAF       */
 /* Creation date:     08mar2018                   */
-/* Revision date:     21jun2018                   */
+/* Revision date:     28jun2018                   */
 /* ********************************************** */
 
 #include "Util\util.h"
@@ -28,7 +28,7 @@
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 300000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 250000 micro seconds */
 
 
 /* globals */
@@ -110,7 +110,7 @@ void main_cyclicExecuteIsr(void)
 /* Input params:        n/a                               */
 /* Output params:       n/a                               */
 /* ****************************************************** */
-void setupPeripherals()
+void setupPeripherals(void)
 {
     /* Start clock */
     mcg_clockInit();
@@ -138,10 +138,11 @@ void setupPeripherals()
     timer_initTPM1AsPWM();
     timer_cooler_init();
 
+    /* Initiate de ADC Module and prepare heater */
     adc_initADCModule();
-
     timer_heater_initHeater();
 
+    /* Setup the PID */
     pid_init();
 
 }
@@ -183,18 +184,13 @@ int main(void)
     double dCoolerSpeed = 0.0;
     int iCoolerReferenceSpeed = 0;
     int iMaxCoolerSpeed = 0.0;
-    int iRawTemperatureData = 0;
-    int iTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
+    int iWait;
     double dPwmControlValue = 0.0;
-
-    int iKpUnity, iKpDecimal;
-    int iKdUnity, iKdDecimal;
-    int iKiUnity, iKiDecimal;
 
     char cLine1[17] = "P#.# D#.# I#.#";
     char cLine2[17] = "C:###@Hz ###%";
-    //cLine1[5] = 223;
+    /* cLine1[5] = 223; */
     cLine2[5] = 247;
 
     /* Make all the required inicializations */
@@ -206,7 +202,8 @@ int main(void)
     timer_cooler_setSpeed(PWM_100pct);
 	lcd_writeText("Sr Claudio esta", "inicializando!");
 
-    for (int i=0;i<40;i++)
+	/* Gets max cooler speed */
+    for (iWait=0;iWait<40;iWait++)
     {
     	dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
 		while(!uiFlagNextPeriod);
@@ -219,9 +216,9 @@ int main(void)
         uiFlagNextPeriod = 0;
     } while(!pid_findMaxSpeed(dCoolerSpeed));
     timer_cooler_setSpeed(PWM_0pct);
-
     iMaxCoolerSpeed = pid_getMaxSpeed();
 
+    /* Initiate ECC */
     for (;;)
     {
         /* Checks the serial port buffer */
@@ -251,27 +248,16 @@ int main(void)
         timer_cooler_setSpeed(dPwmControlValue);
 
         /* Reads the Temperature */
-        iRawTemperatureData = adc_converter();
-        iTemperatureData = tabela_temp[iRawTemperatureData];
+        adc_converter();
 
-        iKpUnity = pid_getKp();
-        iKpDecimal = pid_getKp()*10 - iKpUnity*10;
+        /* PID constants */
+        lcd_writeDoubleLine(cLine1, 1, pid_getKp(), 1, 1);
+        lcd_writeDoubleLine(cLine1, 6, pid_getKd(), 1, 1);
+        lcd_writeDoubleLine(cLine1, 11, pid_getKi(), 1, 1);
 
-        iKdUnity = pid_getKd();
-        iKdDecimal = pid_getKd()*10 - iKdUnity*10;
-
-        iKiUnity = pid_getKi();
-        iKiDecimal = pid_getKi()*10 - iKiUnity*10;
-
-        /* Temperature in LCD */
-        lcd_writeDoubleLine(cLine1, 1, iKpUnity, 1, 1);
-
-        lcd_writeDoubleLine(cLine1, 6, iKdUnity, 1, 1);
-
-        lcd_writeDoubleLine(cLine1, 11, iKiUnity, 1, 1);
         /* Cooler speed in LCD */
         lcd_writeNumberLine(cLine2, 2, dCoolerSpeed, 3);
-        /* Cooler speed in LCD */
+        /* PWM in LCD */
         lcd_writeNumberLine(cLine2, 9, dPwmControlValue, 3);
 
         /* Send lines to LCD */

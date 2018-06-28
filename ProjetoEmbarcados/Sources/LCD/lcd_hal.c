@@ -3,9 +3,9 @@
 /* File description: File dedicated to the hardware abstraction layer*/
 /*                   related to the LCD HARDWARE based on the KS006U */
 /*                   controller                                      */
-/* Author name:      dloubach                                        */
+/* Author name:      dloubach & julioalvesMS & IagoAF                */
 /* Creation date:    16out2015                                       */
-/* Revision date:    25fev2016                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #include "lcd_hal.h"
@@ -273,11 +273,12 @@ void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char
 /* Input params:       cpLine => line string        */
 /*                     ucPointer => Number start    */
 /*                       position.                  */
-/*                     iValue => Number value to be */
+/*                     dValue => Number value to be */
 /*                       written.                   */
-/*                     cDigits => Number of digits  */
-/*                       that should be used to     */
-/*                       write the number           */
+/*                     cUnityDigits => Number of    */
+/*                      digits before the dot       */
+/*                     cDecimalDigits => Number of  */
+/*                      digits after the dot        */
 /* Output params:      n/a                          */
 /* ************************************************ */
 void lcd_writeDoubleLine(char *cpLine, unsigned char ucPointer, double dValue, char cUnityDigits, char cDecimalDigits)

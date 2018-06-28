@@ -4,7 +4,7 @@
 /*                   responsable for the user interaction response.  */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
-/* Revision date:    21jun2018                                       */
+/* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
 #include "cmdMachine.h"
@@ -163,13 +163,22 @@ void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], 
         case COOLER:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
-                sucCoolerSpeed = (ucDataValue-'0')*10;
-                smNextState = COOLER_SPEED_X0;
+                sucCoolerSpeed = (ucDataValue-'0')*100;
+                smNextState = COOLER_SPEED_X00;
 
             }
             else cErr = ERR;
             break;
-        case COOLER_SPEED_X0:
+        case COOLER_SPEED_X00:
+            if('0'<=ucDataValue && ucDataValue <='9')
+            {
+                sucCoolerSpeed += (ucDataValue-'0')*10;
+                smNextState = COOLER_SPEED_XX0;
+
+            }
+            else cErr = ERR;
+            break;
+        case COOLER_SPEED_XX0:
             if('0'<=ucDataValue && ucDataValue <='9')
             {
                 sucCoolerSpeed += (ucDataValue-'0');

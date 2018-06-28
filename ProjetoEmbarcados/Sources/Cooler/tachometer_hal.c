@@ -57,9 +57,10 @@ void tachometer_initSensor(void)
 /* Input params:       n/a                               */
 /* Output params:      int                               */
 /* ***************************************************** */
-int tachometer_readSensor(void)
+double tachometer_readSensor(double iPeriodMc)
 {
-    int iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+    double iCoolerSpeed = TPM0_CNT & TACHOMETER_READ_MASK;
+    iCoolerSpeed = (iCoolerSpeed*1000000)/iPeriodMc;
     TPM0_CNT = 0;
     return iCoolerSpeed/7;
 }

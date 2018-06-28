@@ -27,7 +27,7 @@ void tachometer_initSensor(void);
 /* Input params:       n/a                               */
 /* Output params:      int                               */
 /* ***************************************************** */
-int tachometer_readSensor(void);
+double tachometer_readSensor(double iPeriodMc);
 
 
 #endif /* SOURCES_TACHOMETER_HAL_H_ */

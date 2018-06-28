@@ -95,4 +95,6 @@ void lcd_writeText(const char *cpLine1, const char *cpLine2);
 /* ************************************************ */
 void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char cDigits);
 
+void lcd_writeDoubleLine(char *cpLine, unsigned char ucPointer, double dValue, char cUnityDigits, char cDecimalDigits);
+
 #endif /* SOURCES_LCD_HAL_H_ */

@@ -180,16 +180,21 @@ int main(void)
     unsigned char ucDataValue;
     char cLedsStates[4] = {0, 0, 0, 0};
     int iBuzzerTimer = 0;
-    int iCoolerSpeed = 0;
+    double dCoolerSpeed = 0.0;
     int iCoolerReferenceSpeed = 0;
     int iMaxCoolerSpeed = 0.0;
     int iRawTemperatureData = 0;
     int iTemperatureData = 0;
     int *piBuzzerTimer = &iBuzzerTimer;
     double dPwmControlValue = 0.0;
-    char cLine1[17] = "T:###@C R:###";
-    char cLine2[17] = "C:###@Hz RIP SC";
-    cLine1[5] = 223;
+
+    int iKpUnity, iKpDecimal;
+    int iKdUnity, iKdDecimal;
+    int iKiUnity, iKiDecimal;
+
+    char cLine1[17] = "P#.# D#.# I#.#";
+    char cLine2[17] = "C:###@Hz ###%";
+    //cLine1[5] = 223;
     cLine2[5] = 247;
 
     /* Make all the required inicializations */
@@ -199,9 +204,20 @@ int main(void)
     enableInterruptions();
 
     timer_cooler_setSpeed(PWM_100pct);
+	lcd_writeText("Sr Claudio esta", "inicializando!");
+
+    for (int i=0;i<40;i++)
+    {
+    	dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+		while(!uiFlagNextPeriod);
+		uiFlagNextPeriod = 0;
+    }
     do{
-        iCoolerSpeed = tachometer_readSensor();
-    } while(!pid_findMaxSpeed((double) iCoolerSpeed));
+    	dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+        /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
+        while(!uiFlagNextPeriod);
+        uiFlagNextPeriod = 0;
+    } while(!pid_findMaxSpeed(dCoolerSpeed));
     timer_cooler_setSpeed(PWM_0pct);
 
     iMaxCoolerSpeed = pid_getMaxSpeed();
@@ -229,21 +245,34 @@ int main(void)
         }
 
         /* Reads the cooler speed */
-        iCoolerSpeed = tachometer_readSensor();
+        dCoolerSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
 
-        dPwmControlValue = pid_updateData((double) iCoolerSpeed, (double) iCoolerReferenceSpeed);
+        dPwmControlValue = pid_updateData((double) dCoolerSpeed, (double) iCoolerReferenceSpeed);
         timer_cooler_setSpeed(dPwmControlValue);
 
         /* Reads the Temperature */
         iRawTemperatureData = adc_converter();
         iTemperatureData = tabela_temp[iRawTemperatureData];
 
+        iKpUnity = pid_getKp();
+        iKpDecimal = pid_getKp()*10 - iKpUnity*10;
+
+        iKdUnity = pid_getKd();
+        iKdDecimal = pid_getKd()*10 - iKdUnity*10;
+
+        iKiUnity = pid_getKi();
+        iKiDecimal = pid_getKi()*10 - iKiUnity*10;
+
         /* Temperature in LCD */
-        lcd_writeNumberLine(cLine1, 2, iTemperatureData, 3);
-        /* Temperature sensor value in LCD */
-        lcd_writeNumberLine(cLine1, 10, iRawTemperatureData, 3);
+        lcd_writeDoubleLine(cLine1, 1, iKpUnity, 1, 1);
+
+        lcd_writeDoubleLine(cLine1, 6, iKdUnity, 1, 1);
+
+        lcd_writeDoubleLine(cLine1, 11, iKiUnity, 1, 1);
         /* Cooler speed in LCD */
-        lcd_writeNumberLine(cLine2, 2, iCoolerSpeed, 3);
+        lcd_writeNumberLine(cLine2, 2, dCoolerSpeed, 3);
+        /* Cooler speed in LCD */
+        lcd_writeNumberLine(cLine2, 9, dPwmControlValue, 3);
 
         /* Send lines to LCD */
         lcd_writeText(cLine1,cLine2);

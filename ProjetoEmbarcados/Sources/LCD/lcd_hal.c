@@ -264,3 +264,29 @@ void lcd_writeNumberLine(char *cpLine, unsigned char ucPointer, int iValue, char
         iValue = iValue/10;
     }
 }
+
+
+/* ************************************************ */
+/* Method name:        lcd_writeDoubleLine          */
+/* Method description: Write a double number in a   */
+/*                     line to  be sent to the LCD  */
+/* Input params:       cpLine => line string        */
+/*                     ucPointer => Number start    */
+/*                       position.                  */
+/*                     iValue => Number value to be */
+/*                       written.                   */
+/*                     cDigits => Number of digits  */
+/*                       that should be used to     */
+/*                       write the number           */
+/* Output params:      n/a                          */
+/* ************************************************ */
+void lcd_writeDoubleLine(char *cpLine, unsigned char ucPointer, double dValue, char cUnityDigits, char cDecimalDigits)
+{
+	int iUnity, iDecimal;
+	iUnity = dValue;
+	iDecimal = dValue*(10^cUnityDigits) - iUnity*(10^cUnityDigits);
+
+    lcd_writeNumberLine(cpLine, ucPointer, iUnity, cUnityDigits);
+    cpLine[ucPointer+cUnityDigits] = '.';
+    lcd_writeNumberLine(cpLine, ucPointer+cUnityDigits+1, iDecimal, cDecimalDigits);
+}

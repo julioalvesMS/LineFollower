@@ -8,34 +8,34 @@
 /* Revision date:    03mai2018                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_COOLER_HAL_H_
-#define SOURCES_COOLER_HAL_H_
+#ifndef SOURCES_MOTOR_HAL_H_
+#define SOURCES_MOTOR_HAL_H_
 
 
 /* ************************************************ */
-/* Method name:        cooler_initCooler            */
+/* Method name:        motor_initMotor            */
 /* Method description: Initialize the board cooler. */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void cooler_initCooler(void);
+void motor_initMotor(void);
 
 
 /* ***************************************************** */
-/* Method name:        cooler_startCooler                */
+/* Method name:        motor_startMotor                */
 /* Method description: Start the board cooler.           */
 /* Input params:       n/a                               */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cooler_startCooler(void);
+void motor_startMotor(void);
 
 
 /* ***************************************************** */
-/* Method name:        cooler_stopCooler                 */
+/* Method name:        motor_stopMotor                 */
 /* Method description: Stop the board cooler.            */
 /* Input params:       n/a                               */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cooler_stopCooler(void);
+void motor_stopMotor(void);
 
-#endif /* SOURCES_COOLER_HAL_H_ */
+#endif /* SOURCES_MOTOR_HAL_H_ */

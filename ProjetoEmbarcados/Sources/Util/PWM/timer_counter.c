@@ -83,12 +83,12 @@ void timer_initTPM1AsPWM(void)
 }
 
 /* ************************************************ */
-/* Method name:        timer_coolerfan_init         */
+/* Method name:        timer_motor_init             */
 /* Method description: Initialize the cooler device */
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void timer_cooler_init(void)
+void timer_motor_init(void)
 {
     /* un-gate port clock*/
     SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
@@ -100,16 +100,16 @@ void timer_cooler_init(void)
 
 
 /* ************************************************ */
-/* Method name:        timer_coolerfan_init         */
+/* Method name:        timer_motor_setSpeed         */
 /* Method description: Initialize the cooler device */
-/* Input params:       ucCoolerSpeed = Cooler power */
+/* Input params:       dMotorSpeed = Motor power    */
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void timer_cooler_setSpeed(double dCoolerSpeed)
+void timer_motor_setSpeed(double dMotorSpeed)
 {
 	int iPwmDutyCycle;
-	double dPwmDutyCycle = (dCoolerSpeed*PWM_PERIOD)/(100.0);
+	double dPwmDutyCycle = (dMotorSpeed*PWM_PERIOD)/(100.0);
 	double dDecimal = dPwmDutyCycle - ((int) dPwmDutyCycle);
 
 	if(dDecimal >= 0.5)
@@ -118,38 +118,4 @@ void timer_cooler_setSpeed(double dCoolerSpeed)
 		iPwmDutyCycle =(int) (dPwmDutyCycle - dDecimal);
 
     TPM1_C1V = TPM_CnV_VAL(iPwmDutyCycle);
-}
-
-
-/* ************************************************** */
-/* Method name:        timer_heater_changeTemperature */
-/* Method description: Change the heater potency by   */
-/*                     changing the PWM duty cycle.   */
-/* Input params:       iPwm = Heater Potency {0..99}  */
-/*                            controled by duty cycle */
-/* Output params:      n/a                            */
-/* ************************************************** */
-void timer_heater_changeTemperature(int iPwm)
-{
-    if(iPwm>50){
-        iPwm = 50;
-    }
-    iPwm = (iPwm*TPM1_MOD)/100;
-    TPM1_C0V = iPwm;
-}
-
-
-/* ************************************************ */
-/* Method name:        timer_initHeater             */
-/* Method description: Initialize the heater device */
-/* Input params:       n/a                          */
-/* Output params:      n/a                          */
-/* ************************************************ */
-void timer_heater_initHeater(void)
-{
-    /* un-gate port clock*/
-    SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
-
-    /* set pin as PWM */
-    PORTA_PCR12 |= PORT_PCR_MUX(HEATER_ALT);
 }

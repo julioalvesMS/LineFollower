@@ -7,8 +7,8 @@
 /* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_CONTROLLER_PID_H_
-#define SOURCES_CONTROLLER_PID_H_
+#ifndef SOURCES_DRIVER_PID_H_
+#define SOURCES_DRIVER_PID_H_
 
 
 typedef struct pid_data_type {
@@ -119,4 +119,4 @@ int pid_findMaxSpeed(double dSensorValue);
 /* ************************************************** */
 double pid_getMaxSpeed(void);
 
-#endif /* SOURCES_CONTROLLER_PID_H_ */
+#endif /* SOURCES_DRIVER_PID_H_ */

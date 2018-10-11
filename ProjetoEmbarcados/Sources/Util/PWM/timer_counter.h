@@ -31,7 +31,7 @@ void timer_initTPM1AsPWM(void);
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void timer_cooler_init(void);
+void timer_motor_init(void);
 
 /* ************************************************ */
 /* Method name:        timer_coolerfan_init         */
@@ -39,24 +39,6 @@ void timer_cooler_init(void);
 /* Input params:       ucCoolerSpeed = Cooler power */
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
-void timer_cooler_setSpeed(double dCoolerSpeed);
-
-/* ************************************************** */
-/* Method name:        timer_heater_changeTemperature */
-/* Method description: Change the heater potency by   */
-/*                     changing the PWM duty cycle.   */
-/* Input params:       iPwm = Heater Potency {0..99}  */
-/*                            controled by duty cycle */
-/* Output params:      n/a                            */
-/* ************************************************** */
-void timer_heater_changeTemperature(int iPwm);
-
-/* ************************************************ */
-/* Method name:        timer_initHeater             */
-/* Method description: Initialize the heater device */
-/* Input params:       n/a                          */
-/* Output params:      n/a                          */
-/* ************************************************ */
-void timer_heater_initHeater(void);
+void timer_motor_setSpeed(double dCoolerSpeed);
 
 #endif /* SOURCES_TIMER_COUNTER_HAL_H_ */

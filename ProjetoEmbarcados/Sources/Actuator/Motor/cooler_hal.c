@@ -7,7 +7,7 @@
 /* Revision date:    03mai2018                                       */
 /* ***************************************************************** */
 
-#include "cooler_hal.h"
+#include "motor_hal.h"
 #include "KL25Z\es670_peripheral_board.h"
 
 /* ************************************************ */
@@ -16,7 +16,7 @@
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void cooler_initCooler(void)
+void motor_initMotor(void)
 {
     /* Enable device */
     SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
@@ -33,7 +33,7 @@ void cooler_initCooler(void)
 /* Input params:       n/a                               */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cooler_startCooler(void)
+void motor_startMotor(void)
 {
     GPIOA_PSOR = GPIO_PSOR_PTSO(0x01 << COOLER_PIN);
 }
@@ -45,7 +45,7 @@ void cooler_startCooler(void)
 /* Input params:       n/a                               */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cooler_stopCooler(void)
+void motor_stopMotor(void)
 {
     GPIOA_PCOR = GPIO_PCOR_PTCO(0x01 << COOLER_PIN);
 }

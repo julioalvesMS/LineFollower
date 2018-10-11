@@ -12,26 +12,9 @@
 
 typedef enum
 {
-    IDLE,
-
-    LED,LED_CLEAR,LED_SET,LED_READ,
-
-    SWITCH,
-
-    BUZZER,BUZZER_TIMER_X00, BUZZER_TIMER_XX0,
-
-    COOLER, COOLER_SPEED_X00, COOLER_SPEED_XX0,
-
-    HEATER, HEATER_POT_X0,
-
-	PID_P, PID_P_Xdot0,
-	PID_I, PID_I_Xdot0,
-	PID_D, PID_D_Xdot0
+    INIT, IDLE, RUN, STOP
 } state_machine_type_e;
 
-/* Constants to inform if the input was wrong or not */
-#define ERR 1
-#define OK  0
 
 /* ***************************************************** */
 /* Method name:        cmdMachine_stateProgression       */
@@ -46,6 +29,6 @@ typedef enum
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue, char cLedsStates[], int* iBuzzerTimer, int* ipCoolerReferenceSpeed);
+void cmdMachine_stateProgression(unsigned char ucDataValue);
 
 #endif /* SOURCES_CMDMASCHINE_H_ */

@@ -10,7 +10,6 @@
 /* ***************************************************************** */
 
 #include "KL25Z/es670_peripheral_board.h"
-#include "Serial/serial.h"
 #include "adc.h"
 
 #define ADC0_SC1A_COCO (ADC0_SC1A >> 7)
@@ -166,7 +165,6 @@ int adc_converter(void)
         case DONE:
             siConvertionValue = adc_getConvertionValue() & ADC_RESULT_MASK;
             csCurrentState = IDLE;
-            serial_sendADConvertion(siConvertionValue);
             break;
     }
 

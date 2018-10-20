@@ -11,13 +11,15 @@
 #include "Util\IRQ\tc_hal.h"
 
 #include "Util\Clock\mcg_hal.h"
-#include "Sensor\Tachometer\tachometer_hal.h"
-#include "Util\PWM\timer_counter.h"
-#include "Sensor\ADC\adc.h"
-#include "Sensor\ADC\lut_adc_3v3.h"
 
-#include "Driver\Behaviour\cmdMachine.h"
-#include "Driver\PID\pid.h"
+#include "Domain\driver_entity.h"
+#include "Domain\motor_entity.h"
+
+#include "Actuator\Motor\motor_hal.h"
+#include "Sensor\Speed\speed.h"
+#include "Sensor\Track\track.h"
+
+#include "Driver\driver_ai.h"
 
 
 /* defines */
@@ -56,15 +58,13 @@ void setupPeripherals(void)
     /* Start clock */
     mcg_clockInit();
 
-    /* Prepare the cooler as PWM */
-    timer_initTPM1AsPWM();
-    timer_motor_init();
+    driver_init();
 
-    /* Initiate de ADC Module and prepare heater */
-    adc_initADCModule();
+    motor_initMotorPWM();
 
-    /* Setup the PID */
-    pid_init();
+    track_initSensor();
+
+    speed_initSensor();
 
 }
 
@@ -96,38 +96,33 @@ void enableInterruptions(void)
 int main(void)
 {
 
-    unsigned char ucDataValue = 0;
-    double dMotorSpeed = 0.0;
-    int iCoolerReferenceSpeed = 0;
-    int iMaxCoolerSpeed = 0.0;
-    double dPwmControlValue = 0.0;
+	driver_in_entity driverData;
+	driver_out_entity driverControl;
+
+	driverData.DebugSpeed[0] = 2;
+	driverData.DebugSpeed[1] = 2;
 
     /* Make all the required inicializations */
     setupPeripherals();
 
-    /* Enable needed interruptions */
-    enableInterruptions();
-
-    timer_motor_setSpeed(PWM_0pct);
+    /* Enable needed interruptions
+    enableInterruptions();*/
 
     /* Initiate ECC */
     for (;;)
     {
-		cmdMachine_stateProgression(ucDataValue);
 
-		if(iCoolerReferenceSpeed > iMaxCoolerSpeed)
-			iCoolerReferenceSpeed = iMaxCoolerSpeed;
+		track_readSensor(driverData.TrackSensor);
 
-        /* Reads the cooler speed */
-		dMotorSpeed = tachometer_readSensor(CYCLIC_EXECUTIVE_PERIOD);
+		speed_readSensor(driverData.SpeedSensor);
 
-        dPwmControlValue = pid_updateData((double) dMotorSpeed, (double) iCoolerReferenceSpeed);
-        timer_motor_setSpeed(dPwmControlValue);
+		driverControl = driver_run(driverData);
 
+        motor_setSpeed(driverControl.MotorSpeed);
 
-        /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
+        /* WAIT FOR CYCLIC EXECUTIVE PERIOD
         while(!uiFlagNextPeriod);
-        uiFlagNextPeriod = 0;
+        uiFlagNextPeriod = 0; */
 
     } /* Never leave main */
     return 0;

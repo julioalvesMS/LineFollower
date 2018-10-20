@@ -7,11 +7,17 @@
 /* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
+#include "Domain/motor_entity.h"
 #include "pid.h"
 
-pid_data_type pidConfig;
+pid_data_type pidLeftMotor, pidRightMotor;
 
 const double cdMaxEstabilizationError = 1;
+
+/* PID K Values */
+const double Kp = 1;
+const double Kd = 1;
+const double Ki = 1;
 
 int dMaxCoolerSpeed = 0.0;
 
@@ -23,89 +29,19 @@ int dMaxCoolerSpeed = 0.0;
 /* ************************************************ */
 void pid_init(void)
 {
-	pidConfig.dKp = 0.0;
-	pidConfig.dKd = 0.0;
-	pidConfig.dKi = 0.0;
-	pidConfig.dSensor_previousValue = 0;
-	pidConfig.dError_sum = 0.0;
-}
+	/* Left Motor PID */
+	pidLeftMotor.dKp = Kp;
+	pidLeftMotor.dKd = Kd;
+	pidLeftMotor.dKi = Ki;
+	pidLeftMotor.dSensor_previousValue = 0;
+	pidLeftMotor.dError_sum = 0.0;
 
-
-/* ************************************************** */
-/* Method name:        pid_setKp                      */
-/* Method description: Set a new value for the PID    */
-/*                     proportional constant          */
-/* Input params:       dKp: New value                 */
-/* Output params:      n/a                            */
-/* ************************************************** */
-void pid_setKp(double dKp)
-{
-	pidConfig.dKp = dKp;
-}
-
-
-/* ************************************************** */
-/* Method name:        pid_getKp                      */
-/* Method description: Get the value from the PID     */
-/*                     proportional constant          */
-/* Input params:       n/a                            */
-/* Output params:      double: Value                  */
-/* ************************************************** */
-double pid_getKp(void)
-{
-	return pidConfig.dKp;
-}
-
-
-/* ************************************************** */
-/* Method name:        pid_setKi                      */
-/* Method description: Set a new value for the PID    */
-/*                     integrative constant           */
-/* Input params:       dKi: New value                 */
-/* Output params:      n/a                            */
-/* ************************************************** */
-void pid_setKi(double dKi)
-{
-	pidConfig.dKi = dKi;
-}
-
-
-/* ************************************************** */
-/* Method name:        pid_getKi                      */
-/* Method description: Get the value from the PID     */
-/*                     integrative constant           */
-/* Input params:       n/a                            */
-/* Output params:      double: Value                  */
-/* ************************************************** */
-double pid_getKi(void)
-{
-	return pidConfig.dKi;
-}
-
-
-/* ************************************************** */
-/* Method name:        pid_setKd                      */
-/* Method description: Set a new value for the PID    */
-/*                     derivative constant            */
-/* Input params:       dKd: New value                 */
-/* Output params:      n/a                            */
-/* ************************************************** */
-void pid_setKd(double dKd)
-{
-	pidConfig.dKd = dKd;
-}
-
-
-/* ************************************************** */
-/* Method name:        pid_getKd                      */
-/* Method description: Get the value from the PID     */
-/*                     derivative constant            */
-/* Input params:       n/a                            */
-/* Output params:      double: Value                  */
-/* ************************************************** */
-double pid_getKd(void)
-{
-	return pidConfig.dKd;
+	/* Right Motor PID */
+	pidRightMotor.dKp = Kp;
+	pidRightMotor.dKd = Kd;
+	pidRightMotor.dKi = Ki;
+	pidRightMotor.dSensor_previousValue = 0;
+	pidRightMotor.dError_sum = 0.0;
 }
 
 
@@ -120,7 +56,7 @@ double pid_getKd(void)
 /*                     control reference              */
 /* Output params:      double: New Control effort     */
 /* ************************************************** */
-double pid_updateData(double dSensorValue, double dReferenceValue)
+double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue)
 {
 	double dError, dDifference, dOut;
 
@@ -141,39 +77,18 @@ double pid_updateData(double dSensorValue, double dReferenceValue)
 	return dOut;
 }
 
-
-/* ************************************************** */
-/* Method name:        pid_findMaxSpeed               */
-/* Method description: Discovers the max capable speed*/
-/* Input params:       dSensorValue: Value read from  */
-/*                     the sensor                     */
-/* Output params:      int: 1 if the max speed was    */
-/*                     achieved, 0 if not             */
-int pid_findMaxSpeed(double dSensorValue)
+double pid_controlMotor(motor_entity motor, double dSensorValue, double dReferenceValue)
 {
-	double dDifference = pidConfig.dSensor_previousValue - dSensorValue;
-	int iHasMaxSpeed = 0;
-
-	pidConfig.dSensor_previousValue = dSensorValue;
-
-	if(dDifference < cdMaxEstabilizationError && dSensorValue>1)
-	{
-		iHasMaxSpeed = 1;
-		dMaxCoolerSpeed = dSensorValue;
+	double controlValue = 0.0;
+	switch(motor){
+		case MOTOR_LEFT:
+			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
+			break;
+		case MOTOR_RIGHT:
+			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
+			break;
+		default:
+			break;
 	}
-
-	return iHasMaxSpeed;
+	return controlValue;
 }
-
-
-/* ************************************************** */
-/* Method name:        pid_getMaxSpeed                */
-/* Method description: Get the max possible speed     */
-/* Input params:       n/a                            */
-/* Output params:      double: Max speed              */
-/* ************************************************** */
-double pid_getMaxSpeed(void)
-{
-	return dMaxCoolerSpeed;
-}
-

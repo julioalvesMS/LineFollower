@@ -11,16 +11,6 @@
 #ifndef SOURCES_MOTOR_HAL_H_
 #define SOURCES_MOTOR_HAL_H_
 
-#define MOTOR_STOP 0
-
-/* ************************************************ */
-/* Method name:        cooler_initCooler            */
-/* Method description: Initialize the board cooler. */
-/* Input params:       n/a                          */
-/* Output params:      n/a                          */
-/* ************************************************ */
-void motor_initMotorDigital(void);
-
 /* ************************************************ */
 /* Method name:        cooler_initCooler            */
 /* Method description: Initialize the board cooler. */
@@ -28,24 +18,6 @@ void motor_initMotorDigital(void);
 /* Output params:      n/a                          */
 /* ************************************************ */
 void motor_initMotorPWM(void);
-
-
-/* ***************************************************** */
-/* Method name:        motor_startMotor                */
-/* Method description: Start the board cooler.           */
-/* Input params:       n/a                               */
-/* Output params:      n/a                               */
-/* ***************************************************** */
-void motor_startMotor(void);
-
-
-/* ***************************************************** */
-/* Method name:        motor_stopMotor                 */
-/* Method description: Stop the board cooler.            */
-/* Input params:       n/a                               */
-/* Output params:      n/a                               */
-/* ***************************************************** */
-void motor_stopMotor(void);
 
 /* ************************************************ */
 /* Method name:        timer_coolerfan_init         */

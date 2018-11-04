@@ -7,8 +7,8 @@
 /* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_DRIVER_PID_H_
-#define SOURCES_DRIVER_PID_H_
+#ifndef SOURCES_MOTOR_PID_H_
+#define SOURCES_MOTOR_PID_H_
 
 
 typedef struct pid_data_type {
@@ -24,7 +24,7 @@ typedef struct pid_data_type {
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void pid_init(void);
+void pid_motor_init(void);
 
 
 /* ************************************************** */
@@ -38,9 +38,6 @@ void pid_init(void);
 /*                     control reference              */
 /* Output params:      double: New Control effort     */
 /* ************************************************** */
-double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue);
+double pid_motor_control(motor_entity motor, double dSensorValue, double dReferenceValue);
 
-
-double pid_controlMotor(motor_entity motor, double dSensorValue, double dReferenceValue);
-
-#endif /* SOURCES_DRIVER_PID_H_ */
+#endif /* SOURCES_MOTOR_PID_H_ */

@@ -1,20 +1,20 @@
 /* ***************************************************************** */
-/* File name:        cmdMachine.h                                    */
-/* File description: Header file containing the functions/methods    */
-/*                   interfaces for handling the state machine       */
+/* File name:        cmdMachine.c                                    */
+/* File description: File dedicated for handling the state machine   */
+/*                   responsable for the user interaction response.  */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
 /* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
-#ifndef SOURCES_CMDMASCHINE_H_
-#define SOURCES_CMDMASCHINE_H_
+#include "Domain/common.h"
+#include "Domain/driver_entity.h"
+#include "driver_behaviour.h"
 
-typedef enum
+bool behaviour_checkStopCondition(driver_in_entity driverInput)
 {
-    INIT, IDLE, RUN, STOP
-} state_machine_type_e;
-
+  return false;
+}
 
 /* ***************************************************** */
 /* Method name:        cmdMachine_stateProgression       */
@@ -29,6 +29,24 @@ typedef enum
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue);
+void behaviour_update(driver_in_entity driverInput)
+{
+    driver_state nextState = driverInput.CurrentState;
 
-#endif /* SOURCES_CMDMASCHINE_H_ */
+    switch(driverInput.CurrentState)
+    {
+      case START:
+        nextState = DRIVE;
+        break;
+      case DRIVE:
+        if (behaviour_checkStopCondition(driverInput))
+          nextState = STOP;
+        break
+    	default:
+        break;
+
+    } /* switch(driverInput.CurrentState) */
+
+    /* Changes the current state to the next */
+    driverInput.CurrentState = nextState;
+}

@@ -58,8 +58,6 @@ void setupPeripherals(void)
     /* Start clock */
     mcg_clockInit();
 
-    driver_init();
-
     motor_initMotorPWM();
 
     track_initSensor();
@@ -111,15 +109,13 @@ int main(void)
     /* Initiate ECC */
     for (;;)
     {
+        track_readSensor(driverData.TrackSensor);
 
-		track_readSensor(driverData.TrackSensor);
+        speed_readSensor(driverData.SpeedSensor);
 
-		speed_readSensor(driverData.SpeedSensor);
+        driverControl = driver_run(driverData);
 
-		driverControl = driver_run(driverData);
-
-        motor_setSpeed(driverControl.MotorSpeed);
-
+        motor_setSpeed(driverControl);
         /* WAIT FOR CYCLIC EXECUTIVE PERIOD
         while(!uiFlagNextPeriod);
         uiFlagNextPeriod = 0; */

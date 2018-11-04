@@ -1,13 +1,14 @@
 /* ***************************************************************** */
-/* File name:        cmdMachine.c                                    */
-/* File description: File dedicated for handling the state machine   */
-/*                   responsable for the user interaction response.  */
+/* File name:        cmdMachine.h                                    */
+/* File description: Header file containing the functions/methods    */
+/*                   interfaces for handling the state machine       */
 /* Author name:      julioalvesMS & IagoAF                           */
 /* Creation date:    12abr2018                                       */
 /* Revision date:    28jun2018                                       */
 /* ***************************************************************** */
 
-#include "cmdMachine.h"
+#ifndef SOURCES_DRIVER_BEHAVIOUR_H_
+#define SOURCES_DRIVER_BEHAVIOUR_H_
 
 /* ***************************************************** */
 /* Method name:        cmdMachine_stateProgression       */
@@ -22,19 +23,6 @@
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void cmdMachine_stateProgression(unsigned char ucDataValue)
-{
-    static state_machine_type_e ssmCurrentState = INIT;
+void behaviour_update(unsigned char ucDataValue);
 
-    state_machine_type_e smNextState = IDLE;
-
-    switch(ssmCurrentState)
-    {
-    	default:
-            break;
-
-    } /* switch(ssmCurrentState) */
-
-    /* Changes the current state to the next */
-    ssmCurrentState = smNextState;
-}
+#endif /* SOURCES_DRIVER_BEHAVIOUR_H_ */

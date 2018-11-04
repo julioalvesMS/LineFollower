@@ -8,10 +8,10 @@
 /* ***************************************************************** */
 
 #include "motor_hal.h"
-#include "KL25Z\es670_peripheral_board.h"
-#include "Domain\motor_entity.h"
-
-#include "PWM\pwm_motor.h"
+#include "KL25Z/es670_peripheral_board.h"
+#include "Domain/motor_entity.h"
+#include "PID/pid.h"
+#include "PWM/pwm_motor.h"
 
 
 /* ************************************************ */
@@ -24,6 +24,7 @@ void motor_initMotorPWM(void)
 {
 	pwm_initTPM1AsPWM();
 	pwm_motor_init();
+	pid_init();
 }
 
 
@@ -33,8 +34,13 @@ void motor_initMotorPWM(void)
 /* Input params:       ucCoolerSpeed = Cooler power */
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
-void motor_setSpeed(double motorSpeed[])
+void motor_setSpeed(driver_out_entity driverControl)
 {
-	pwm_motor_setSpeed(MOTOR_LEFT, motorSpeed[0]);
-	pwm_motor_setSpeed(MOTOR_RIGHT, motorSpeed[1]);
+	double leftDuty, rightDuty;
+
+	leftDuty = pid_motor_control(MOTOR_LEFT, driverControl.SpeedSensor[0], driverControl.MotorSpeed[0]);
+	rightDuty = pid_motor_control(MOTOR_RIGHT, driverControl.SpeedSensor[1], driverControl.MotorSpeed[1]);
+
+	pwm_motor_setSpeed(MOTOR_LEFT, leftDuty);
+	pwm_motor_setSpeed(MOTOR_RIGHT, rightDuty);
 }

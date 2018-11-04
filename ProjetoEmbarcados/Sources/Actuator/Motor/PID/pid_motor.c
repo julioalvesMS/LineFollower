@@ -27,7 +27,7 @@ int dMaxCoolerSpeed = 0.0;
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void pid_init(void)
+void pid_motor_init(void)
 {
 	/* Left Motor PID */
 	pidLeftMotor.dKp = Kp;
@@ -46,7 +46,7 @@ void pid_init(void)
 
 
 /* ************************************************** */
-/* Method name:        pid_updateData                 */
+/* Method name:        pid_motor_updateData           */
 /* Method description: Update the control output      */
 /*                     using the reference and sensor */
 /*                     value                          */
@@ -56,7 +56,7 @@ void pid_init(void)
 /*                     control reference              */
 /* Output params:      double: New Control effort     */
 /* ************************************************** */
-double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue)
+double pid_motor_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue)
 {
 	double dError, dDifference, dOut;
 
@@ -77,15 +77,15 @@ double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dRefe
 	return dOut;
 }
 
-double pid_controlMotor(motor_entity motor, double dSensorValue, double dReferenceValue)
+double pid_motor_control(motor_entity motor, double dSensorValue, double dReferenceValue)
 {
 	double controlValue = 0.0;
 	switch(motor){
 		case MOTOR_LEFT:
-			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
+			controlValue = pid_motor_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
 			break;
 		case MOTOR_RIGHT:
-			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
+			controlValue = pid_motor_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
 			break;
 		default:
 			break;

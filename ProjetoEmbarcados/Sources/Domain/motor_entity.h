@@ -12,7 +12,7 @@
 typedef enum
 {
 	MOTOR_LEFT,
-    MOTOR_RIGHT
+	MOTOR_RIGHT
 } motor_entity;
 
 

@@ -41,8 +41,8 @@ void behaviour_update(driver_in_entity driverInput)
       case DRIVE:
         if (behaviour_checkStopCondition(driverInput))
           nextState = STOP;
-        break
-    	default:
+        break;
+      default:
         break;
 
     } /* switch(driverInput.CurrentState) */

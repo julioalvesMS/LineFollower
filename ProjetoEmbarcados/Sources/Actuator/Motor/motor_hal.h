@@ -26,6 +26,6 @@ void motor_initMotorPWM(void);
 /*                     controled by PWM duty cycle. */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void motor_setSpeed(double motorSpeed[]);
+void motor_setSpeed(driver_out_entity driverControl);
 
 #endif /* SOURCES_MOTOR_HAL_H_ */

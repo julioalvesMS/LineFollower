@@ -7,11 +7,12 @@
 /* Revision date:    03mai2018                                       */
 /* ***************************************************************** */
 
-#include "motor_hal.h"
 #include "KL25Z/es670_peripheral_board.h"
 #include "Domain/motor_entity.h"
-#include "PID/pid.h"
+#include "Domain/driver_entity.h"
+#include "PID/pid_motor.h"
 #include "PWM/pwm_motor.h"
+#include "motor_hal.h"
 
 
 /* ************************************************ */
@@ -24,7 +25,7 @@ void motor_initMotorPWM(void)
 {
 	pwm_initTPM1AsPWM();
 	pwm_motor_init();
-	pid_init();
+	pid_motor_init();
 }
 
 

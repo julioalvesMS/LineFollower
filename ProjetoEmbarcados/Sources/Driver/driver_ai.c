@@ -9,10 +9,9 @@
 #include "Domain/driver_entity.h"
 #include "Domain/motor_entity.h"
 #include "Behaviour/driver_behaviour.h"
-#include "PID/pid.h"
 #include "driver_ai.h"
 
-void driver_drive(driver_in_entity inputData)
+driver_out_entity driver_drive(driver_in_entity inputData)
 {
 	driver_out_entity driverOut;
 
@@ -22,7 +21,7 @@ void driver_drive(driver_in_entity inputData)
 	return driverOut;
 }
 
-void driver_stop(driver_in_entity inputData)
+driver_out_entity driver_stop(driver_in_entity inputData)
 {
 	driver_out_entity driverOut;
 
@@ -47,7 +46,7 @@ driver_out_entity driver_run(driver_in_entity inputData)
 	}
 
 	/* Maintain in the driver control the actual speed data */
-	driverOut.SpeedSensor = &(inputData.SpeedSensor)
+	driverOut.SpeedSensor = (inputData.SpeedSensor);
 
 	return driverOut;
 }

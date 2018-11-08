@@ -1,28 +1,5 @@
-16:17:40 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+17:00:37 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
-'Building file: ../Sources/Main/main.c'
-'Invoking: Cross ARM C Compiler'
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Main/main.d" -MT"Sources/Main/main.o" -c -o "Sources/Main/main.o" "../Sources/Main/main.c"
-'Finished building: ../Sources/Main/main.c'
-' '
-'Building target: ProjetoEmbarcados.elf'
-'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
-'Finished building target: ProjetoEmbarcados.elf'
-' '
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19396	    136	   2192	  21724	   54dc	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-16:18:59 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Building file: ../Sources/Actuator/Motor/PWM/pwm_motor.c'
-'Invoking: Cross ARM C Compiler'
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Actuator/Motor/PWM/pwm_motor.d" -MT"Sources/Actuator/Motor/PWM/pwm_motor.o" -c -o "Sources/Actuator/Motor/PWM/pwm_motor.o" "../Sources/Actuator/Motor/PWM/pwm_motor.c"
-'Finished building: ../Sources/Actuator/Motor/PWM/pwm_motor.c'
-' '
 'Building file: ../Sources/Actuator/Motor/motor_hal.c'
 'Invoking: Cross ARM C Compiler'
 arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Actuator/Motor/motor_hal.d" -MT"Sources/Actuator/Motor/motor_hal.o" -c -o "Sources/Actuator/Motor/motor_hal.o" "../Sources/Actuator/Motor/motor_hal.c"
@@ -30,64 +7,12 @@ arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-ch
 ' '
 'Building target: ProjetoEmbarcados.elf'
 'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/Behaviour/driver_behaviour.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/PID/pid_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
 'Finished building target: ProjetoEmbarcados.elf'
 ' '
 'Invoking: Cross ARM GNU Print Size'
 arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
    text	   data	    bss	    dec	    hex	filename
-  19396	    136	   2192	  21724	   54dc	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-16:22:06 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19396	    136	   2192	  21724	   54dc	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-16:23:33 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19396	    136	   2192	  21724	   54dc	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-16:26:08 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Building file: ../Sources/Main/main.c'
-'Invoking: Cross ARM C Compiler'
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Main/main.d" -MT"Sources/Main/main.o" -c -o "Sources/Main/main.o" "../Sources/Main/main.c"
-'Finished building: ../Sources/Main/main.c'
-' '
-'Building target: ProjetoEmbarcados.elf'
-'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
-'Finished building target: ProjetoEmbarcados.elf'
-' '
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19404	    136	   2192	  21732	   54e4	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
-' '
-16:27:47 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
-make all 
-'Building file: ../Sources/Main/main.c'
-'Invoking: Cross ARM C Compiler'
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Main/main.d" -MT"Sources/Main/main.o" -c -o "Sources/Main/main.o" "../Sources/Main/main.c"
-'Finished building: ../Sources/Main/main.c'
-' '
-'Building target: ProjetoEmbarcados.elf'
-'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
-'Finished building target: ProjetoEmbarcados.elf'
-' '
-'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
-   text	   data	    bss	    dec	    hex	filename
-  19396	    136	   2192	  21724	   54dc	ProjetoEmbarcados.elf
+  19968	    136	   2192	  22296	   5718	ProjetoEmbarcados.elf
 'Finished building: ProjetoEmbarcados.siz'
 ' '

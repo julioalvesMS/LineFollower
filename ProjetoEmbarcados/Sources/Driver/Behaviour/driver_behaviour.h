@@ -23,6 +23,6 @@
 /*                       ms to play the buzzer           */
 /* Output params:      n/a                               */
 /* ***************************************************** */
-void behaviour_update(unsigned char ucDataValue);
+void behaviour_update(driver_in_entity driverInput);
 
 #endif /* SOURCES_DRIVER_BEHAVIOUR_H_ */

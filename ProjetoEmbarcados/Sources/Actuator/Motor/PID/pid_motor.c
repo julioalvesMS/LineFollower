@@ -8,7 +8,7 @@
 /* ***************************************************************** */
 
 #include "Domain/motor_entity.h"
-#include "pid.h"
+#include "pid_motor.h"
 
 pid_data_type pidLeftMotor, pidRightMotor;
 

@@ -97,8 +97,8 @@ int main(void)
 	driver_in_entity driverData;
 	driver_out_entity driverControl;
 
-	driverData.DebugSpeed[0] = 2;
-	driverData.DebugSpeed[1] = 2;
+	driverData.DebugSpeed[0] = 10;
+	driverData.DebugSpeed[1] = 10;
 
     /* Make all the required inicializations */
     setupPeripherals();

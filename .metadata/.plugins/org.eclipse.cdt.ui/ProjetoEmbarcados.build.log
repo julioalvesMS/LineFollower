@@ -1,4 +1,4 @@
-20:56:50 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+16:27:47 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
 'Building file: ../Sources/Main/main.c'
 'Invoking: Cross ARM C Compiler'
@@ -17,5 +17,5 @@ arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
 'Finished building: ProjetoEmbarcados.siz'
 ' '
 
-20:56:52 Build Finished (took 1s.817ms)
+16:27:48 Build Finished (took 1s.603ms)
 

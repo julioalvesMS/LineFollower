@@ -1,4 +1,4 @@
-17:13:27 **** Incremental Build of configuration debug for project ksdk_platform_lib_KL25Z4 ****
+16:16:39 **** Incremental Build of configuration debug for project ksdk_platform_lib_KL25Z4 ****
 make -k all 
 'Building file: C:/Freescale/KSDK_1.2.0/platform/hal/src/uart/fsl_uart_hal.c'
 'Invoking: Cross ARM C Compiler'
@@ -381,5 +381,5 @@ arm-none-eabi-ar: creating libksdk_platform.a
 'Finished building target: libksdk_platform.a'
 ' '
 
-17:14:06 Build Finished (took 38s.745ms)
+16:17:24 Build Finished (took 44s.914ms)
 

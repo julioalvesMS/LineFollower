@@ -5,23 +5,17 @@
  *      Author: aluno
  */
 
+#include "Domain\tachometer_entity.h"
 #include "speed.h"
 #include "Tachometer\tachometer_hal.h"
 
-input_port_type_e tachometerInputs[2] = {
-		TACHOMETER_LEFT,
-	    TACHOMETER_RIGHT
-};
-
 void speed_initSensor(void)
 {
-	tachometer_initSensor();
+	tachometer_init();
 }
 
-void speed_readSensor(double dMotorSpeed[])
+void speed_readSensor(double motorSpeed[])
 {
-	for(int i=0; i<2;i++)
-	{
-		dMotorSpeed[i] = tachometer_readSensor(tachometerInputs[i]);
-	}
+	motorSpeed[0] = tachometer_readSensor(TACHOMETER_LEFT);
+	motorSpeed[1] = tachometer_readSensor(TACHOMETER_RIGHT);
 }

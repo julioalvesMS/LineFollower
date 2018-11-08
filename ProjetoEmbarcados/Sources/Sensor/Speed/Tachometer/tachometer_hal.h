@@ -11,11 +11,7 @@
 #ifndef SOURCES_TACHOMETER_HAL_H_
 #define SOURCES_TACHOMETER_HAL_H_
 
-typedef enum
-{
-	TACHOMETER_LEFT,
-    TACHOMETER_RIGHT
-} input_port_type_e;
+
 
 /* ************************************************ */
 /* Method name:        tachometer_initSensor        */
@@ -24,7 +20,7 @@ typedef enum
 /* Input params:       n/a                          */
 /* Output params:      n/a                          */
 /* ************************************************ */
-void tachometer_initSensor(void);
+void tachometer_init(void);
 
 
 /* ***************************************************** */
@@ -33,7 +29,7 @@ void tachometer_initSensor(void);
 /* Input params:       dPeriodMc: ECC period             */
 /* Output params:      double: Motor speed               */
 /* ***************************************************** */
-double tachometer_readSensor(double dPeriodMc);
+double tachometer_readSensor(tachometer_entity tachomter);
 
 
 #endif /* SOURCES_TACHOMETER_HAL_H_ */

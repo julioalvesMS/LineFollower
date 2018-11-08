@@ -12,8 +12,7 @@
 void speed_initSensor(void);
 
 
-void speed_readSensor(double dMotorSpeed[]);
-
+void speed_readSensor(double motorSpeed[]);
 
 
 #endif /* SOURCES_SENSOR_SPEED_TRACK_H_ */

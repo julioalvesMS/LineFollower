@@ -59,7 +59,7 @@ void pwm_initTPM1AsPWM(void)
     /* Enable interruptions */
     /* Use edge aligned PWM mode */
     /* Use as High True */
-    TPM1_C1SC |= (TPM_CnSC_MSB(CH1_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH1_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH1_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH1_HIGH_TRUE_A));;
+    TPM1_C1SC |= (TPM_CnSC_MSB(CH1_EDGE_ALIGN_B) | TPM_CnSC_MSA(CH1_EDGE_ALIGN_A) | TPM_CnSC_ELSB(CH1_HIGH_TRUE_B) | TPM_CnSC_ELSA(CH1_HIGH_TRUE_A));
 
     //TPM1_C1V = TPM_CnV_VAL(PWM_0pct);
 

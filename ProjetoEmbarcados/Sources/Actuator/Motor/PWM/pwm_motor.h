@@ -13,9 +13,9 @@
 #ifndef SOURCES_TIMER_COUNTER_HAL_H_
 #define SOURCES_TIMER_COUNTER_HAL_H_
 
-#define PWM_PERIOD 400
+#define PWM_PERIOD 4000
 #define PWM_0pct   0
-#define PWM_100pct 399.0
+#define PWM_100pct 3999.0
 
 /* ************************************************** */
 /* Method name:        timer_initTPM1AsPWM        */

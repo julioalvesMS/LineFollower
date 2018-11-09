@@ -8,8 +8,8 @@
 /* ***************************************************************** */
 
 #include "Domain\tachometer_entity.h"
-#include "tachometer_hal.h"
 #include "KL25Z\es670_peripheral_board.h"
+#include "tachometer_hal.h"
 
 #define CLKIN0 1U
 #define EXTCLK_4 2U
@@ -121,6 +121,8 @@ void TPM2_IRQHandler(void)
 double tachometer_readSensor(tachometer_entity tachomter)
 {
 	int period = 0;
+	double speed = 0;
+
 	switch(tachomter){
 		case TACHOMETER_LEFT:
 			period = leftPeriod;
@@ -131,7 +133,11 @@ double tachometer_readSensor(tachometer_entity tachomter)
 		default:
 			break;
 	}
-	return period/(CLOCK_FREQUENCY*encoderSize);
+
+	if(period!=0)
+		speed = CLOCK_FREQUENCY/(period*encoderSize);
+
+	return speed;
 }
 
 

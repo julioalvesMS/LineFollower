@@ -6,8 +6,8 @@
  */
 
 #include "Domain\tachometer_entity.h"
-#include "speed.h"
 #include "Tachometer\tachometer_hal.h"
+#include "speed.h"
 
 void speed_initSensor(void)
 {

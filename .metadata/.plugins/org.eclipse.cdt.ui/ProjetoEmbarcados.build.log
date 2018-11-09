@@ -1,12 +1,11 @@
-21:15:53 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+18:41:20 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
 make all 
-'Building target: ProjetoEmbarcados.elf'
-'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
-./Sources/Sensor/Speed/speed.o:(.rodata.encoderSize+0x0): multiple definition of `encoderSize'
-./Sources/Sensor/Speed/Tachometer/tachometer_hal.o:(.rodata.encoderSize+0x0): first defined here
-collect2.exe: error: ld returned 1 exit status
-make: *** [ProjetoEmbarcados.elf] Error 1
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21948	    132	   2232	  24312	   5ef8	ProjetoEmbarcados.elf
+'Finished building: ProjetoEmbarcados.siz'
+' '
 
-21:15:54 Build Finished (took 719ms)
+18:41:20 Build Finished (took 512ms)
 

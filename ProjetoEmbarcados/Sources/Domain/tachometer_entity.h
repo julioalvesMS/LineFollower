@@ -16,7 +16,6 @@ typedef enum
 } tachometer_entity;
 
 
-int const encoderSize = 20;
-
+static const int encoderSize = 20;
 
 #endif /* SOURCES_DOMAIN_MOTOR_ENTITY_H_ */

@@ -13,5 +13,7 @@ void track_initSensor(void);
 
 void track_readSensor(int sensors[]);
 
+void track_findTrack(driver_in_entity* driver);
+
 
 #endif /* SOURCES_SENSOR_TRACK_TRACK_H_ */

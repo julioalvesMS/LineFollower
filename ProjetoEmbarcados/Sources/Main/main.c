@@ -13,13 +13,14 @@
 #include "Util\Clock\mcg_hal.h"
 
 #include "Domain\driver_entity.h"
-#include "Domain\motor_entity.h"
 
 #include "Actuator\Motor\motor_hal.h"
 #include "Sensor\Speed\speed.h"
 #include "Sensor\Track\track.h"
 
 #include "Driver\driver_ai.h"
+
+#include "Serial\serial.h"
 
 
 /* defines */
@@ -58,6 +59,9 @@ void setupPeripherals(void)
     /* Start clock */
     mcg_clockInit();
 
+    /* Start serial communication */
+    serial_init();
+
     driver_init();
 
     motor_initMotorPWM();
@@ -82,6 +86,8 @@ void enableInterruptions(void)
 
     /* configure cyclic executive interruption */
     tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
+
+    serial_enableIRQ();
 }
 
 
@@ -114,11 +120,17 @@ int main(void)
 
 		track_readSensor(driverData.TrackSensor);
 
+		track_findTrack(&driverData);
+
 		speed_readSensor(driverData.SpeedSensor);
 
 		driverControl = driver_run(driverData);
 
         motor_setSpeed(driverControl.MotorSpeed);
+
+        serial_sendADConvertion(driverData.SpeedSensor[0]*100);
+        serial_sendADConvertion(driverData.SpeedSensor[1]*100);
+        serial_sendAck();
 
         /* WAIT FOR CYCLIC EXECUTIVE PERIOD
         while(!uiFlagNextPeriod);

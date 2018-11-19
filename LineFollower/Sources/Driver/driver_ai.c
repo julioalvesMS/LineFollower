@@ -6,9 +6,9 @@
  */
 
 
-#include "Domain\driver_entity.h"
-#include "Domain\motor_entity.h"
-#include "PID\pid.h"
+#include "Domain/driver_entity.h"
+#include "Domain/motor_entity.h"
+#include "PID/pid.h"
 #include "driver_ai.h"
 
 static const int trackBias[5] = {

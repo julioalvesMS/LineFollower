@@ -8,10 +8,10 @@
 /* ***************************************************************** */
 
 #include "motor_hal.h"
-#include "KL25Z\es670_peripheral_board.h"
-#include "Domain\motor_entity.h"
+#include "KL25Z/es670_peripheral_board.h"
+#include "Domain/motor_entity.h"
 
-#include "PWM\pwm_motor.h"
+#include "PWM/pwm_motor.h"
 
 
 /* ************************************************ */

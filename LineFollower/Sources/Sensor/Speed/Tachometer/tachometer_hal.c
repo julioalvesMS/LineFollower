@@ -7,8 +7,8 @@
 /* Revision date:    03mai2018                                       */
 /* ***************************************************************** */
 
-#include "Domain\tachometer_entity.h"
-#include "KL25Z\es670_peripheral_board.h"
+#include "Domain/tachometer_entity.h"
+#include "KL25Z/es670_peripheral_board.h"
 #include "tachometer_hal.h"
 
 #define CLKIN0 1U

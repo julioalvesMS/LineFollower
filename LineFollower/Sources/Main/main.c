@@ -8,19 +8,19 @@
 /* Revision date:     28jun2018                   */
 /* ********************************************** */
 
-#include "Util\IRQ\tc_hal.h"
+#include "Util/IRQ/tc_hal.h"
 
-#include "Util\Clock\mcg_hal.h"
+#include "Util/Clock/mcg_hal.h"
 
-#include "Domain\driver_entity.h"
+#include "Domain/driver_entity.h"
 
-#include "Actuator\Motor\motor_hal.h"
-#include "Sensor\Speed\speed.h"
-#include "Sensor\Track\track.h"
+#include "Actuator/Motor/motor_hal.h"
+#include "Sensor/Speed/speed.h"
+#include "Sensor/Track/track.h"
 
-#include "Driver\driver_ai.h"
+#include "Driver/driver_ai.h"
 
-#include "Serial\serial.h"
+#include "Serial/serial.h"
 
 
 /* defines */
@@ -69,6 +69,8 @@ void setupPeripherals(void)
     track_initSensor();
 
     speed_initSensor();
+
+    SIM_COPC &= !SIM_COPC_COPT(0x03);
 
 }
 

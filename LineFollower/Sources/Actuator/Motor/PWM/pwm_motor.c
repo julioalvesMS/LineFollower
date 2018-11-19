@@ -11,7 +11,7 @@
 
 #include "KL25Z/es670_peripheral_board.h"
 #include "fsl_tpm_hal.h"
-#include "Domain\motor_entity.h"
+#include "Domain/motor_entity.h"
 #include "pwm_motor.h"
 
 #define LPTPM_COUNTER_MODE_4    2U

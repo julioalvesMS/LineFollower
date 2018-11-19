@@ -5,9 +5,9 @@
  *      Author: aluno
  */
 
-#include "ADC\adc.h"
-#include "Emitter\emitter_hal.h"
-#include "Domain\driver_entity.h"
+#include "ADC/adc.h"
+#include "Emitter/emitter_hal.h"
+#include "Domain/driver_entity.h"
 #include "track.h"
 
 input_port_type_e trackInputs[5] = {
@@ -37,7 +37,7 @@ void track_findTrack(driver_in_entity* driver)
 {
 	for(int i=0; i<5;i++)
 	{
-		if(driver->TrackSensor[i] > 10)
+		if(driver->TrackSensor[i] < 40)
 			driver->TrackState[i] = IN_TRACK;
 		else
 			driver->TrackState[i] = OFF_TRACK;

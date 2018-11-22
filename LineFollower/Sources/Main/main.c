@@ -11,6 +11,7 @@
 #include "Util/IRQ/tc_hal.h"
 
 #include "Util/Clock/mcg_hal.h"
+#include "Util/util.h"
 
 #include "Domain/driver_entity.h"
 
@@ -24,12 +25,11 @@
 
 
 /* defines */
-#define CYCLIC_EXECUTIVE_PERIOD         250 * 1000 /* 250000 micro seconds */
+#define CYCLIC_EXECUTIVE_PERIOD         5 * 1000 /* 5 mili seconds */
 
 
 /* globals */
 volatile unsigned int uiFlagNextPeriod = 0;         /* cyclic executive flag */
-extern const unsigned char tabela_temp[256];
 
 
 /* ************************************************ */
@@ -89,7 +89,7 @@ void enableInterruptions(void)
     /* configure cyclic executive interruption */
     tc_installLptmr0(CYCLIC_EXECUTIVE_PERIOD, main_cyclicExecuteIsr);
 
-    serial_enableIRQ();
+    /* serial_enableIRQ(); */
 }
 
 
@@ -103,7 +103,6 @@ void enableInterruptions(void)
 /* ****************************************************** */
 int main(void)
 {
-
 	driver_in_entity driverData;
 	driver_out_entity driverControl;
 
@@ -113,14 +112,12 @@ int main(void)
     /* Make all the required inicializations */
     setupPeripherals();
 
-    /* Enable needed interruptions
-    enableInterruptions();*/
+    /* Enable needed interruptions */
+    /* enableInterruptions(); */
 
     /* Initiate ECC */
-    for (int i=0;;i++)
+    for (;;)
     {
-    	driverData.DebugSpeed[0] = i;
-    	driverData.DebugSpeed[1] = i;
 
 		track_readSensor(driverData.TrackSensor);
 
@@ -131,22 +128,14 @@ int main(void)
 		driverControl = driver_run(driverData);
 
         motor_setSpeed(driverControl.MotorSpeed);
+        util_genDelay10ms();
 
-        serial_sendAck();
-
-        //serial_sendADConvertion(driverData.SpeedSensor[0]*100);
-        //serial_sendADConvertion(driverData.SpeedSensor[1]*100);
-
-        //serial_putChar('0'+driverData.TrackState[0]);
-		//serial_putChar('0'+driverData.TrackState[1]);
-		//serial_putChar('0'+driverData.TrackState[2]);
-		//serial_putChar('0'+driverData.TrackState[3]);
-		//serial_putChar('0'+driverData.TrackState[4]);
-
-
-        /* WAIT FOR CYCLIC EXECUTIVE PERIOD
+        /* WAIT FOR CYCLIC EXECUTIVE PERIOD */
+        /*
         while(!uiFlagNextPeriod);
-        uiFlagNextPeriod = 0; */
+        uiFlagNextPeriod = 0;
+        */
+
 
     } /* Never leave main */
     return 0;

@@ -12,9 +12,9 @@
 
 
 typedef struct pid_data_type {
-	double dKp, dKd, dKi;
-	double dSensor_previousValue;
-	double dError_sum;
+	double Kp, Kd, Ki;
+	double PreviousValue;
+	double ErrorSum;
 } pid_data_type;
 
 
@@ -38,9 +38,9 @@ void pid_init(void);
 /*                     control reference              */
 /* Output params:      double: New Control effort     */
 /* ************************************************** */
-double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue);
+double pid_updateData(double sensorValue, double referenceValue);
 
 
-double pid_controlMotor(motor_entity motor, double dSensorValue, double dReferenceValue);
+double pid_controlMotor(double sensorValue, double referenceValue);
 
 #endif /* SOURCES_DRIVER_PID_H_ */

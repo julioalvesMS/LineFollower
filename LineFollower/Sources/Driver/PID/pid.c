@@ -10,16 +10,12 @@
 #include "Domain/motor_entity.h"
 #include "pid.h"
 
-pid_data_type pidLeftMotor, pidRightMotor;
-
-const double cdMaxEstabilizationError = 1;
+pid_data_type pidConfig;
 
 /* PID K Values */
-const double Kp = 1;
-const double Kd = 1;
-const double Ki = 1;
-
-int dMaxCoolerSpeed = 0.0;
+const double Kp = 3;
+const double Kd = 9;
+const double Ki = 0;
 
 /* ************************************************ */
 /* Method name:        pid_init                     */
@@ -30,18 +26,11 @@ int dMaxCoolerSpeed = 0.0;
 void pid_init(void)
 {
 	/* Left Motor PID */
-	pidLeftMotor.dKp = Kp;
-	pidLeftMotor.dKd = Kd;
-	pidLeftMotor.dKi = Ki;
-	pidLeftMotor.dSensor_previousValue = 0;
-	pidLeftMotor.dError_sum = 0.0;
-
-	/* Right Motor PID */
-	pidRightMotor.dKp = Kp;
-	pidRightMotor.dKd = Kd;
-	pidRightMotor.dKi = Ki;
-	pidRightMotor.dSensor_previousValue = 0;
-	pidRightMotor.dError_sum = 0.0;
+	pidConfig.Kp = Kp;
+	pidConfig.Kd = Kd;
+	pidConfig.Ki = Ki;
+	pidConfig.PreviousValue = 0;
+	pidConfig.ErrorSum = 0.0;
 }
 
 
@@ -50,45 +39,29 @@ void pid_init(void)
 /* Method description: Update the control output      */
 /*                     using the reference and sensor */
 /*                     value                          */
-/* Input params:       dSensorValue: Value read from  */
+/* Input params:       sensorValue: Value read from  */
 /*                     the sensor                     */
-/*                     dReferenceValue: Value used as */
+/*                     referenceValue: Value used as */
 /*                     control reference              */
 /* Output params:      double: New Control effort     */
 /* ************************************************** */
-double pid_updateData(pid_data_type pidConfig, double dSensorValue, double dReferenceValue)
+double pid_updateData(double sensorValue, double referenceValue)
 {
-	double dError, dDifference, dOut;
+	double Error, difference, out;
 
-	dError = dReferenceValue - dSensorValue;
-	dDifference = pidConfig.dSensor_previousValue - dSensorValue;
-	pidConfig.dError_sum += dError;
+	Error = referenceValue - sensorValue;
+	difference = pidConfig.PreviousValue - sensorValue;
+	/* pidConfig.ErrorSum += Error; */
 
-	dOut = pidConfig.dKp*dError + pidConfig.dKi*pidConfig.dError_sum + pidConfig.dKd*dDifference;
+	out = pidConfig.Kp*Error + pidConfig.Ki*pidConfig.ErrorSum + pidConfig.Kd*difference;
 
-	pidConfig.dSensor_previousValue = dSensorValue;
+	pidConfig.PreviousValue = sensorValue;
 
-	if (dOut>100.0)
-		dOut = 100.0;
+	if (out>100.0)
+		out = 100.0;
 
-	else if (dOut<0.0)
-		dOut = 0.0;
+	else if (out<-100.0)
+		out = -100.0;
 
-	return dOut;
-}
-
-double pid_controlMotor(motor_entity motor, double dSensorValue, double dReferenceValue)
-{
-	double controlValue = 0.0;
-	switch(motor){
-		case MOTOR_LEFT:
-			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
-			break;
-		case MOTOR_RIGHT:
-			controlValue = pid_updateData(pidLeftMotor, dSensorValue, dReferenceValue);
-			break;
-		default:
-			break;
-	}
-	return controlValue;
+	return out;
 }

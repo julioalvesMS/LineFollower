@@ -33,28 +33,32 @@ static int rightPeriod;
 
 void tachometer_left_init(void)
 {
-
-    /* Enable device */
+    /* Enable TPM port */
     SIM_SCGC6 |= SIM_SCGC6_TPM0(CGC_CLOCK_ENABLED);
-
-    /* Enable device */
+    /* Enable PORTE - Left Tachometer */
     SIM_SCGC5 |= SIM_SCGC5_PORTE(CGC_CLOCK_ENABLED);
 
+    /* Connect tachometer to PWM */
     PORTE_PCR29 |= PORT_PCR_MUX(LEFT_TACHOMETER_ALT);
 
     /* Select output port to counter */
     SIM_SOPT4 &= ~SIM_SOPT4_TPM0CLKSEL(CLKIN0);
 
+    TPM0_CONF |= TPM_CONF_DBGMODE(0X03);
+    /*** Status and Control Register ***/
+    /* Read only on the rising edge */
     TPM0_SC &= ~TPM_SC_CPWMS(UP_COUNTER_MODE);
-
     /* Use a external clock */
-    TPM0_SC &= ~TPM_SC_CMOD(EXTCLK_4);
-    TPM0_SC |= TPM_SC_CMOD(EXTCLK_3);
-
+    TPM0_SC |= TPM_SC_CMOD(EXTCLK_4);
+    TPM0_SC &= ~TPM_SC_CMOD(EXTCLK_3);
     /* Set Prescale factor to 1:1 */
     TPM0_SC &= ~TPM_SC_PS(PRESCALE_FACTOR_1);
 
-    TPM0_C0SC |= (TPM_CnSC_CHIE(INTERRUPTION_ENABLE) | TPM_CnSC_MSB(EDGE_ALIGN_B) | TPM_CnSC_MSA(EDGE_ALIGN_A) | TPM_CnSC_ELSB(HIGH_TRUE_B) | TPM_CnSC_ELSA(HIGH_TRUE_A));
+    /*** Channel Status and Control Register ***/
+    TPM0_C0SC |=
+    		( TPM_CnSC_MSB(EDGE_ALIGN_B) | TPM_CnSC_MSA(EDGE_ALIGN_A) | TPM_CnSC_ELSB(HIGH_TRUE_B) | TPM_CnSC_ELSA(HIGH_TRUE_A)
+    		| TPM_CnSC_CHIE(INTERRUPTION_ENABLE)
+	);
 
     /* Uses the internal reference clock */
     SIM_SOPT2 |= SIM_SOPT2_TPMSRC(OSCERCLK_25);
@@ -65,27 +69,32 @@ void tachometer_left_init(void)
 void tachometer_right_init(void)
 {
 
-    /* Enable device */
+	/* Enable TPM port */
     SIM_SCGC6 |= SIM_SCGC6_TPM2(CGC_CLOCK_ENABLED);
-
-    /* Enable device */
+    /* Enable PORTA - Right Tachometer */
     SIM_SCGC5 |= SIM_SCGC5_PORTA(CGC_CLOCK_ENABLED);
 
+    /* Connect tachometer to PWM */
     PORTA_PCR1 |= PORT_PCR_MUX(RIGHT_TACHOMETER_ALT);
 
     /* Select output port to counter */
-    SIM_SOPT4 &= ~SIM_SOPT4_TPM0CLKSEL(CLKIN0);
+    SIM_SOPT4 &= ~SIM_SOPT4_TPM2CLKSEL(CLKIN0);
 
+    TPM2_CONF |= TPM_CONF_DBGMODE(0X03);
+    /*** Status and Control Register ***/
+    /* Read only on the rising edge */
     TPM2_SC &= ~TPM_SC_CPWMS(UP_COUNTER_MODE);
-
     /* Use a external clock */
-    TPM2_SC &= ~TPM_SC_CMOD(EXTCLK_4);
-    TPM2_SC |= TPM_SC_CMOD(EXTCLK_3);
-
+    TPM2_SC |= TPM_SC_CMOD(EXTCLK_4);
+    TPM2_SC &= ~TPM_SC_CMOD(EXTCLK_3);
     /* Set Prescale factor to 1:1 */
     TPM2_SC &= ~TPM_SC_PS(PRESCALE_FACTOR_1);
 
-    TPM2_C0SC |= (TPM_CnSC_CHIE(INTERRUPTION_ENABLE) | TPM_CnSC_MSB(EDGE_ALIGN_B) | TPM_CnSC_MSA(EDGE_ALIGN_A) | TPM_CnSC_ELSB(HIGH_TRUE_B) | TPM_CnSC_ELSA(HIGH_TRUE_A));
+    /*** Channel Status and Control Register ***/
+    TPM0_C0SC |=
+    		( TPM_CnSC_MSB(EDGE_ALIGN_B) | TPM_CnSC_MSA(EDGE_ALIGN_A) | TPM_CnSC_ELSB(HIGH_TRUE_B) | TPM_CnSC_ELSA(HIGH_TRUE_A)
+    		| TPM_CnSC_CHIE(INTERRUPTION_ENABLE)
+	);
 
     /* Uses the internal reference clock */
     SIM_SOPT2 |= SIM_SOPT2_TPMSRC(OSCERCLK_25);
@@ -137,7 +146,7 @@ double tachometer_readSensor(tachometer_entity tachomter)
 	if(period!=0)
 		speed = CLOCK_FREQUENCY/(period*encoderSize);
 
-	return speed;
+	return period;
 }
 
 

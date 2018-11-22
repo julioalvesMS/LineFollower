@@ -37,7 +37,7 @@ void track_findTrack(driver_in_entity* driver)
 {
 	for(int i=0; i<5;i++)
 	{
-		if(driver->TrackSensor[i] < 40)
+		if(driver->TrackSensor[i] > 10)
 			driver->TrackState[i] = IN_TRACK;
 		else
 			driver->TrackState[i] = OFF_TRACK;

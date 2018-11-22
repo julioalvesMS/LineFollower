@@ -113,6 +113,10 @@ void pwm_motor_init(void)
 void pwm_motor_setSpeed(motor_entity motor, double dMotorSpeed)
 {
 	int iPwmDutyCycle;
+
+	if(dMotorSpeed<0) dMotorSpeed = 0;
+	if(dMotorSpeed>100) dMotorSpeed = 100;
+
 	double dPwmDutyCycle = (dMotorSpeed*PWM_PERIOD)/(100.0);
 	double dDecimal = dPwmDutyCycle - ((int) dPwmDutyCycle);
 

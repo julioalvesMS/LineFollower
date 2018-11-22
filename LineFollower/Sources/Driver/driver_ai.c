@@ -19,7 +19,7 @@ static const int trackBias[5] = {
 		 15
 };
 
-static const int baseSpeed = 15;
+static const int baseSpeed = 50;
 
 void driver_init(void)
 {
@@ -29,7 +29,7 @@ void driver_init(void)
 driver_out_entity driver_run(driver_in_entity inputData)
 {
 
-	double speedCorrection = 0;
+	double speedCorrection = 0, controlDiff;
 	int activeSensors = 0;
 	int i = 0;
 	driver_out_entity driverOut;
@@ -44,14 +44,24 @@ driver_out_entity driver_run(driver_in_entity inputData)
 
 	if (activeSensors!=0)
 	{
-		driverOut.MotorSpeed[0] = baseSpeed + speedCorrection/activeSensors;
-		driverOut.MotorSpeed[1] = baseSpeed - speedCorrection/activeSensors;
+		controlDiff = pid_updateData(-speedCorrection/activeSensors, 0);
+
+		//controlDiff = speedCorrection/activeSensors;
+
+		driverOut.MotorSpeed[0] = baseSpeed + controlDiff;
+		driverOut.MotorSpeed[1] = baseSpeed - controlDiff;
 	}
 	else
 	{
 		driverOut.MotorSpeed[0] = 0;
 		driverOut.MotorSpeed[1] = 0;
 	}
+
+	if(driverOut.MotorSpeed[0] < 0) driverOut.MotorSpeed[0] = 0;
+	if(driverOut.MotorSpeed[0] >  100) driverOut.MotorSpeed[0] =  100;
+
+	if(driverOut.MotorSpeed[1] < 0) driverOut.MotorSpeed[1] = 0;
+	if(driverOut.MotorSpeed[1] >  100) driverOut.MotorSpeed[1] =  100;
 
 	return driverOut;
 }

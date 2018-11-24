@@ -1,26 +1,86 @@
-18:40:47 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+21:47:07 **** Incremental Build of configuration Debug for project LineFollower ****
+make all 
+'Building file: ../Sources/Main/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/src" -std=c99 -MMD -MP -MF"Sources/Main/main.d" -MT"Sources/Main/main.o" -c -o "Sources/Main/main.o" "../Sources/Main/main.c"
+'Finished building: ../Sources/Main/main.c'
+' '
+'Building target: LineFollower.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/LineFollower/Project_Settings/Linker_Files" -Wl,-Map,"LineFollower.map" -specs=nosys.specs -specs=nano.specs -o "LineFollower.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Util/debugUart.o ./Sources/Util/fsl_debug_console.o ./Sources/Util/print_scan.o  ./Sources/Serial/serial.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+'Finished building target: LineFollower.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21820	    132	   2232	  24184	   5e78	LineFollower.elf
+'Finished building: LineFollower.siz'
+' '
+21:47:11 **** Incremental Build of configuration Debug for project LineFollower ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21820	    132	   2232	  24184	   5e78	LineFollower.elf
+'Finished building: LineFollower.siz'
+' '
+21:54:56 **** Incremental Build of configuration Debug for project LineFollower ****
 make all 
 'Building file: ../Sources/Driver/driver_ai.c'
 'Invoking: Cross ARM C Compiler'
-arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -std=c99 -MMD -MP -MF"Sources/Driver/driver_ai.d" -MT"Sources/Driver/driver_ai.o" -c -o "Sources/Driver/driver_ai.o" "../Sources/Driver/driver_ai.c"
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/src" -std=c99 -MMD -MP -MF"Sources/Driver/driver_ai.d" -MT"Sources/Driver/driver_ai.o" -c -o "Sources/Driver/driver_ai.o" "../Sources/Driver/driver_ai.c"
 'Finished building: ../Sources/Driver/driver_ai.c'
 ' '
-'Building target: ProjetoEmbarcados.elf'
+'Building target: LineFollower.elf'
 'Invoking: Cross ARM C++ Linker'
-arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/ProjetoEmbarcados/Project_Settings/Linker_Files" -Wl,-Map,"ProjetoEmbarcados.map" -specs=nosys.specs -specs=nano.specs -o "ProjetoEmbarcados.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Util/debugUart.o ./Sources/Util/fsl_debug_console.o ./Sources/Util/print_scan.o  ./Sources/Serial/serial.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
-'Finished building target: ProjetoEmbarcados.elf'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/LineFollower/Project_Settings/Linker_Files" -Wl,-Map,"LineFollower.map" -specs=nosys.specs -specs=nano.specs -o "LineFollower.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Util/debugUart.o ./Sources/Util/fsl_debug_console.o ./Sources/Util/print_scan.o  ./Sources/Serial/serial.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+'Finished building target: LineFollower.elf'
 ' '
 'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
    text	   data	    bss	    dec	    hex	filename
-  21948	    132	   2232	  24312	   5ef8	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
+  21916	    132	   2232	  24280	   5ed8	LineFollower.elf
+'Finished building: LineFollower.siz'
 ' '
-18:41:20 **** Incremental Build of configuration Debug for project ProjetoEmbarcados ****
+21:56:48 **** Incremental Build of configuration Debug for project LineFollower ****
 make all 
 'Invoking: Cross ARM GNU Print Size'
-arm-none-eabi-size --format=berkeley "ProjetoEmbarcados.elf"
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
    text	   data	    bss	    dec	    hex	filename
-  21948	    132	   2232	  24312	   5ef8	ProjetoEmbarcados.elf
-'Finished building: ProjetoEmbarcados.siz'
+  21916	    132	   2232	  24280	   5ed8	LineFollower.elf
+'Finished building: LineFollower.siz'
+' '
+21:57:34 **** Incremental Build of configuration Debug for project LineFollower ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21916	    132	   2232	  24280	   5ed8	LineFollower.elf
+'Finished building: LineFollower.siz'
+' '
+21:58:14 **** Incremental Build of configuration Debug for project LineFollower ****
+make all 
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21916	    132	   2232	  24280	   5ed8	LineFollower.elf
+'Finished building: LineFollower.siz'
+' '
+21:59:12 **** Incremental Build of configuration Debug for project LineFollower ****
+make all 
+'Building file: ../Sources/Main/main.c'
+'Invoking: Cross ARM C Compiler'
+arm-none-eabi-gcc -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -D"CPU_MKL25Z128VLK4" -I"../Sources" -I"../Project_Settings/Startup_Code" -I"../SDK/platform/CMSIS/Include" -I"../SDK/platform/devices" -I"../SDK/platform/devices/MKL25Z4/include" -I"C:\Freescale\KSDK_1.2.0\platform\drivers\inc" -I"C:\Freescale\KSDK_1.2.0\platform\utilities\inc" -I"C:\Freescale\KSDK_1.2.0\platform\hal\inc" -I"C:\Freescale\KSDK_1.2.0\platform\system\inc" -I"C:\Freescale\KSDK_1.2.0\platform\osa\inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/inc" -I"C:\Freescale\KSDK_1.2.0/platform/utilities/src" -std=c99 -MMD -MP -MF"Sources/Main/main.d" -MT"Sources/Main/main.o" -c -o "Sources/Main/main.o" "../Sources/Main/main.c"
+'Finished building: ../Sources/Main/main.c'
+' '
+'Building target: LineFollower.elf'
+'Invoking: Cross ARM C++ Linker'
+arm-none-eabi-g++ -mcpu=cortex-m0plus -mthumb -O0 -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections -Wall  -g3 -T "MKL25Z128xxx4_flash.ld" -Xlinker --gc-sections -L"C:/Users/aluno/Videos/LineFollower/LineFollower/Project_Settings/Linker_Files" -Wl,-Map,"LineFollower.map" -specs=nosys.specs -specs=nano.specs -o "LineFollower.elf"  ./Sources/Util/IRQ/tc_hal.o  ./Sources/Util/Clock/mcg_hal.o  ./Sources/Util/debugUart.o ./Sources/Util/fsl_debug_console.o ./Sources/Util/print_scan.o  ./Sources/Serial/serial.o  ./Sources/Sensor/Track/Emitter/emitter_hal.o  ./Sources/Sensor/Track/ADC/adc.o  ./Sources/Sensor/Track/track.o  ./Sources/Sensor/Speed/Tachometer/tachometer_hal.o  ./Sources/Sensor/Speed/speed.o  ./Sources/Main/main.o  ./Sources/Driver/PID/pid.o  ./Sources/Driver/Behaviour/cmdMachine.o  ./Sources/Driver/driver_ai.o  ./Sources/Actuator/Motor/PWM/pwm_motor.o  ./Sources/Actuator/Motor/motor_hal.o  ./Project_Settings/Startup_Code/startup.o ./Project_Settings/Startup_Code/startup_MKL25Z4.o ./Project_Settings/Startup_Code/system_MKL25Z4.o  C:/Freescale/KSDK_1.2.0/lib/ksdk_platform_lib/kds/KL25Z4/debug/libksdk_platform.a 
+'Finished building target: LineFollower.elf'
+' '
+'Invoking: Cross ARM GNU Print Size'
+arm-none-eabi-size --format=berkeley "LineFollower.elf"
+   text	   data	    bss	    dec	    hex	filename
+  21812	    132	   2232	  24176	   5e70	LineFollower.elf
+'Finished building: LineFollower.siz'
 ' '

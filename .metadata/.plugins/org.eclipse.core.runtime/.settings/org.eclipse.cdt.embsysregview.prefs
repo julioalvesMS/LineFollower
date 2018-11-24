@@ -1,5 +1,0 @@
-architecture=SVD(CMSIS)
-board=---  none ---
-chip=MKL25Z4
-eclipse.preferences.version=1
-vendor=Freescale

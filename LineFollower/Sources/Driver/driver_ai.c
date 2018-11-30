@@ -20,7 +20,7 @@ static const int trackBias[5] = {
 };
 
 static const int baseSpeed = 40;
-static const int lapCondition = 20;
+static const int lapCondition = 8;
 static const int lapsGoal = 2;
 
 void driver_init(void)
@@ -77,7 +77,7 @@ int driver_countLap(int activeSensors)
 	else
 		lapConditionCount = 0;
 
-	if (lapConditionCount >= lapCondition && activeSensors != 5)
+	if (lapConditionCount == lapCondition)
 		lapCount += 1;
 
 	return lapCount;
@@ -95,8 +95,8 @@ driver_out_entity driver_run(driver_in_entity inputData)
 		activeSensors += inputData.TrackState[i];
 	}
 
-	lapsDone = driver_countLap(activeSensors);
 
+	lapsDone = driver_countLap(activeSensors);
 
 	if (lapsDone < lapsGoal)
 	{
